@@ -24,6 +24,7 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 5. **No phase is complete until its acceptance criteria pass.** Keep the checklist and progress table updated.
 6. **Preserve the approved architecture and stack** in the existing repository. Do not change libraries or architectural choices without a documented reason and approval.
 7. **Do not weaken the proxy threat model:** SSRF controls must account for DNS rebinding, redirects, IPv4/IPv6, and private/reserved address ranges.
+8. **Mandatory Phase Branching:** Before executing any phase, ensure all prior work is committed, create a dedicated branch (`phase-<N>-<slug>`), publish it upstream with tracking (`git push -u origin <branch-name>`), and checkout inside it before making changes.
 
 ## Phase numbering
 

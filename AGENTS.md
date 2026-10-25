@@ -440,6 +440,19 @@ Do not silently invent credentials, endpoints, or production configuration.
 - Never use force-push or destructive Git operations without explicit authorization.
 - Avoid committing generated build artifacts, secrets, dependency directories, or local configuration files.
 
+### 16.1 Phase Branching Protocol (Mandatory for GSD Phases)
+
+Whenever executing a new phase through GSD (e.g. `/gsd-execute-phase <N>`):
+1. **Verify All Changes Committed First:** Before branching, inspect `git status` to ensure that all prior work, docs, and previous phase implementations are fully committed. The working tree MUST be clean.
+2. **Create New Phase Branch:** Branch off the default branch (`main`) following the pattern `phase-<N>-<slug>` (e.g., `phase-3-auth`).
+3. **Publish / Push Upstream Immediately:** Immediately publish the new branch to the remote repository with upstream tracking:
+   ```bash
+   git checkout -b phase-<N>-<slug>
+   git push -u origin phase-<N>-<slug>
+   ```
+4. **Checkout and Verify Branch:** Confirm you are checked out inside the new phase branch before making any code, design, or documentation modifications.
+5. **Implement and Commit on Phase Branch:** All plan tasks, code changes, and verification summaries for that phase must be committed and pushed to this dedicated phase branch.
+
 When a change affects architecture or multiple features, summarize its scope and reasoning.
 
 ---
@@ -485,6 +498,7 @@ Use REA to investigate reference behavior or unfamiliar technical constraints wh
 
 Use GSD for project initialization, requirements, milestones, and incremental implementation when it is part of the established workflow.
 
+- **Mandatory Phase Branching:** When starting a phase (e.g. `/gsd-execute-phase <N>`), ensure working tree is clean, create `phase-<N>-<slug>`, push and track it on origin, checkout inside it, and only then make changes.
 - Keep requirements and acceptance criteria explicit.
 - Implement manageable tasks.
 - Verify each milestone before proceeding.

@@ -98,6 +98,13 @@ Use these entry points:
 - `/gsd-execute-phase` for planned phase work
 
 Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+
+### Mandatory Phase Branching Protocol
+Whenever executing a new phase through GSD (e.g., `/gsd-execute-phase <N>`):
+1. **Commit All Changes First:** Verify `git status` is clean. All previous work must be committed.
+2. **Create New Phase Branch:** Branch off `main` as `phase-<N>-<slug>` (e.g., `phase-3-auth`).
+3. **Publish Upstream Immediately:** Push the branch to the remote with tracking (`git push -u origin <branch-name>`).
+4. **Checkout & Execute:** Ensure the active branch is the new phase branch before making any edits.
 <!-- GSD:workflow-end -->
 
 <!-- GSD:profile-start -->
