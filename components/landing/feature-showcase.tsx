@@ -65,64 +65,63 @@ export function FeatureShowcase() {
         </p>
       </div>
 
-      {/* 2x2 Feature Grid with Primary Background & Noisy Grain */}
+      {/* 2x2 Feature Grid with Soft Accent Background & Overhanging Images */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((feat) => {
           const Icon = feat.icon
           return (
             <div
               key={feat.title}
-              className="group relative rounded-[24px] bg-[#1c1c1c] text-[#fcfbf8] overflow-hidden p-6 sm:p-8 flex flex-col justify-between border-0 shadow-none transition-all duration-300"
+              className="group relative rounded-[28px] sm:rounded-[32px] bg-[#ede7dc] dark:bg-[#201f1d] text-foreground overflow-hidden pt-7 px-6 sm:pt-9 sm:px-8 pb-0 flex flex-col justify-between border-0 shadow-none transition-all duration-300"
             >
               {/* Tactile Noisy Grain Texture Overlay */}
               <div
-                className="absolute inset-0 pointer-events-none opacity-[0.07] mix-blend-overlay z-0"
+                className="absolute inset-0 pointer-events-none opacity-[0.045] mix-blend-multiply dark:mix-blend-overlay z-0"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                 }}
               />
 
-              {/* Subtle ambient light gradient from top-left */}
-              <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/[0.04] blur-3xl pointer-events-none" />
-
               {/* Card Header & Text (Positioned Above Image) */}
-              <div className="relative z-10 space-y-3.5">
+              <div className="relative z-10 space-y-3">
                 {/* Icon & Badge Row */}
                 <div className="flex items-center justify-between">
-                  <div className="size-11 rounded-[8px] bg-white/[0.08] text-white flex items-center justify-center border border-white/10 shadow-[rgba(255,255,255,0.1)_0px_0.5px_0px_0px_inset]">
-                    <Icon className="size-5 text-white" />
+                  <div className="size-11 rounded-[8px] bg-foreground/[0.06] dark:bg-white/[0.08] text-foreground flex items-center justify-center border border-foreground/[0.08] dark:border-white/10 shadow-xs">
+                    <Icon className="size-5 text-foreground" />
                   </div>
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-[11px] font-mono text-[#fcfbf8]/80">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-foreground/[0.06] dark:bg-white/[0.08] border border-foreground/[0.08] dark:border-white/10 text-[11px] font-mono font-medium text-foreground/85">
                     {feat.badge}
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="font-heading text-xl sm:text-2xl font-semibold tracking-[-0.6px] text-[#fcfbf8] leading-tight pt-1">
+                <h3 className="font-heading text-xl sm:text-2xl font-semibold tracking-[-0.6px] text-foreground leading-tight pt-1">
                   {feat.title}
                 </h3>
 
-                {/* Shortened, concise description */}
-                <p className="text-xs sm:text-sm text-[#eceae4]/75 leading-relaxed">
+                {/* Shortened, concise description in short sentences */}
+                <p className="text-xs sm:text-sm text-foreground/75 dark:text-[#eceae4]/70 leading-relaxed">
                   {feat.description}
                 </p>
 
                 {/* Highlight Checkmark */}
-                <div className="flex items-center gap-2 text-xs font-medium text-emerald-400 pt-1">
-                  <CheckCircle2 className="size-4 shrink-0 text-emerald-400" />
+                <div className="flex items-center gap-2 text-xs font-medium text-emerald-800 dark:text-emerald-400 pt-0.5">
+                  <CheckCircle2 className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
                   <span>{feat.highlight}</span>
                 </div>
               </div>
 
-              {/* Bottom Center Image with Rounded Corners & Smooth Easing Hover Scale */}
-              <div className="relative z-10 w-full mt-7 aspect-[16/10] sm:aspect-[16/9] rounded-xl overflow-hidden bg-black/40">
-                <Image
-                  src={feat.image}
-                  alt={feat.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                />
+              {/* Bottom Center Device Mockup Frame: Positioned a little bit below the bottom of the card */}
+              <div className="relative z-10 w-full mt-7 px-2 sm:px-6 -mb-8 sm:-mb-12">
+                <div className="relative w-full aspect-[16/11] rounded-t-[22px] sm:rounded-t-[26px] overflow-hidden border-t-2 border-x-2 border-foreground/15 dark:border-white/15 bg-[#1c1c1c] shadow-[rgba(0,0,0,0.12)_0px_12px_32px_0px] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] group-hover:-translate-y-1">
+                  <Image
+                    src={feat.image}
+                    alt={feat.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover object-top"
+                  />
+                </div>
               </div>
             </div>
           )
