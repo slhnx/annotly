@@ -1,35 +1,44 @@
+import * as React from "react"
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center font-medium whitespace-nowrap transition-all outline-none select-none active:opacity-80 disabled:pointer-events-none disabled:opacity-50 focus-visible:shadow-[rgba(0,0,0,0.1)_0px_4px_12px] focus-visible:ring-2 focus-visible:ring-ring [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        // DESIGN.md: Primary Dark with signature inset shadow and 6px radius
+        default:
+          "bg-primary text-primary-foreground rounded-[6px] shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px] hover:bg-neutral-800 dark:hover:bg-neutral-200",
+        // DESIGN.md: Ghost / Outline with rgba(28,28,28,0.4) border and 6px radius
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border border-[rgba(28,28,28,0.4)] dark:border-[rgba(236,234,228,0.3)] bg-transparent text-foreground hover:bg-black/[0.04] dark:hover:bg-white/[0.04] rounded-[6px]",
+        // DESIGN.md: Cream Surface for tertiary actions and toolbar buttons
+        surface:
+          "bg-background text-foreground hover:bg-black/[0.04] dark:hover:bg-white/[0.04] rounded-[6px]",
+        // DESIGN.md: Full-pill (9999px) action button with inset shadow
+        pill:
+          "bg-background text-foreground rounded-full border border-border shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px] opacity-70 hover:opacity-100",
+        // Secondary soft gray button
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-secondary text-secondary-foreground hover:bg-neutral-200 dark:hover:bg-neutral-800 rounded-[6px]",
+        // Ghost button
         ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+          "hover:bg-black/[0.04] dark:hover:bg-white/[0.04] text-foreground rounded-[6px]",
+        // Destructive button
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-[6px]",
+        // Link with underline
+        link: "text-foreground underline underline-offset-4 hover:opacity-80 p-0 h-auto",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        default: "h-9 px-4 py-2 text-sm",
+        sm: "h-8 px-3 text-xs",
+        lg: "h-11 px-6 text-base",
+        icon: "size-9 rounded-[6px]",
+        "icon-sm": "size-7 rounded-[4px]",
+        "icon-pill": "size-9 rounded-full",
       },
     },
     defaultVariants: {

@@ -4,13 +4,15 @@
 
 Annotly is delivered through 7 sequential phases that build from a rock-solid design system and landing page foundation, through Supabase authentication and database permissions, to the core cross-origin proxy, DOM pin placement engine, comment persistence with client-side screenshots, responsive review canvas, and end-to-end security verification.
 
+All UI components, typography, layout rhythm, and component variants strictly adhere to the warm, humanist design system defined in `DESIGN.md` (warm parchment cream `#f7f4ed`, organic charcoal `#1c1c1c`, 1px `#eceae4` containment borders, negative letter-spacing for headlines, and tactile button inset shadows).
+
 ## Phases
 
 **Phase Numbering:**
 - Integer phases (1, 2, 3...): Planned milestone work
 - Decimal phases (2.1, 2.2...): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation, Design System & Landing Page** - Establish repo structure, validated env schema, warm cream & charcoal design system, and marketing landing page.
+- [ ] **Phase 1: Foundation, Design System & Landing Page** - Establish repo structure, validated env schema, warm cream & charcoal design system (`DESIGN.md`), configured shadcn primitives, and marketing landing page.
 - [ ] **Phase 2: Authentication, Database & Project Permissions** - Implement Supabase Auth, PostgreSQL schema with Prisma ORM, user profiles, and project CRUD with ownership boundaries.
 - [ ] **Phase 3: Reverse Proxy & Injected Client Bridge** - Next.js Route Handler reverse proxy with SSRF defense, framing header stripping, HTML/asset rewriting, and `annotly-bridge.js` postMessage bus.
 - [ ] **Phase 4: Visual Pin Placement & Coordinate Alignment** - 5-tier resilient CSS selector generation, element-relative percentage offset math, and ResizeObserver/scroll synchronizer.
@@ -26,15 +28,21 @@ Annotly is delivered through 7 sequential phases that build from a rock-solid de
 **Requirements**: [FOUND-01, FOUND-02, FOUND-03, FOUND-04]
 **Success Criteria** (what must be TRUE):
   1. The application boots cleanly with runtime environment variable validation (`lib/env.ts`) and zero typecheck errors.
-  2. The visual styling strictly reflects `DESIGN.md`: warm parchment background (`#f7f4ed`), charcoal typography (`#1c1c1c`), 1px `#eceae4` containment borders, and tactile inset shadow dark buttons.
-  3. The marketing landing page presents a responsive hero, interactive review preview mockup, feature showcase, and header navigation.
-  4. Core shadcn/ui primitives (Button, Dialog, Sheet, DropdownMenu, Tooltip, Input) are configured and styled with Annotly tokens.
+  2. The visual styling strictly reflects `DESIGN.md`: warm parchment background (`#f7f4ed`), charcoal typography (`#1c1c1c`), 1px `#eceae4` containment borders, `#5f5f5d` muted text, and soft focus shadow `rgba(0,0,0,0.1) 0px 4px 12px`.
+  3. Typography follows the humanist scale with tight negative tracking for display headlines: Display Hero (60px, -1.5px tracking), Section Heading (48px, -1.2px tracking), Sub-heading (36px, -0.9px tracking), Card Title (20px, normal tracking).
+  4. Core shadcn/ui primitives (Button, Card, Input, Dialog, Sheet, DropdownMenu, Tooltip, Avatar, Badge, Popover, Tabs) are configured and styled with Annotly tokens:
+     - Primary Dark button with tactile multi-layer inset shadow (`rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px 0px`) and 6px radius.
+     - Ghost / Outline button with `1px solid rgba(28,28,28,0.4)` border and 6px radius.
+     - Cream Surface tertiary button and 9999px full-pill action buttons.
+     - Cards with 12px radius (`rounded-xl`), 1px `#eceae4` border, and no box-shadow by default.
+     - Inputs with 6px radius, `#eceae4` border, `#f7f4ed` background, and soft focus shadow glow.
+  5. The marketing landing page presents a responsive hero, interactive review preview mockup, feature showcase, stats bar with 48px+ weight 600 metrics, and header navigation.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Environment schema validation, design system theme tokens (`globals.css`), and font configuration.
-- [ ] 01-02: Core shadcn/ui component primitives customized to Annotly theme.
-- [ ] 01-03: Editorial marketing landing page with interactive demonstration mockup and responsive navigation.
+- [ ] 01-01: Environment schema validation, design system theme tokens (`globals.css`), and font configuration with display letter-spacing.
+- [ ] 01-02: Core shadcn/ui component primitives customized to `DESIGN.md` specification (tactile inset shadow buttons, cream cards, soft focus inputs, pill icons, dialogs, sheets).
+- [ ] 01-03: Editorial marketing landing page with interactive demonstration mockup, stats bar, and responsive navigation.
 
 ### Phase 2: Authentication, Database & Project Permissions
 **Goal**: Integrate Supabase Auth and PostgreSQL with Prisma ORM to provide user registration, login, session persistence, and project CRUD with strict ownership boundaries.
@@ -43,7 +51,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Users can register with email/password, log in, and maintain persistent authenticated sessions across refreshes via Next.js middleware.
   2. Prisma schema defines `User`, `Project`, `Canvas`, `Annotation`, and `AnnotationReply` models with automated migrations.
-  3. Authenticated users can create, view, and delete their own review projects in a dashboard interface.
+  3. Authenticated users can create, view, and delete their own review projects in a dashboard interface styled with the warm cream card and button tokens.
   4. Non-owners are denied access to view or mutate other users' private project records at the server boundary.
 **Plans**: 3 plans
 
@@ -74,10 +82,11 @@ Plans:
 **Depends on**: Phase 3
 **Requirements**: [PINS-01, PINS-02, PINS-03, PINS-04, PINS-05]
 **Success Criteria** (what must be TRUE):
-  1. Hovering over any DOM element in Comment Mode highlights its exact bounding box with a clean indicator.
+  1. Hovering over any DOM element in Comment Mode highlights its exact bounding box with a clean indicator matching the warm cream theme.
   2. Clicking an element computes percentage-based coordinates ($OffsetX, OffsetY$) relative to the element's bounding rect, and generates a resilient 5-tier selector.
   3. Resizing the viewport or scrolling the page recalculates pin screen coordinates via `ResizeObserver` and scroll listeners without visual pin drift.
-  4. If an annotated element is removed or hidden in the DOM, the pin transitions to an inactive state in the sidebar with an alert badge without breaking the canvas overlay.
+  4. Pin badges render on the canvas overlay with tactile circular badge styling, number indicators, and smooth hover elevation.
+  5. If an annotated element is removed or hidden in the DOM, the pin transitions to an inactive state in the sidebar with an alert badge without breaking the canvas overlay.
 **Plans**: 3 plans
 
 Plans:
@@ -93,7 +102,8 @@ Plans:
   1. An anonymous reviewer clicking to drop their first pin is prompted with an inline modal for Name and Email, which persists across subsequent comments via session cookies/localStorage.
   2. Submitting a comment captures a client-side viewport screenshot via canvas rasterization and records reviewer metadata (browser, OS, viewport size, DPR).
   3. Reviewers and project owners can post threaded replies to any annotation pin.
-  4. Comments can be toggled between `active` and `resolved` ("Inbox Zero"), with resolved pins dimming or hiding on the canvas overlay.
+  4. Thread popovers on the canvas follow `DESIGN.md` card specifications (warm cream background, 1px `#eceae4` border, 12px radius, clean typography).
+  5. Comments can be toggled between `active` and `resolved` ("Inbox Zero"), with resolved pins dimming or hiding on the canvas overlay.
 **Plans**: 3 plans
 
 Plans:
@@ -108,8 +118,9 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. The review canvas at `/review/[canvasId]` generates a permanent shareable link that loads for any reviewer without requiring sign-in.
   2. The toolbar includes a responsive viewport switcher with presets (Desktop 100%, Tablet 768px, Mobile 375px) that resizes the iframe smoothly.
-  3. The sliding triage sidebar displays all comments with instant text search, status filter pills (`All`, `Active`, `Resolved`), and reviewer metadata badges.
+  3. The sliding triage sidebar (`Sheet`) displays all comments with instant text search, status filter pills (`All`, `Active`, `Resolved`), and reviewer metadata badges.
   4. Clicking any comment card in the sidebar scrolls the iframe to the target element and highlights its pin badge.
+  5. All canvas controls, toolbar buttons, and sidebar cards strictly adhere to the warm parchment `#f7f4ed` background and `#1c1c1c` charcoal text palette.
 **Plans**: 3 plans
 
 Plans:
@@ -149,4 +160,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 ---
 *Roadmap defined: 2026-10-25*
-*Last updated: 2026-10-25 after initialization*
+*Last updated: 2026-10-25 after aligning with DESIGN.md and configuring shadcn*
