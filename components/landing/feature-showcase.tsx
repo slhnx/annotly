@@ -1,3 +1,5 @@
+import React from "react"
+import Image from "next/image"
 import {
   MousePointerClick,
   Layers,
@@ -6,8 +8,6 @@ import {
   CheckCircle2,
   Sparkles,
 } from "lucide-react"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 
 export function FeatureShowcase() {
   const features = [
@@ -16,40 +16,44 @@ export function FeatureShowcase() {
       title: "Element-Relative Percentage Pins",
       badge: "Anti-Drift Math",
       description:
-        "Unlike basic screenshot tools that save fragile X/Y pixel coordinates, Annotly calculates element-relative percentages ($OffsetX = \\frac{clickX - rect.left}{rect.width} \\times 100$) and records 5-tier resilient CSS selectors. Pins stay locked to the element when screen widths resize, fonts load, or columns stack.",
-      highlight: "Guaranteed alignment across dynamic viewports",
+        "Pins anchor to element-relative percentages, not raw pixels. They stay locked in place when layouts reflow, columns stack, or fonts load.",
+      highlight: "Guaranteed alignment across dynamic screens",
+      image: "/landing/pin-coordinate-math.jpg",
     },
     {
       icon: Layers,
       title: "Zero-Install Guest Mode",
       badge: "Frictionless Access",
       description:
-        "Clients will not install Chrome extensions or memorize another password. Reviewers simply open your secret link, enter their name and email, and start clicking anywhere to leave feedback immediately. No friction, no onboarding drop-off.",
+        "Anyone with your private review link can click and comment immediately. No browser extensions to install, no passwords to create.",
       highlight: "Clients comment in seconds without accounts",
+      image: "/landing/guest-access-mode.jpg",
     },
     {
       icon: Camera,
       title: "Sub-500ms In-Browser Snapshots",
       badge: "HTML5 Canvas",
       description:
-        "At the exact moment a pin is placed, Annotly generates a fast client-side canvas rasterization of the reviewer's screen. If a bug is intermittent or viewport-specific, developers see the exact rendered state without slow server-side queue delays.",
+        "Every pin automatically captures a fast client-side snapshot of the reviewer's screen state without slow server-rendering delays.",
       highlight: "Instant visual snapshot attached to each pin",
+      image: "/landing/browser-snapshot-mode.jpg",
     },
     {
       icon: Smartphone,
       title: "Unified Multi-Device Viewports",
-      badge: "Desktop • Tablet • Mobile",
+      badge: "1440px • 768px • 375px",
       description:
-        "Switch effortlessly between 1440px desktop, 768px tablet, and 375px mobile viewports directly within the canvas. Test and annotate responsive layout bugs, mobile hamburger menus, and reflowing text columns in one unified place.",
+        "Switch between desktop, tablet, and mobile breakpoints directly in the canvas. Test and annotate responsive layout bugs in one place.",
       highlight: "Inspect and annotate every responsive breakpoint",
+      image: "/landing/multi-device-viewports.jpg",
     },
   ]
 
   return (
-    <section id="features" className="py-20 px-6 max-w-[1200px] mx-auto border-t border-border">
+    <section id="features" className="py-24 px-6 max-w-[1240px] mx-auto border-t border-border">
       {/* Eyebrow & Header */}
       <div className="text-center max-w-2xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs font-medium text-muted-foreground mb-4">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs font-medium text-muted-foreground mb-4 shadow-[rgba(0,0,0,0.02)_0px_1px_2px_0px]">
           <Sparkles className="size-3.5 text-foreground" />
           <span>Engineered for Precision</span>
         </div>
@@ -57,45 +61,70 @@ export function FeatureShowcase() {
           Built specifically for how modern websites are engineered.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-          No toy screen recorders. No fragile absolute pixels. Built with deep DOM intelligence to handle responsive layouts and real staging environments.
+          Deep DOM intelligence that handles responsive layouts, client access, and real staging environments.
         </p>
       </div>
 
-      {/* 2x2 Rich Feature Grid */}
+      {/* 2x2 Feature Grid with Primary Background & Noisy Grain */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((feat) => {
           const Icon = feat.icon
           return (
-            <Card
+            <div
               key={feat.title}
-              className="border-border bg-card/70 hover:bg-card transition-all hover:shadow-[rgba(0,0,0,0.04)_0px_8px_24px_0px] flex flex-col justify-between"
+              className="group relative rounded-[24px] bg-[#1c1c1c] text-[#fcfbf8] overflow-hidden p-6 sm:p-8 flex flex-col justify-between border-0 shadow-none transition-all duration-300"
             >
-              <CardHeader className="p-6 sm:p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="size-11 rounded-[6px] bg-muted border border-border flex items-center justify-center shadow-xs">
-                    <Icon className="size-5 text-foreground" />
+              {/* Tactile Noisy Grain Texture Overlay */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.07] mix-blend-overlay z-0"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                }}
+              />
+
+              {/* Subtle ambient light gradient from top-left */}
+              <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/[0.04] blur-3xl pointer-events-none" />
+
+              {/* Card Header & Text (Positioned Above Image) */}
+              <div className="relative z-10 space-y-3.5">
+                {/* Icon & Badge Row */}
+                <div className="flex items-center justify-between">
+                  <div className="size-11 rounded-[8px] bg-white/[0.08] text-white flex items-center justify-center border border-white/10 shadow-[rgba(255,255,255,0.1)_0px_0.5px_0px_0px_inset]">
+                    <Icon className="size-5 text-white" />
                   </div>
-                  <Badge variant="pill" className="text-[11px] font-normal py-0.5">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-[11px] font-mono text-[#fcfbf8]/80">
                     {feat.badge}
-                  </Badge>
+                  </div>
                 </div>
 
-                <CardTitle className="text-xl font-semibold tracking-tight text-foreground mb-2">
+                {/* Title */}
+                <h3 className="font-heading text-xl sm:text-2xl font-semibold tracking-[-0.6px] text-[#fcfbf8] leading-tight pt-1">
                   {feat.title}
-                </CardTitle>
+                </h3>
 
-                <CardDescription className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                {/* Shortened, concise description */}
+                <p className="text-xs sm:text-sm text-[#eceae4]/75 leading-relaxed">
                   {feat.description}
-                </CardDescription>
-              </CardHeader>
+                </p>
 
-              <CardContent className="px-6 pb-6 sm:px-8 sm:pb-8 pt-0">
-                <div className="pt-4 border-t border-border flex items-center gap-2 text-xs font-medium text-foreground">
-                  <CheckCircle2 className="size-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                {/* Highlight Checkmark */}
+                <div className="flex items-center gap-2 text-xs font-medium text-emerald-400 pt-1">
+                  <CheckCircle2 className="size-4 shrink-0 text-emerald-400" />
                   <span>{feat.highlight}</span>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* Bottom Center Image with Rounded Corners & Smooth Easing Hover Scale */}
+              <div className="relative z-10 w-full mt-7 aspect-[16/10] sm:aspect-[16/9] rounded-xl overflow-hidden bg-black/40">
+                <Image
+                  src={feat.image}
+                  alt={feat.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                />
+              </div>
+            </div>
           )
         })}
       </div>
