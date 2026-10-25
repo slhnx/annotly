@@ -98,6 +98,24 @@ Use these entry points:
 - `/gsd-execute-phase` for planned phase work
 
 Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+
+### Mandatory Phase Branching Protocol
+Whenever executing a new phase through GSD (e.g., `/gsd-execute-phase <N>`):
+1. **Commit All Changes First:** Verify `git status` is clean. All previous work must be committed.
+2. **Create New Phase Branch:** Branch off `main` as `phase-<N>-<slug>` (e.g., `phase-3-auth`).
+3. **Publish Upstream Immediately:** Push the branch to the remote with tracking (`git push -u origin <branch-name>`).
+4. **Checkout & Execute:** Ensure the active branch is the new phase branch before making any edits.
+
+### Mandatory Inspiration & Reference Design Policy
+Whenever an inspiration file, design mockup, screenshot, or reference image is provided:
+1. **Do NOT fully copy:** Treat external designs as conceptual/layout inspiration only. Never copy foreign colors, arbitrary drop shadows, or generic fonts.
+2. **Strictly enforce `DESIGN.md`:** Adapt all structures to Annotly's design system tokens (warm cream `#f7f4ed`, organic charcoal `#1c1c1c`, Bricolage Grotesque headings, Inter body, 1px `#eceae4` containment borders, tactile inset shadows).
+3. **Rephrase content for Annotly:** Never copy third-party, foreign, or placeholder copy verbatim (e.g. personal finance, crypto, fitness). Contextualize and rewrite all headlines, descriptions, button labels, and microcopy specifically for Annotly's website review platform.
+
+### Mandatory User-Controlled Commit Protocol
+- **Do NOT commit after every prompt or conversational turn.**
+- Keep changes in the working tree for review, testing, and rapid iteration.
+- **Only commit when the user explicitly instructs to commit** (e.g. "commit these changes", "commit and push", etc.).
 <!-- GSD:workflow-end -->
 
 <!-- GSD:profile-start -->

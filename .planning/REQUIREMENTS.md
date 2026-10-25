@@ -14,9 +14,9 @@ Requirements for initial release. Each maps directly to roadmap phases.
 - [x] **FOUND-04**: Core shadcn/ui component primitives installed and customized with Annotly design tokens.
 
 ### Authentication & Project Permissions
-- [ ] **AUTH-01**: User can sign up with email and password via Supabase Auth.
-- [ ] **AUTH-02**: User can log in with email and password, and session persists via secure cookies with Next.js middleware.
-- [ ] **AUTH-03**: User can log out from the dashboard.
+- [x] **AUTH-01**: User can sign up with email and password via Supabase Auth.
+- [x] **AUTH-02**: User can log in with email and password, and session persists via secure cookies with Next.js middleware.
+- [x] **AUTH-03**: User can log out from the dashboard.
 - [ ] **AUTH-04**: Authenticated user can create, view, and delete review projects linked to their account.
 - [ ] **AUTH-05**: Non-owners cannot edit or delete projects belonging to other users.
 

@@ -349,3 +349,15 @@ In `app/globals.css`:
 5. Two primary type families: Bricolage Grotesque, sans-serif for headings and display, Inter for body/UI
 6. The inset shadow on dark buttons is the signature detail — don't skip it
 7. Geist Mono for technical diagnostics, DOM selectors, and coordinates
+
+### 9.4 Inspiration and External Design Adaptation Policy (Mandatory)
+
+Whenever provided with an external inspiration file, screenshot, mockup, or reference image:
+
+1. **Do NOT fully copy the inspiration:** Treat external visuals as layout, spatial, or UX references only. Never copy foreign colors, arbitrary drop shadows, random fonts, or unrelated design languages.
+2. **Always adapt to Annotly's `DESIGN.md`:** Faithfully translate layout patterns into Annotly's design tokens:
+   - Warm parchment background (`#f7f4ed`), organic charcoal (`#1c1c1c`), off-white (`#fcfbf8`), and opacity-based neutrals.
+   - Primary dark surfaces with signature inset shadows (`--shadow-button-inset`).
+   - 1px `#eceae4` containment borders.
+   - Bricolage Grotesque display headings and Inter interface copy.
+3. **Rephrase content for Annotly:** Never copy third-party, foreign, or placeholder copy verbatim (e.g., banking, budgeting, crypto, fitness). Rephrase, contextualize, and tailor all copy to Annotly's website feedback, zero-install review links, and live canvas collaboration domain.

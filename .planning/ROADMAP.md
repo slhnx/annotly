@@ -24,6 +24,7 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 5. **No phase is complete until its acceptance criteria pass.** Keep the checklist and progress table updated.
 6. **Preserve the approved architecture and stack** in the existing repository. Do not change libraries or architectural choices without a documented reason and approval.
 7. **Do not weaken the proxy threat model:** SSRF controls must account for DNS rebinding, redirects, IPv4/IPv6, and private/reserved address ranges.
+8. **Mandatory Phase Branching:** Before executing any phase, ensure all prior work is committed, create a dedicated branch (`phase-<N>-<slug>`), publish it upstream with tracking (`git push -u origin <branch-name>`), and checkout inside it before making changes.
 
 ## Phase numbering
 
@@ -35,7 +36,7 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 
 - [x] **Phase 1: Repository Foundation, Design System & Shared UI**
 - [x] **Phase 2: Public Marketing Site & Landing Page**
-- [ ] **Phase 3: Authentication UI, Supabase Auth & Account Lifecycle**
+- [x] **Phase 3: Authentication UI, Supabase Auth & Account Lifecycle**
 - [ ] **Phase 4: App Shell, Dashboard UI & Project Management**
 - [ ] **Phase 5: Project Creation Flow & Project Settings**
 - [ ] **Phase 6: Database Model, Ownership & Permission Enforcement**
@@ -122,19 +123,19 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 **Depends on:** Phase 1.
 
 ### Plans
-- [ ] **03-01 — Authentication page UI**
+- [x] **03-01 — Authentication page UI**
   - Design and implement sign-up, sign-in, and sign-out states using shared components.
   - Include labels, password visibility where appropriate, field validation, pending submission, inline errors, and success feedback.
   - Add links between sign-in and sign-up; add password reset only if supported by the selected auth configuration.
-- [ ] **03-02 — Supabase clients and session handling**
+- [x] **03-02 — Supabase clients and session handling**
   - Configure browser/server clients and SSR cookie handling according to current project conventions.
   - Add middleware or the current recommended Next.js route protection approach, without treating middleware as the only authorization boundary.
-- [ ] **03-03 — Auth integration**
+- [x] **03-03 — Auth integration**
   - Wire forms to Supabase Auth, handle auth errors safely, and persist sessions across refreshes.
   - Redirect authenticated users appropriately and prevent authenticated users from being trapped on auth screens.
-- [ ] **03-04 — Auth lifecycle and recovery states**
+- [x] **03-04 — Auth lifecycle and recovery states**
   - Implement sign-out, expired-session behavior, unauthenticated redirects, and reset/verification flows where configured.
-- [ ] **03-05 — Auth tests**
+- [x] **03-05 — Auth tests**
   - Test validation, duplicate account, invalid credentials, refresh persistence, redirects, and expired sessions.
 
 ### Acceptance criteria
@@ -514,7 +515,7 @@ A phase is complete only when all applicable items below are true:
 |---|---:|---|
 | 1. Repository Foundation, Design System & Shared UI | 5/5 | Complete |
 | 2. Public Marketing Site & Landing Page | 5/5 | Complete |
-| 3. Authentication UI, Supabase Auth & Account Lifecycle | 0/5 | Not started |
+| 3. Authentication UI, Supabase Auth & Account Lifecycle | 5/5 | Complete |
 | 4. App Shell, Dashboard UI & Project Management | 0/6 | Not started |
 | 5. Project Creation Flow & Project Settings | 0/5 | Not started |
 | 6. Database Model, Ownership & Permission Enforcement | 0/4 | Not started |
