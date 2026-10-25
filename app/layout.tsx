@@ -18,9 +18,25 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Annotly — Visual Website Feedback & Annotation Platform",
+  title: "Annotly — Website Feedback Without the Back-and-Forth",
   description:
-    "Point, click, and collaborate on live websites. Gather clear client feedback without browser extensions or forced logins.",
+    "Pin comments directly on any webpage, keep every suggestion in technical context, and help your team turn client feedback into clearer next steps. Zero extensions, zero client passwords.",
+  metadataBase: new URL("https://annotly.xyz"),
+  openGraph: {
+    title: "Annotly — Website Feedback Without the Back-and-Forth",
+    description:
+      "Pin comments directly on any webpage, keep every suggestion in technical context, and help your team turn client feedback into clearer next steps.",
+    url: "https://annotly.xyz",
+    siteName: "Annotly",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Annotly — Website Feedback Without the Back-and-Forth",
+    description:
+      "Pin comments directly on any live webpage, keep every suggestion in technical context, and resolve feedback without extensions.",
+  },
 }
 
 export default function RootLayout({
