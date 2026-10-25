@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Geist_Mono } from "next/font/google"
+import { Inter, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
@@ -9,6 +9,13 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+})
+
+const fontHeadingFallback = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-heading-fallback",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 })
 
 const fontMono = Geist_Mono({
@@ -48,7 +55,13 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, inter.variable, "font-sans")}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        inter.variable,
+        fontHeadingFallback.variable,
+        "font-sans"
+      )}
     >
       <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider>

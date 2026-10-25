@@ -4,8 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'Camera Plain Variable';
+  src:
+    local('Camera Plain Variable'),
+    local('Camera Plain'),
+    local('ABC Camera Plain'),
+    local('Lovable Labs Incorporated Camera Plain Variable'),
+    url('/fonts/CameraPlainVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
-  --font-heading: var(--font-sans);
+  --font-heading: 'Camera Plain Variable', 'ABC Camera Plain', 'Camera Plain', var(--font-heading-fallback), var(--font-sans);
   --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -153,6 +166,11 @@
   }
   html {
     @apply font-sans;
+  }
+
+  /* Headings use Camera Plain Variable with tight negative tracking */
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: var(--font-heading);
   }
 
   /* DESIGN.md Typography Scale & Tight Negative Tracking for Display Headlines */
