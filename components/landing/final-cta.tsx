@@ -33,7 +33,7 @@ export function FinalCta({ onStartReview }: FinalCtaProps) {
         </div>
 
         {/* Display Headline */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-semibold tracking-[-1.5px] text-foreground mb-5 leading-[1.08]">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-semibold tracking-[-1.5px] text-foreground mb-5 leading-[1.08]">
           Make your next website review a little clearer.
         </h2>
 

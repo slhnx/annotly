@@ -54,7 +54,7 @@ export function StoryProgression() {
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs font-medium text-muted-foreground mb-4">
           <span>The Pain of Modern Website Reviews</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           Website feedback shouldn&apos;t feel like detective work.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -88,7 +88,7 @@ export function StoryProgression() {
                     <div className="size-8 rounded-[6px] bg-muted border border-border flex items-center justify-center shrink-0">
                       <Icon className="size-4 text-foreground" />
                     </div>
-                    <h3 className="text-lg font-semibold tracking-tight text-foreground leading-snug">
+                    <h3 className="font-heading text-lg font-semibold tracking-tight text-foreground leading-snug">
                       {step.title}
                     </h3>
                   </div>
@@ -112,17 +112,17 @@ export function StoryProgression() {
       {/* Summary Impact Pill */}
       <div className="mt-12 p-4 rounded-xl border border-border bg-muted/40 max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-around gap-4 text-center">
         <div>
-          <div className="text-2xl font-semibold tracking-[-0.9px] text-foreground">4.2 hrs</div>
+          <div className="font-heading text-2xl font-semibold tracking-[-0.9px] text-foreground">4.2 hrs</div>
           <div className="text-xs text-muted-foreground">Wasted per review round</div>
         </div>
         <div className="hidden sm:block h-8 w-px bg-border" />
         <div>
-          <div className="text-2xl font-semibold tracking-[-0.9px] text-foreground">6+ msgs</div>
+          <div className="font-heading text-2xl font-semibold tracking-[-0.9px] text-foreground">6+ msgs</div>
           <div className="text-xs text-muted-foreground">To clarify a single visual bug</div>
         </div>
         <div className="hidden sm:block h-8 w-px bg-border" />
         <div>
-          <div className="text-2xl font-semibold tracking-[-0.9px] text-foreground">38%</div>
+          <div className="font-heading text-2xl font-semibold tracking-[-0.9px] text-foreground">38%</div>
           <div className="text-xs text-muted-foreground">Longer client sign-off cycles</div>
         </div>
       </div>

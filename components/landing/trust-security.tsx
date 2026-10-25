@@ -36,7 +36,7 @@ export function TrustSecurity() {
           <Sparkles className="size-3.5 text-foreground" />
           <span>Security &amp; Architecture</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           Engineered securely from the ground up.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -64,7 +64,7 @@ export function TrustSecurity() {
                     </Badge>
                   </div>
 
-                  <h3 className="text-lg font-semibold tracking-tight text-foreground mb-2">
+                  <h3 className="font-heading text-lg font-semibold tracking-tight text-foreground mb-2">
                     {item.title}
                   </h3>
 

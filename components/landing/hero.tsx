@@ -36,7 +36,7 @@ export function Hero({ onStartReview }: HeroProps) {
       </div>
 
       {/* Primary Display Headline (negative tracking per DESIGN.md) */}
-      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-semibold text-foreground max-w-4xl mx-auto tracking-[-1.5px] leading-[1.05] mb-6">
+      <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-semibold text-foreground max-w-4xl mx-auto tracking-[-1.5px] leading-[1.05] mb-6">
         Feedback that lands exactly where it should.
       </h1>
 

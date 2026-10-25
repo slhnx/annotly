@@ -53,7 +53,7 @@ export function WorkflowChapters() {
           <Sparkles className="size-3.5 text-foreground" />
           <span>The Annotly Workflow</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           From vague comments to crystal-clear feedback.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -83,7 +83,7 @@ export function WorkflowChapters() {
                     <span className="font-mono text-xs font-semibold text-muted-foreground">
                       {ch.step}
                     </span>
-                    <h3 className="font-semibold text-foreground text-base tracking-tight">
+                    <h3 className="font-heading font-semibold text-foreground text-base tracking-tight">
                       {ch.title}
                     </h3>
                   </div>

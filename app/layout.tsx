@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google"
+import { Inter, Geist_Mono, Bricolage_Grotesque } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
@@ -11,11 +11,10 @@ const inter = Inter({
   display: "swap",
 })
 
-const fontHeadingFallback = Plus_Jakarta_Sans({
+const fontHeading = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-heading-fallback",
+  variable: "--font-heading",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
 })
 
 const fontMono = Geist_Mono({
@@ -59,7 +58,7 @@ export default function RootLayout({
         "antialiased",
         fontMono.variable,
         inter.variable,
-        fontHeadingFallback.variable,
+        fontHeading.variable,
         "font-sans"
       )}
     >

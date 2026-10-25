@@ -13,7 +13,7 @@ export function BeforeAfter() {
           <Sparkles className="size-3.5 text-foreground" />
           <span>The Real-World Difference</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           Clear visual context vs. endless guessing.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -38,7 +38,7 @@ export function BeforeAfter() {
                 <span className="text-[11px] font-mono text-muted-foreground">Scattered Channels</span>
               </div>
 
-              <h3 className="text-xl font-semibold tracking-tight text-foreground">
+              <h3 className="font-heading text-xl font-semibold tracking-tight text-foreground">
                 Vague messages &amp; detective work
               </h3>
 
@@ -89,7 +89,7 @@ export function BeforeAfter() {
                 <span className="text-[11px] font-mono text-muted-foreground">Live Canvas</span>
               </div>
 
-              <h3 className="text-xl font-semibold tracking-tight text-foreground">
+              <h3 className="font-heading text-xl font-semibold tracking-tight text-foreground">
                 Element-anchored pin with full context
               </h3>
 

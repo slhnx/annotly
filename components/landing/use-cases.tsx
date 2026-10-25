@@ -66,7 +66,7 @@ export function UseCases() {
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs font-medium text-muted-foreground mb-4">
           <span>Tailored Workflows</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           Built for every role in the website review loop.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -94,7 +94,7 @@ export function UseCases() {
                     </Badge>
                   </div>
 
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-1">
+                  <h3 className="font-heading text-xl font-semibold tracking-tight text-foreground mb-1">
                     {c.title}
                   </h3>
                   <div className="text-xs font-medium text-muted-foreground mb-4">

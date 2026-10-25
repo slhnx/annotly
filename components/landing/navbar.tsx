@@ -29,7 +29,7 @@ export function Navbar({ onCtaClick }: NavbarProps) {
           <div className="size-8 rounded-[6px] bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px] transition-transform group-hover:scale-[1.02]">
             A
           </div>
-          <span className="font-semibold text-lg tracking-[-0.5px] text-foreground">
+          <span className="font-heading font-semibold text-lg tracking-[-0.5px] text-foreground">
             Annotly
           </span>
           <Badge variant="pill" className="hidden sm:inline-flex text-[11px] font-normal py-0">

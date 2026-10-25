@@ -53,7 +53,7 @@ export function FeatureShowcase() {
           <Sparkles className="size-3.5 text-foreground" />
           <span>Engineered for Precision</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           Built specifically for how modern websites are engineered.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">

@@ -34,7 +34,7 @@ export function GettingStarted() {
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs font-medium text-muted-foreground mb-4">
           <span>Frictionless Setup</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           Start reviewing in three simple steps.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -62,7 +62,7 @@ export function GettingStarted() {
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-semibold tracking-tight text-foreground mb-2">
+                  <h3 className="font-heading text-lg font-semibold tracking-tight text-foreground mb-2">
                     {st.title}
                   </h3>
 

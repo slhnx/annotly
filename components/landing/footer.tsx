@@ -12,7 +12,7 @@ export function Footer() {
             <div className="size-7 rounded-[6px] bg-primary text-primary-foreground flex items-center justify-center font-semibold text-xs shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px]">
               A
             </div>
-            <span className="font-semibold text-base tracking-tight text-foreground">
+            <span className="font-heading font-semibold text-base tracking-tight text-foreground">
               Annotly
             </span>
             <Badge variant="pill" className="text-[10px] py-0 font-normal">

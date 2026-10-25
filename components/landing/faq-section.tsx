@@ -47,7 +47,7 @@ export function FaqSection() {
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs font-medium text-muted-foreground mb-4">
           <span>Got Questions?</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-1.2px] text-foreground mb-4 leading-tight">
           Frequently asked questions.
         </h2>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
@@ -63,7 +63,7 @@ export function FaqSection() {
             value={`item-${index}`}
             className="border border-border rounded-xl bg-card px-5 py-2 transition-all hover:border-[rgba(28,28,28,0.3)] shadow-xs"
           >
-            <AccordionTrigger className="text-left font-semibold text-sm sm:text-base text-foreground hover:no-underline py-3">
+            <AccordionTrigger className="font-heading text-left font-semibold text-sm sm:text-base text-foreground hover:no-underline py-3">
               {faq.q}
             </AccordionTrigger>
             <AccordionContent className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-1 pb-3">
