@@ -20,10 +20,11 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 
 ## 2. Color Palette & Roles
 
-### Primary
-- **Cream** (`#f7f4ed`): Page background, card surfaces, button surfaces. The foundation — warm, paper-like, human.
-- **Charcoal** (`#1c1c1c`): Primary text, headings, dark button backgrounds. Not pure black — organic warmth.
-- **Off-White** (`#fcfbf8`): Button text on dark backgrounds, subtle highlight. Barely distinguishable from pure white.
+### Primary Brand & Canvas Colors
+- **Vibrant Warm Orange** (`#ea580c` in light mode, `#f97316` in dark mode): The primary brand color. Powers primary action buttons, numbered review canvas pins, active workflow indicators, and key conversion CTAs. Contrast-certified (WCAG AA compliant) with pure white text (`#ffffff`).
+- **Cream** (`#f7f4ed`): Page background, card surfaces, canvas environment. The warm, parchment-like foundation.
+- **Charcoal** (`#1c1c1c`): Primary text, headings, structural depth. Not pure black — organic warmth.
+- **White** (`#ffffff`): Button text on orange primary buttons, review pin text, contrast highlights.
 
 ### Neutral Scale (Opacity-Based)
 - **Charcoal 100%** (`#1c1c1c`): Primary text, headings, dark surfaces.
@@ -39,11 +40,11 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - **Cream Surface** (`#f7f4ed`): Card backgrounds, section fills — same as page background for seamless integration.
 
 ### Interactive
-- **Ring Blue** (`#3b82f6` at 50% opacity): `--tw-ring-color`, Tailwind focus ring.
+- **Ring Orange** (`rgba(234, 88, 12, 0.4)` in light mode, `rgba(249, 115, 22, 0.5)` in dark mode): Focus ring on interactive controls and inputs.
 - **Focus Shadow** (`rgba(0,0,0,0.1) 0px 4px 12px`): Focus and active state shadow — soft, warm, diffused.
 
 ### Inset Shadows
-- **Button Inset** (`rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px 0px`): The signature multi-layer inset shadow on dark buttons.
+- **Button Inset** (`rgba(255,255,255,0.25) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.08) 0px 1px 2px 0px`): The signature multi-layer inset shadow on primary orange buttons.
 
 ## 3. Typography Rules
 
@@ -131,15 +132,16 @@ In `app/globals.css`:
 
 ### Buttons
 
-**Primary Dark (Inset Shadow)**
-- Background: `#1c1c1c`
-- Text: `#fcfbf8`
+**Primary Orange (Inset Shadow)**
+- Background: `#ea580c` (dark mode `#f97316`)
+- Text: `#ffffff`
 - Padding: 8px 16px
 - Radius: 6px
-- Shadow: `rgba(0,0,0,0) 0px 0px 0px 0px, rgba(0,0,0,0) 0px 0px 0px 0px, rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px 0px`
-- Active: opacity 0.8
-- Focus: `rgba(0,0,0,0.1) 0px 4px 12px` shadow
-- Use: Primary CTA ("Start Building", "Get Started")
+- Shadow: `rgba(255,255,255,0.25) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.08) 0px 1px 2px 0px`
+- Hover: `bg-primary/90`
+- Active: scale 0.99, opacity 0.9
+- Focus: `rgba(234,88,12,0.4)` focus ring
+- Use: Primary CTA ("Start Free Trial", "Create Review Canvas", "Try Annotly")
 
 **Ghost / Outline**
 - Background: transparent
@@ -326,19 +328,19 @@ In `app/globals.css`:
 ## 9. Agent Prompt Guide
 
 ### Quick Color Reference
-- Primary CTA: Charcoal (`#1c1c1c`)
+- Primary CTA: Vibrant Warm Orange (`#ea580c`)
 - Background: Cream (`#f7f4ed`)
 - Heading text: Charcoal (`#1c1c1c`)
 - Body text: Muted Gray (`#5f5f5d`)
 - Border: `#eceae4` (passive), `rgba(28,28,28,0.4)` (interactive)
-- Focus: `rgba(0,0,0,0.1) 0px 4px 12px`
-- Button text on dark: `#fcfbf8`
+- Focus: `rgba(234, 88, 12, 0.4)`
+- Button text on primary orange: `#ffffff`
 
 ### Example Component Prompts
-- "Create a hero section on cream background (#f7f4ed). Headline at 60px Bricolage Grotesque weight 600, line-height 1.10, letter-spacing -1.5px, color #1c1c1c. Subtitle at 18px weight 400, line-height 1.38, color #5f5f5d. Dark CTA button (#1c1c1c bg, #fcfbf8 text, 6px radius, 8px 16px padding, inset shadow) and ghost button (transparent bg, 1px solid rgba(28,28,28,0.4) border, 6px radius)."
+- "Create a hero section on cream background (#f7f4ed). Headline at 60px Bricolage Grotesque weight 600, line-height 1.10, letter-spacing -1.5px, color #1c1c1c. Subtitle at 18px weight 400, line-height 1.38, color #5f5f5d. Primary Orange CTA button (#ea580c bg, #ffffff text, 6px radius, 8px 16px padding, inset shadow) and ghost button (transparent bg, 1px solid rgba(28,28,28,0.4) border, 6px radius)."
 - "Design a card on cream (#f7f4ed) background. Border: 1px solid #eceae4. Radius 12px. No box-shadow. Title at 20px Bricolage Grotesque weight 600, line-height 1.25, color #1c1c1c. Body at 14px weight 400, color #5f5f5d."
 - "Build a template gallery: grid of cards with 12px radius, 1px solid #eceae4 border, cream backgrounds. Each card: image with 12px top radius, title below. Hover: subtle border darkening."
-- "Create navigation: sticky on cream (#f7f4ed). Wordmark at 18px Bricolage Grotesque weight 600. Links at 15px Inter weight 400, #1c1c1c text. Dark CTA button right-aligned with inset shadow. Mobile: hamburger menu with 6px radius."
+- "Create navigation: sticky on cream (#f7f4ed). Wordmark at 18px Bricolage Grotesque weight 600. Links at 15px Inter weight 400, #1c1c1c text. Primary Orange CTA button right-aligned with inset shadow. Mobile: hamburger menu with 6px radius."
 - "Design a stats section: large numbers at 48px Bricolage Grotesque weight 600, letter-spacing -1.2px, #1c1c1c. Labels below at 16px weight 400, #5f5f5d. Horizontal layout with 32px gap."
 
 ### Iteration Guide

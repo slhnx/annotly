@@ -61,9 +61,9 @@
   --popover: #f7f4ed;
   --popover-foreground: #1c1c1c;
 
-  /* Primary Dark Button */
-  --primary: #1c1c1c;
-  --primary-foreground: #fcfbf8;
+  /* Primary Vibrant Warm Orange */
+  --primary: #ea580c;
+  --primary-foreground: #ffffff;
 
   /* Secondary & Muted */
   --secondary: #eceae4;
@@ -83,7 +83,7 @@
   --border-interactive: rgba(28, 28, 28, 0.4);
 
   /* Focus Ring */
-  --ring: rgba(59, 130, 246, 0.5);
+  --ring: rgba(234, 88, 12, 0.4);
 
   /* Radius (Standard 6px) */
   --radius: 0.375rem;
@@ -91,18 +91,18 @@
   /* Sidebar */
   --sidebar: #f7f4ed;
   --sidebar-foreground: #1c1c1c;
-  --sidebar-primary: #1c1c1c;
-  --sidebar-primary-foreground: #fcfbf8;
-  --sidebar-accent: rgba(28, 28, 28, 0.04);
-  --sidebar-accent-foreground: #1c1c1c;
+  --sidebar-primary: #ea580c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(234, 88, 12, 0.05);
+  --sidebar-accent-foreground: #ea580c;
   --sidebar-border: #eceae4;
-  --sidebar-ring: rgba(59, 130, 246, 0.5);
+  --sidebar-ring: rgba(234, 88, 12, 0.4);
 
   /* Charts */
-  --chart-1: #1c1c1c;
-  --chart-2: #5f5f5d;
-  --chart-3: #8a8883;
-  --chart-4: #b8b5ac;
+  --chart-1: #ea580c;
+  --chart-2: #1c1c1c;
+  --chart-3: #5f5f5d;
+  --chart-4: #8a8883;
   --chart-5: #eceae4;
 }
 
@@ -115,8 +115,8 @@
   --popover: #1c1c1c;
   --popover-foreground: #f7f4ed;
 
-  --primary: #f7f4ed;
-  --primary-foreground: #1c1c1c;
+  --primary: #f97316;
+  --primary-foreground: #ffffff;
 
   --secondary: #272624;
   --secondary-foreground: #f7f4ed;
@@ -132,16 +132,16 @@
   --input: rgba(236, 234, 228, 0.15);
   --border-interactive: rgba(236, 234, 228, 0.4);
 
-  --ring: rgba(59, 130, 246, 0.6);
+  --ring: rgba(249, 115, 22, 0.5);
 
   --sidebar: #141413;
   --sidebar-foreground: #f7f4ed;
-  --sidebar-primary: #f7f4ed;
-  --sidebar-primary-foreground: #1c1c1c;
-  --sidebar-accent: #242321;
-  --sidebar-accent-foreground: #f7f4ed;
+  --sidebar-primary: #f97316;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(249, 115, 22, 0.1);
+  --sidebar-accent-foreground: #f97316;
   --sidebar-border: rgba(236, 234, 228, 0.15);
-  --sidebar-ring: rgba(59, 130, 246, 0.6);
+  --sidebar-ring: rgba(249, 115, 22, 0.5);
 }
 
 @layer base {
@@ -149,7 +149,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-neutral-900 selection:text-neutral-50;
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
   html {

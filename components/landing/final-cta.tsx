@@ -46,7 +46,7 @@ export function FinalCta({ onStartReview }: FinalCtaProps) {
         <div className="max-w-lg mx-auto mb-8">
           <form
             onSubmit={handleSubmit}
-            className="p-1.5 sm:p-2 rounded-xl border border-border bg-background shadow-[rgba(0,0,0,0.04)_0px_4px_16px_0px] flex flex-col sm:flex-row gap-2 transition-all focus-within:shadow-[rgba(0,0,0,0.08)_0px_8px_24px_0px] focus-within:border-[rgba(28,28,28,0.4)]"
+            className="p-1.5 sm:p-2 rounded-xl border border-border bg-background shadow-[rgba(0,0,0,0.04)_0px_4px_16px_0px] flex flex-col sm:flex-row gap-2 transition-all focus-within:shadow-[rgba(234,88,12,0.1)_0px_8px_24px_0px] focus-within:border-primary/50"
           >
             <div className="relative flex-1">
               <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />

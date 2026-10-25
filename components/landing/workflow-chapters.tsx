@@ -74,7 +74,7 @@ export function WorkflowChapters() {
                 onClick={() => setActiveChapter(idx)}
                 className={`p-5 rounded-xl border cursor-pointer transition-all ${
                   isActive
-                    ? "bg-card border-foreground/40 shadow-[rgba(0,0,0,0.04)_0px_4px_16px_0px]"
+                    ? "bg-card border-primary/50 shadow-[rgba(234,88,12,0.06)_0px_4px_16px_0px]"
                     : "bg-card/40 border-border hover:bg-card/80 hover:border-border"
                 }`}
               >
@@ -88,7 +88,7 @@ export function WorkflowChapters() {
                     </h3>
                   </div>
                   {isActive && (
-                    <Badge variant="pill" className="text-[10px] py-0">
+                    <Badge variant="pill" className="text-[10px] py-0 bg-primary/10 text-primary border-primary/20 font-medium">
                       Active
                     </Badge>
                   )}

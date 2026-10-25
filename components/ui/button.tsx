@@ -8,9 +8,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // DESIGN.md: Primary Dark with signature inset shadow and 6px radius
+        // DESIGN.md: Primary Orange with signature inset shadow and 6px radius
         default:
-          "bg-primary text-primary-foreground rounded-[6px] shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px] hover:bg-neutral-800 dark:hover:bg-neutral-200",
+          "bg-primary text-primary-foreground rounded-[6px] shadow-[rgba(255,255,255,0.25)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.08)_0px_1px_2px_0px] hover:bg-primary/90 active:scale-[0.99]",
         // DESIGN.md: Ghost / Outline with rgba(28,28,28,0.4) border and 6px radius
         outline:
           "border border-[rgba(28,28,28,0.4)] dark:border-[rgba(236,234,228,0.3)] bg-transparent text-foreground hover:bg-black/[0.04] dark:hover:bg-white/[0.04] rounded-[6px]",
