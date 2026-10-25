@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter, Geist_Mono, Bricolage_Grotesque } from "next/font/google"
 import "./globals.css"
+import "@/lib/env"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
