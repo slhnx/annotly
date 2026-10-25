@@ -247,6 +247,18 @@ For new components:
 
 Do not modify shadcn/ui primitives globally when a local composition or variant would solve the problem.
 
+### 7.1 Inspiration and Reference Design Policy (Mandatory)
+
+Whenever the user provides an external inspiration file, screenshot, mockup, UI link, or reference image:
+
+1. **Do NOT blindly copy:** Never verbatim copy the inspiration's raw styling, external color palettes, foreign font stacks, or arbitrary box shadows. External materials serve strictly as conceptual, UX, or layout inspiration.
+2. **Strictly enforce `DESIGN.md`:** Translate all layouts, components, surfaces, and visual hierarchy into Annotly's established design system:
+   - Primary warm parchment background (`#f7f4ed`), organic charcoal (`#1c1c1c`), and off-white (`#fcfbf8`).
+   - Signature dark buttons with inset shadow (`--shadow-button-inset`) and 6px or pill (`9999px`) radii.
+   - Bricolage Grotesque display typography with negative tracking (-0.9px to -1.5px) and Inter for body/inputs.
+   - 1px `#eceae4` containment borders rather than arbitrary drop shadows.
+3. **Rephrase content for Annotly:** Never copy third-party, foreign, or placeholder copy verbatim (e.g. budgeting, banking, travel, generic SaaS). All headings, taglines, subtext, button labels, and microcopy must be thoughtfully contextualized and rephrased for Annotly's domain: **visual website feedback, zero-install live canvas reviews, element-anchored commenting, and agency-client collaboration**.
+
 ---
 
 ## 8. Backend and Business Logic
@@ -499,6 +511,7 @@ Use REA to investigate reference behavior or unfamiliar technical constraints wh
 Use GSD for project initialization, requirements, milestones, and incremental implementation when it is part of the established workflow.
 
 - **Mandatory Phase Branching:** When starting a phase (e.g. `/gsd-execute-phase <N>`), ensure working tree is clean, create `phase-<N>-<slug>`, push and track it on origin, checkout inside it, and only then make changes.
+- **Design & Inspiration Translation:** Whenever given an inspiration image, design mockup, or reference screenshot, do NOT blindly copy it. Adapt the layout and spatial structure strictly using Annotly's `DESIGN.md` design system tokens, and rephrase all content and copy specifically for Annotly's website review platform.
 - Keep requirements and acceptance criteria explicit.
 - Implement manageable tasks.
 - Verify each milestone before proceeding.
