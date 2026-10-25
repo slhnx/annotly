@@ -8,7 +8,6 @@ import {
   type FieldValues,
   FormProvider,
   useFormContext,
-  useFormState,
 } from "react-hook-form"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
@@ -42,14 +41,13 @@ const FormField = <
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
-  const { getFieldState } = useFormContext()
-  const formState = useFormState({ name: fieldContext.name })
-  const fieldState = getFieldState(fieldContext.name, formState)
+  const { getFieldState, formState } = useFormContext()
 
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>")
   }
 
+  const fieldState = getFieldState(fieldContext.name, formState)
   const { id } = itemContext
 
   return {
@@ -89,7 +87,7 @@ function FormLabel({
   return (
     <Label
       data-slot="form-label"
-      className={cn(error && "text-destructive", className)}
+      className={cn(error && "text-red-600 font-medium", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -102,6 +100,7 @@ function FormControl({ ...props }: React.ComponentProps<"div">) {
   if (React.isValidElement(props.children)) {
     const child = props.children as React.ReactElement<{
       id?: string
+      className?: string
       "aria-describedby"?: string
       "aria-invalid"?: boolean
     }>
@@ -111,7 +110,11 @@ function FormControl({ ...props }: React.ComponentProps<"div">) {
         ? formDescriptionId
         : `${formDescriptionId} ${formMessageId}`,
       "aria-invalid": !!error,
-      ...child.props,
+      className: cn(
+        child.props.className,
+        error &&
+          "border-red-500! focus-visible:ring-red-500/20! focus-visible:border-red-500! bg-red-50/20 text-red-950"
+      ),
     })
   }
 
@@ -137,7 +140,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn("text-[11px] text-muted-foreground", className)}
+      className={cn("text-[11px] text-[#5f5f5d]", className)}
       {...props}
     />
   )
@@ -155,10 +158,14 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn("text-[11px] font-medium text-destructive", className)}
+      className={cn(
+        "text-[11px] font-medium text-red-600 mt-1 flex items-center gap-1",
+        className
+      )}
       {...props}
     >
-      {body}
+      <span className="inline-block h-1 w-1 rounded-full bg-red-600 shrink-0" />
+      <span>{body}</span>
     </p>
   )
 }

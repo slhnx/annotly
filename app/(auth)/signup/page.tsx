@@ -34,9 +34,10 @@ export default function SignupPage() {
     >
       <GithubButton text="Continue with GitHub" redirectUrl="/dashboard" />
 
-      <div className="relative my-1 flex items-center justify-center">
+      {/* Spaced-out divider with generous Y-axis margin */}
+      <div className="relative my-7 flex items-center justify-center">
         <div className="w-full border-t border-[#eceae4]" />
-        <span className="absolute bg-white px-3 text-[11px] font-medium uppercase tracking-wider text-[#5f5f5d]/70">
+        <span className="absolute bg-white px-3.5 text-[11px] font-medium uppercase tracking-wider text-[#5f5f5d]/70">
           or continue with email
         </span>
       </div>

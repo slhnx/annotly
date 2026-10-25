@@ -29,6 +29,7 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
+    mode: "onTouched",
     defaultValues: {
       email: "",
       password: "",
@@ -53,7 +54,6 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
         setIsSubmitting(false)
       }
     } catch (err: unknown) {
-      // In Next.js, redirect throws a NEXT_REDIRECT error which should be allowed to bubble up
       if (err instanceof Error && err.message === "NEXT_REDIRECT") {
         throw err
       }
@@ -64,7 +64,7 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         {serverError && (
           <div
             role="alert"
@@ -79,9 +79,9 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xs font-medium text-[#1c1c1c]">
-                Email address
+            <FormItem className="space-y-2">
+              <FormLabel className="text-xs font-medium">
+                Work email
               </FormLabel>
               <FormControl>
                 <Input
@@ -102,9 +102,9 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="space-y-2">
               <div className="flex items-center justify-between">
-                <FormLabel className="text-xs font-medium text-[#1c1c1c]">
+                <FormLabel className="text-xs font-medium">
                   Password
                 </FormLabel>
                 <Link
@@ -144,20 +144,22 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
           )}
         />
 
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Signing in...
-            </>
-          ) : (
-            "Continue with email"
-          )}
-        </Button>
+        <div className="pt-1">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Signing in...
+              </>
+            ) : (
+              "Continue with email"
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   )

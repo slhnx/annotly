@@ -25,6 +25,7 @@ export function ForgotPasswordForm() {
 
   const form = useForm<ForgotPasswordInput>({
     resolver: zodResolver(forgotPasswordSchema),
+    mode: "onTouched",
     defaultValues: {
       email: "",
     },
@@ -83,7 +84,7 @@ export function ForgotPasswordForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         {serverError && (
           <div
             role="alert"
@@ -98,9 +99,9 @@ export function ForgotPasswordForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xs font-medium text-[#1c1c1c]">
-                Email address
+            <FormItem className="space-y-2">
+              <FormLabel className="text-xs font-medium">
+                Work email
               </FormLabel>
               <FormControl>
                 <Input
@@ -117,20 +118,22 @@ export function ForgotPasswordForm() {
           )}
         />
 
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Sending instructions...
-            </>
-          ) : (
-            "Send reset instructions"
-          )}
-        </Button>
+        <div className="pt-1">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Sending instructions...
+              </>
+            ) : (
+              "Send reset instructions"
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   )
