@@ -8,10 +8,10 @@
 Requirements for initial release. Each maps directly to roadmap phases.
 
 ### Foundation & Design System
-- [ ] **FOUND-01**: Centralized environment variable validation using Zod at application startup (`lib/env.ts`).
-- [ ] **FOUND-02**: Global CSS variables and design system tokens reflect `DESIGN.md` (warm parchment cream `#f7f4ed`, charcoal `#1c1c1c`, opacity neutral scale, inset dark button styling, and 1px `#eceae4` containment borders).
-- [ ] **FOUND-03**: Marketing landing page with hero, interactive demonstration preview, feature grid, and responsive header.
-- [ ] **FOUND-04**: Core shadcn/ui component primitives installed and customized with Annotly design tokens.
+- [x] **FOUND-01**: Centralized environment variable validation using Zod at application startup (`lib/env.ts`).
+- [x] **FOUND-02**: Global CSS variables and design system tokens reflect `DESIGN.md` (warm parchment cream `#f7f4ed`, charcoal `#1c1c1c`, opacity neutral scale, inset dark button styling, and 1px `#eceae4` containment borders).
+- [x] **FOUND-03**: Marketing landing page with hero, interactive demonstration preview, feature grid, and responsive header.
+- [x] **FOUND-04**: Core shadcn/ui component primitives installed and customized with Annotly design tokens.
 
 ### Authentication & Project Permissions
 - [ ] **AUTH-01**: User can sign up with email and password via Supabase Auth.
@@ -85,10 +85,10 @@ Which phases cover which requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
+| FOUND-04 | Phase 1 | Complete |
 | AUTH-01 | Phase 2 | Pending |
 | AUTH-02 | Phase 2 | Pending |
 | AUTH-03 | Phase 2 | Pending |

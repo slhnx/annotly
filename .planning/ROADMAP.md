@@ -12,7 +12,7 @@ All UI components, typography, layout rhythm, and component variants strictly ad
 - Integer phases (1, 2, 3...): Planned milestone work
 - Decimal phases (2.1, 2.2...): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation, Design System & Landing Page** - Establish repo structure, validated env schema, warm cream & charcoal design system (`DESIGN.md`), configured shadcn primitives, and marketing landing page.
+- [x] **Phase 1: Foundation, Design System & Landing Page** - Establish repo structure, validated env schema, warm cream & charcoal design system (`DESIGN.md`), configured shadcn primitives, and marketing landing page.
 - [ ] **Phase 2: Authentication, Database & Project Permissions** - Implement Supabase Auth, PostgreSQL schema with Prisma ORM, user profiles, and project CRUD with ownership boundaries.
 - [ ] **Phase 3: Reverse Proxy & Injected Client Bridge** - Next.js Route Handler reverse proxy with SSRF defense, framing header stripping, HTML/asset rewriting, and `annotly-bridge.js` postMessage bus.
 - [ ] **Phase 4: Visual Pin Placement & Coordinate Alignment** - 5-tier resilient CSS selector generation, element-relative percentage offset math, and ResizeObserver/scroll synchronizer.
@@ -40,9 +40,9 @@ All UI components, typography, layout rhythm, and component variants strictly ad
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Environment schema validation, design system theme tokens (`globals.css`), and font configuration with display letter-spacing.
-- [ ] 01-02: Core shadcn/ui component primitives customized to `DESIGN.md` specification (tactile inset shadow buttons, cream cards, soft focus inputs, pill icons, dialogs, sheets).
-- [ ] 01-03: Editorial marketing landing page with interactive demonstration mockup, stats bar, and responsive navigation.
+- [x] 01-01: Environment schema validation, design system theme tokens (`globals.css`), and font configuration with display letter-spacing.
+- [x] 01-02: Core shadcn/ui component primitives customized to `DESIGN.md` specification (tactile inset shadow buttons, cream cards, soft focus inputs, pill icons, dialogs, sheets).
+- [x] 01-03: Editorial marketing landing page with interactive demonstration mockup, stats bar, and responsive navigation.
 
 ### Phase 2: Authentication, Database & Project Permissions
 **Goal**: Integrate Supabase Auth and PostgreSQL with Prisma ORM to provide user registration, login, session persistence, and project CRUD with strict ownership boundaries.
@@ -150,7 +150,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation, Design System & Landing Page | 0/3 | Not started | - |
+| 1. Foundation, Design System & Landing Page | 3/3 | Complete | 2026-10-25 |
 | 2. Authentication, Database & Project Permissions | 0/3 | Not started | - |
 | 3. Reverse Proxy & Injected Client Bridge | 0/3 | Not started | - |
 | 4. Visual Pin Placement & Coordinate Alignment | 0/3 | Not started | - |

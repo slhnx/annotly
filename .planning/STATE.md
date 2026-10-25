@@ -5,29 +5,29 @@
 See: .planning/PROJECT.md (updated 2026-10-25)
 
 **Core value:** Frictionless, zero-install visual review loop where anyone with a review link can point, click on any website element, and leave an anchored, context-rich comment that stays aligned across viewports and devices.
-**Current focus:** Phase 1: Foundation, Design System & Landing Page
+**Current focus:** Phase 2: Authentication, Database & Project Permissions
 
 ## Current Position
 
-Phase: 1 of 7 (Foundation, Design System & Landing Page)
+Phase: 2 of 7 (Authentication, Database & Project Permissions)
 Plan: 0 of 3 in current phase
 Status: Ready to plan
-Last activity: 2026-10-25 — Project initialized with research, requirements, and roadmap
+Last activity: 2026-10-25 — Phase 1 completed (Foundation, Design System & Landing Page)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 15%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: 0 min
-- Total execution time: 0.0 hours
+- Total plans completed: 3
+- Average duration: 27 min
+- Total execution time: 1.3 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation, Design System & Landing Page | 0/3 | - | - |
+| 1. Foundation, Design System & Landing Page | 3/3 | 80m | 27m |
 | 2. Authentication, Database & Project Permissions | 0/3 | - | - |
 | 3. Reverse Proxy & Injected Client Bridge | 0/3 | - | - |
 | 4. Visual Pin Placement & Coordinate Alignment | 0/3 | - | - |
@@ -36,8 +36,8 @@ Progress: [░░░░░░░░░░] 0%
 | 7. End-to-End Verification, Security Hardening & Polish | 0/2 | - | - |
 
 **Recent Trend:**
-- Last 5 plans: None
-- Trend: Stable
+- Last 5 plans: 01-01 (15m), 01-02 (20m), 01-03 (45m)
+- Trend: Fast & Stable
 
 *Updated after each plan completion*
 
@@ -52,14 +52,18 @@ Recent decisions affecting current work:
 - [Init]: Next.js Route Handler Reverse Proxy chosen for self-contained, zero-install iframe framing.
 - [Init]: In-frame client-side viewport screenshot capture selected for fast, zero-infra snapshots.
 - [Init]: Frictionless guest commenting (name/email capture modal) prioritized for agency client adoption.
+- [Phase 1]: Zod runtime environment schema validation implemented in `lib/env.ts` with `.env.example`.
+- [Phase 1]: Bricolage Grotesque configured as display font with tight negative letter-spacing (-1.5px, -1.2px, -0.9px).
+- [Phase 1]: Tactile button inset shadow and 12px cream cards customized across all 12 core shadcn primitives.
+- [Phase 1]: Editorial marketing landing page implemented with interactive canvas demo, concise feature cards with bottom-overflowing mockups, and monumental studio footer.
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-None yet.
+None.
 
 ## Deferred Items
 
@@ -71,6 +75,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-25 21:29
-Stopped at: Project initialized and roadmap ready for review
+Last session: 2026-10-25 23:55
+Stopped at: Phase 1 complete, verified with 0 typecheck/lint errors and production build; ready for Phase 2
 Resume file: None
