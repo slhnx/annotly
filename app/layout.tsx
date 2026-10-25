@@ -4,6 +4,7 @@ import "./globals.css"
 import "@/lib/env"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { QueryProvider } from "@/components/providers/query-provider"
 import { cn } from "@/lib/utils"
 
 const inter = Inter({
@@ -64,9 +65,11 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-screen bg-background text-foreground">
-        <ThemeProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   )

@@ -1,9 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { useTransition } from "react"
 import { LogOut, Loader2 } from "lucide-react"
-import { signoutAction } from "@/app/(auth)/actions"
+import { useSignoutMutation } from "@/lib/auth/queries"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -21,13 +20,13 @@ export function SignoutButton({
   children,
   ...props
 }: SignoutButtonProps) {
-  const [isPending, startTransition] = useTransition()
+  const signoutMutation = useSignoutMutation()
 
   const handleSignout = () => {
-    startTransition(async () => {
-      await signoutAction()
-    })
+    signoutMutation.mutate()
   }
+
+  const isPending = signoutMutation.isPending
 
   return (
     <Button
@@ -36,7 +35,7 @@ export function SignoutButton({
       size={size}
       onClick={handleSignout}
       disabled={isPending}
-      className={cn("text-xs font-medium cursor-pointer", className)}
+      className={cn("text-xs font-medium cursor-pointer rounded-[6px]", className)}
       {...props}
     >
       {isPending ? (

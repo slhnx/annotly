@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2, AlertCircle, ArrowLeft, MailCheck } from "lucide-react"
 import { forgotPasswordSchema, type ForgotPasswordInput } from "@/lib/auth/validation"
-import { forgotPasswordAction } from "@/app/(auth)/actions"
+import { useForgotPasswordMutation } from "@/lib/auth/queries"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -21,7 +21,8 @@ import {
 export function ForgotPasswordForm() {
   const [serverError, setServerError] = React.useState<string | null>(null)
   const [isSuccess, setIsSuccess] = React.useState(false)
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
+
+  const forgotMutation = useForgotPasswordMutation()
 
   const form = useForm<ForgotPasswordInput>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -31,29 +32,26 @@ export function ForgotPasswordForm() {
     },
   })
 
-  const onSubmit = async (values: ForgotPasswordInput) => {
-    try {
-      setIsSubmitting(true)
-      setServerError(null)
+  const onSubmit = (values: ForgotPasswordInput) => {
+    setServerError(null)
 
-      const formData = new FormData()
-      formData.append("email", values.email)
-
-      const result = await forgotPasswordAction(null, formData)
-      if (result) {
-        if (!result.success && result.error) {
-          setServerError(result.error)
-          setIsSubmitting(false)
-        } else if (result.success) {
-          setIsSuccess(true)
-          setIsSubmitting(false)
+    forgotMutation.mutate(values, {
+      onSuccess: (result) => {
+        if (result) {
+          if (!result.success && result.error) {
+            setServerError(result.error)
+          } else if (result.success) {
+            setIsSuccess(true)
+          }
         }
-      }
-    } catch {
-      setIsSubmitting(false)
-      setServerError("Unable to send reset instructions. Please try again.")
-    }
+      },
+      onError: () => {
+        setServerError("Unable to send reset instructions. Please try again.")
+      },
+    })
   }
+
+  const isSubmitting = forgotMutation.isPending
 
   if (isSuccess) {
     return (
@@ -122,7 +120,7 @@ export function ForgotPasswordForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
+            className="w-full h-11 rounded-[6px] bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
           >
             {isSubmitting ? (
               <>

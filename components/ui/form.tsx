@@ -8,6 +8,7 @@ import {
   type FieldValues,
   FormProvider,
   useFormContext,
+  get,
 } from "react-hook-form"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
@@ -48,6 +49,7 @@ const useFormField = () => {
   }
 
   const fieldState = getFieldState(fieldContext.name, formState)
+  const error = fieldState.error ?? get(formState.errors, fieldContext.name)
   const { id } = itemContext
 
   return {
@@ -57,6 +59,7 @@ const useFormField = () => {
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
+    error,
   }
 }
 
@@ -158,13 +161,14 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-message"
       id={formMessageId}
+      role="alert"
       className={cn(
-        "text-[11px] font-medium text-red-600 mt-1 flex items-center gap-1",
+        "text-[12px] font-medium text-red-600 mt-1.5 flex items-center gap-1.5 leading-tight animate-in fade-in-50 duration-150",
         className
       )}
       {...props}
     >
-      <span className="inline-block h-1 w-1 rounded-full bg-red-600 shrink-0" />
+      <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-600 shrink-0" />
       <span>{body}</span>
     </p>
   )

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Loader2 } from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
+import { useGithubSignInMutation } from "@/lib/auth/queries"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -17,39 +17,27 @@ export function GithubButton({
   text = "Continue with GitHub",
   redirectUrl = "/dashboard",
 }: GithubButtonProps) {
-  const [isLoading, setIsLoading] = React.useState(false)
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
+  const githubMutation = useGithubSignInMutation()
 
-  const handleGithubSignIn = async () => {
-    try {
-      setIsLoading(true)
-      setErrorMessage(null)
-
-      const supabase = createClient()
-      const origin =
-        typeof window !== "undefined" ? window.location.origin : ""
-      const redirectTo = `${origin}/auth/callback?next=${encodeURIComponent(
-        redirectUrl
-      )}`
-
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "github",
-        options: {
-          redirectTo,
+  const handleGithubSignIn = () => {
+    setErrorMessage(null)
+    githubMutation.mutate(
+      { redirectUrl },
+      {
+        onSuccess: (data) => {
+          if (data?.url && typeof window !== "undefined") {
+            window.location.assign(data.url)
+          }
         },
-      })
-
-      if (error) {
-        setErrorMessage(error.message)
-        setIsLoading(false)
+        onError: (err) => {
+          setErrorMessage(err.message || "Failed to connect to GitHub")
+        },
       }
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : "Failed to connect to GitHub"
-      setErrorMessage(message)
-      setIsLoading(false)
-    }
+    )
   }
+
+  const isLoading = githubMutation.isPending
 
   return (
     <div className="w-full space-y-2">
@@ -59,7 +47,7 @@ export function GithubButton({
         onClick={handleGithubSignIn}
         disabled={isLoading}
         className={cn(
-          "relative flex h-11 w-full items-center justify-center gap-2.5 rounded-full border border-[#eceae4] bg-white px-4 text-xs font-semibold text-[#1c1c1c] shadow-[0px_1px_2px_rgba(0,0,0,0.04)] transition-all hover:bg-[#f7f5ef] hover:border-[#1c1c1c]/20 disabled:opacity-70",
+          "relative flex h-11 w-full items-center justify-center gap-2.5 rounded-[6px] border border-[#eceae4] bg-white px-4 text-xs font-semibold text-[#1c1c1c] shadow-[0px_1px_2px_rgba(0,0,0,0.04)] transition-all hover:bg-[#f7f5ef] hover:border-[#1c1c1c]/20 disabled:opacity-70 cursor-pointer",
           className
         )}
       >

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu, X, ArrowRight } from "lucide-react"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { useCurrentUser } from "@/lib/auth/queries"
 
 interface NavbarProps {
   onCtaClick?: () => void
@@ -12,6 +13,8 @@ interface NavbarProps {
 
 export function Navbar({ onCtaClick }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { data: user } = useCurrentUser()
+  const isLoggedIn = Boolean(user)
 
   const navLinks = [
     { label: "How It Works", href: "#how-it-works" },
@@ -52,20 +55,37 @@ export function Navbar({ onCtaClick }: NavbarProps) {
 
         {/* Action CTAs */}
         <div className="hidden sm:flex items-center gap-3">
-          <Link
-            href="/login"
-            className={buttonVariants({ variant: "ghost", size: "sm" })}
-          >
-            Log In
-          </Link>
-          <Button
-            variant="default"
-            size="sm"
-            onClick={onCtaClick}
-            className="shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px]"
-          >
-            Start Free Trial
-          </Button>
+          {isLoggedIn ? (
+            <Link
+              href="/dashboard"
+              className={buttonVariants({
+                variant: "default",
+                size: "sm",
+                className:
+                  "gap-1.5 shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px]",
+              })}
+            >
+              <span>Dashboard</span>
+              <ArrowRight className="size-3.5" />
+            </Link>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className={buttonVariants({ variant: "ghost", size: "sm" })}
+              >
+                Log In
+              </Link>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={onCtaClick}
+                className="shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px]"
+              >
+                Start Free Trial
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -98,25 +118,42 @@ export function Navbar({ onCtaClick }: NavbarProps) {
             ))}
           </nav>
           <div className="pt-3 border-t border-border flex flex-col gap-2">
-            <Link
-              href="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className={buttonVariants({ variant: "outline", size: "sm", className: "w-full justify-center" })}
-            >
-              Log In
-            </Link>
-            <Button
-              variant="default"
-              size="sm"
-              onClick={() => {
-                setMobileMenuOpen(false)
-                if (onCtaClick) onCtaClick()
-              }}
-              className="w-full justify-center"
-            >
-              Start Free Trial
-              <ArrowRight className="size-3.5 ml-2" />
-            </Button>
+            {isLoggedIn ? (
+              <Link
+                href="/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className={buttonVariants({
+                  variant: "default",
+                  size: "sm",
+                  className: "w-full justify-center gap-1.5",
+                })}
+              >
+                <span>Dashboard</span>
+                <ArrowRight className="size-3.5" />
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={buttonVariants({ variant: "outline", size: "sm", className: "w-full justify-center" })}
+                >
+                  Log In
+                </Link>
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    if (onCtaClick) onCtaClick()
+                  }}
+                  className="w-full justify-center"
+                >
+                  Start Free Trial
+                  <ArrowRight className="size-3.5 ml-2" />
+                </Button>
+              </>
+            )}
           </div>
         </div>
       )}

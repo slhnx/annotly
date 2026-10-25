@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from "lucide-react"
 import { updatePasswordSchema, type UpdatePasswordInput } from "@/lib/auth/validation"
-import { updatePasswordAction } from "@/app/(auth)/actions"
+import { useUpdatePasswordMutation } from "@/lib/auth/queries"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -20,9 +20,10 @@ import {
 export function UpdatePasswordForm() {
   const [serverError, setServerError] = React.useState<string | null>(null)
   const [isSuccess, setIsSuccess] = React.useState(false)
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [showPassword, setShowPassword] = React.useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
+
+  const updateMutation = useUpdatePasswordMutation()
 
   const form = useForm<UpdatePasswordInput>({
     resolver: zodResolver(updatePasswordSchema),
@@ -33,33 +34,29 @@ export function UpdatePasswordForm() {
     },
   })
 
-  const onSubmit = async (values: UpdatePasswordInput) => {
-    try {
-      setIsSubmitting(true)
-      setServerError(null)
+  const onSubmit = (values: UpdatePasswordInput) => {
+    setServerError(null)
 
-      const formData = new FormData()
-      formData.append("password", values.password)
-      formData.append("confirmPassword", values.confirmPassword)
-
-      const result = await updatePasswordAction(null, formData)
-      if (result) {
-        if (!result.success && result.error) {
-          setServerError(result.error)
-          setIsSubmitting(false)
-        } else if (result.success) {
-          setIsSuccess(true)
-          setIsSubmitting(false)
+    updateMutation.mutate(values, {
+      onSuccess: (result) => {
+        if (result) {
+          if (!result.success && result.error) {
+            setServerError(result.error)
+          } else if (result.success) {
+            setIsSuccess(true)
+          }
         }
-      }
-    } catch (err: unknown) {
-      if (err instanceof Error && err.message === "NEXT_REDIRECT") {
-        throw err
-      }
-      setIsSubmitting(false)
-      setServerError("Unable to update password. Please try again.")
-    }
+      },
+      onError: (err: unknown) => {
+        if (err instanceof Error && err.message === "NEXT_REDIRECT") {
+          return
+        }
+        setServerError("Unable to update password. Please try again.")
+      },
+    })
   }
+
+  const isSubmitting = updateMutation.isPending
 
   return (
     <Form {...form}>
@@ -92,8 +89,8 @@ export function UpdatePasswordForm() {
               <FormLabel className="text-xs font-medium">
                 New password
               </FormLabel>
-              <FormControl>
-                <div className="relative">
+              <div className="relative">
+                <FormControl>
                   <Input
                     {...field}
                     type={showPassword ? "text" : "password"}
@@ -102,21 +99,21 @@ export function UpdatePasswordForm() {
                     disabled={isSubmitting}
                     className="h-11 rounded-lg border-[#eceae4] bg-white pr-10 pl-3.5 text-xs text-[#1c1c1c] placeholder:text-[#5f5f5d]/60 focus-visible:ring-1 focus-visible:ring-[#1c1c1c]"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    tabIndex={-1}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5f5f5d] transition-colors hover:text-[#1c1c1c]"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </FormControl>
+                </FormControl>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5f5f5d] transition-colors hover:text-[#1c1c1c]"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
               <FormMessage />
             </FormItem>
           )}
@@ -130,8 +127,8 @@ export function UpdatePasswordForm() {
               <FormLabel className="text-xs font-medium">
                 Confirm new password
               </FormLabel>
-              <FormControl>
-                <div className="relative">
+              <div className="relative">
+                <FormControl>
                   <Input
                     {...field}
                     type={showConfirmPassword ? "text" : "password"}
@@ -140,21 +137,21 @@ export function UpdatePasswordForm() {
                     disabled={isSubmitting}
                     className="h-11 rounded-lg border-[#eceae4] bg-white pr-10 pl-3.5 text-xs text-[#1c1c1c] placeholder:text-[#5f5f5d]/60 focus-visible:ring-1 focus-visible:ring-[#1c1c1c]"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    tabIndex={-1}
-                    aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5f5f5d] transition-colors hover:text-[#1c1c1c]"
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </FormControl>
+                </FormControl>
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  tabIndex={-1}
+                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5f5f5d] transition-colors hover:text-[#1c1c1c]"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
               <FormMessage />
             </FormItem>
           )}
@@ -164,7 +161,7 @@ export function UpdatePasswordForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
+            className="w-full h-11 rounded-[6px] bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
           >
             {isSubmitting ? (
               <>

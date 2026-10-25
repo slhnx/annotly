@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeOff, Loader2, AlertCircle } from "lucide-react"
 import { loginSchema, type LoginInput } from "@/lib/auth/validation"
-import { loginAction } from "@/app/(auth)/actions"
+import { useLoginMutation } from "@/lib/auth/queries"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -24,8 +24,9 @@ interface LoginFormProps {
 
 export function LoginForm({ redirectUrl }: LoginFormProps) {
   const [serverError, setServerError] = React.useState<string | null>(null)
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [showPassword, setShowPassword] = React.useState(false)
+
+  const loginMutation = useLoginMutation()
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -36,31 +37,27 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
     },
   })
 
-  const onSubmit = async (values: LoginInput) => {
-    try {
-      setIsSubmitting(true)
-      setServerError(null)
-
-      const formData = new FormData()
-      formData.append("email", values.email)
-      formData.append("password", values.password)
-      if (redirectUrl) {
-        formData.append("redirect", redirectUrl)
+  const onSubmit = (values: LoginInput) => {
+    setServerError(null)
+    loginMutation.mutate(
+      { values, redirectUrl },
+      {
+        onSuccess: (result) => {
+          if (result && !result.success && result.error) {
+            setServerError(result.error)
+          }
+        },
+        onError: (err: unknown) => {
+          if (err instanceof Error && err.message === "NEXT_REDIRECT") {
+            return
+          }
+          setServerError("An unexpected error occurred. Please try again.")
+        },
       }
-
-      const result = await loginAction(null, formData)
-      if (result && !result.success && result.error) {
-        setServerError(result.error)
-        setIsSubmitting(false)
-      }
-    } catch (err: unknown) {
-      if (err instanceof Error && err.message === "NEXT_REDIRECT") {
-        throw err
-      }
-      setIsSubmitting(false)
-      setServerError("An unexpected error occurred. Please try again.")
-    }
+    )
   }
+
+  const isSubmitting = loginMutation.isPending
 
   return (
     <Form {...form}>
@@ -114,8 +111,8 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
                   Forgot password?
                 </Link>
               </div>
-              <FormControl>
-                <div className="relative">
+              <div className="relative">
+                <FormControl>
                   <Input
                     {...field}
                     type={showPassword ? "text" : "password"}
@@ -124,21 +121,21 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
                     disabled={isSubmitting}
                     className="h-11 rounded-lg border-[#eceae4] bg-white pr-10 pl-3.5 text-xs text-[#1c1c1c] placeholder:text-[#5f5f5d]/60 focus-visible:ring-1 focus-visible:ring-[#1c1c1c]"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    tabIndex={-1}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5f5f5d] transition-colors hover:text-[#1c1c1c]"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </FormControl>
+                </FormControl>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5f5f5d] transition-colors hover:text-[#1c1c1c]"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
               <FormMessage />
             </FormItem>
           )}
@@ -148,7 +145,7 @@ export function LoginForm({ redirectUrl }: LoginFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
+            className="w-full h-11 rounded-[6px] bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
           >
             {isSubmitting ? (
               <>
