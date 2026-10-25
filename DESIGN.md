@@ -4,13 +4,13 @@
 
 Lovable's website radiates warmth through restraint. The entire page sits on a creamy, parchment-toned background (`#f7f4ed`) that immediately separates it from the cold-white conventions of most developer tool sites. This isn't minimalism for minimalism's sake — it's a deliberate choice to feel approachable, almost analog, like a well-crafted notebook. The near-black text (`#1c1c1c`) against this warm cream creates a contrast ratio that's easy on the eyes while maintaining sharp readability.
 
-The custom Camera Plain Variable typeface is the system's secret weapon. Unlike geometric sans-serifs that signal "tech company," Camera Plain has a humanist warmth — slightly rounded terminals, organic curves, and a comfortable reading rhythm. At display sizes (48px–60px), weight 600 with aggressive negative letter-spacing (-0.9px to -1.5px) compresses headlines into confident, editorial statements. The font uses `ui-sans-serif, system-ui` as fallbacks, acknowledging that the custom typeface carries the brand personality.
+The custom ABC Camera Plain (specifically Camera Plain Variable) typeface from Dinamo foundry is the system's secret weapon. Unlike geometric sans-serifs that signal "tech company," ABC Camera Plain has a humanist warmth — slightly rounded terminals, organic curves, a distinctive double-story 'a', and a comfortable reading rhythm. At display sizes (36px–64px), weight 600 with aggressive negative letter-spacing (-0.9px to -1.5px) compresses headlines into confident, editorial statements. The font stack gracefully falls back to Plus Jakarta Sans and system-ui, ensuring consistent proportions across all devices.
 
 What makes Lovable's visual system distinctive is its opacity-driven depth model. Rather than using a traditional gray scale, the system modulates `#1c1c1c` at varying opacities (0.03, 0.04, 0.4, 0.82–0.83) to create a unified tonal range. Every shade of gray on the page is technically the same hue — just more or less transparent. This creates a visual coherence that's nearly impossible to achieve with arbitrary hex values. The border system follows suit: `1px solid #eceae4` for light divisions and `1px solid rgba(28, 28, 28, 0.4)` for stronger interactive boundaries.
 
 **Key Characteristics:**
 - Warm parchment background (`#f7f4ed`) — not white, not beige, a deliberate cream that feels hand-selected
-- Camera Plain Variable typeface with humanist warmth and editorial letter-spacing at display sizes
+- ABC Camera Plain (specifically Camera Plain Variable) as heading and display typeface with humanist warmth and editorial negative tracking (-0.9px to -1.5px)
 - Opacity-driven color system: all grays derived from `#1c1c1c` at varying transparency levels
 - Inset shadow technique on buttons: `rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset`
 - Warm neutral border palette: `#eceae4` for subtle, `rgba(28,28,28,0.4)` for interactive elements
@@ -47,33 +47,87 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 
 ## 3. Typography Rules
 
-### Font Family
-- **Primary**: `Camera Plain Variable`, with fallbacks: `ui-sans-serif, system-ui`
-- **Weight range**: 400 (body/reading), 480 (special display), 600 (headings/emphasis)
-- **Feature**: Variable font with continuous weight axis — allows fine-tuned intermediary weights like 480.
+### Headings Font: ABC Camera Plain (specifically Camera Plain Variable)
+- **Designation**: Primary display and heading typeface across all display elements (`h1` through `h6`, `.font-heading`, and display hero titles).
+- **Typeface Origin**: Designed by Fabian Harb & Sascha Bente, published by Swiss foundry **Dinamo (ABC Dinamo)**.
+- **Format**: Variable Font (`.woff2`) with continuous weight axis (`100 900`).
+- **Font Stack (`--font-heading`)**: `'Camera Plain Variable', 'ABC Camera Plain', 'Camera Plain', var(--font-heading-fallback), var(--font-sans)`
+- **Local Webfont Path**: `/fonts/CameraPlainVariable.woff2` (with OS-level `local()` fallbacks).
+- **Google Font Fallback**: `Plus Jakarta Sans` via Next.js Font Optimization (`--font-heading-fallback`) for matched neo-grotesque geometry and low-bowl double-story 'a'.
+
+### Body & Interface Font: Inter
+- **Designation**: Body copy, inputs, tooltips, cards, buttons, and dense UI surfaces (`--font-sans`).
+- **Font Stack (`--font-sans`)**: `var(--font-sans), ui-sans-serif, system-ui, sans-serif`
+- **Weight range**: 400 (body/reading), 500 (medium UI/buttons).
+- **OpenType Features**: `font-feature-settings: "cv02", "cv03", "cv04", "cv11"` for subtle humanist alternate terminals.
+
+### Monospace Font: Geist Mono
+- **Designation**: Technical selectors, diagnostics, coordinates, and code snippets (`--font-mono`).
+- **Font Stack (`--font-mono`)**: `var(--font-mono), ui-monospace, monospace`
 
 ### Hierarchy
 
-| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
-|------|------|------|--------|-------------|----------------|-------|
-| Display Hero | Camera Plain Variable | 60px (3.75rem) | 600 | 1.00–1.10 (tight) | -1.5px | Maximum impact, editorial |
-| Display Alt | Camera Plain Variable | 60px (3.75rem) | 480 | 1.00 (tight) | normal | Lighter hero variant |
-| Section Heading | Camera Plain Variable | 48px (3.00rem) | 600 | 1.00 (tight) | -1.2px | Feature section titles |
-| Sub-heading | Camera Plain Variable | 36px (2.25rem) | 600 | 1.10 (tight) | -0.9px | Sub-sections |
-| Card Title | Camera Plain Variable | 20px (1.25rem) | 400 | 1.25 (tight) | normal | Card headings |
-| Body Large | Camera Plain Variable | 18px (1.13rem) | 400 | 1.38 | normal | Introductions |
-| Body | Camera Plain Variable | 16px (1.00rem) | 400 | 1.50 | normal | Standard reading text |
-| Button | Camera Plain Variable | 16px (1.00rem) | 400 | 1.50 | normal | Button labels |
-| Button Small | Camera Plain Variable | 14px (0.88rem) | 400 | 1.50 | normal | Compact buttons |
-| Link | Camera Plain Variable | 16px (1.00rem) | 400 | 1.50 | normal | Underline decoration |
-| Link Small | Camera Plain Variable | 14px (0.88rem) | 400 | 1.50 | normal | Footer links |
-| Caption | Camera Plain Variable | 14px (0.88rem) | 400 | 1.50 | normal | Metadata, small text |
+| Role | Font Family | Size | Weight | Line Height | Letter Spacing | Element / Selector |
+|------|-------------|------|--------|-------------|----------------|--------------------|
+| Display Hero | ABC Camera Plain (Variable) | 60px–64px (3.75rem–4.00rem) | 600 | 1.05 (tight) | -1.5px | `h1, .display-hero` |
+| Display Alt | ABC Camera Plain (Variable) | 60px (3.75rem) | 480 | 1.00 (tight) | -1.2px | `.display-alt` |
+| Section Heading | ABC Camera Plain (Variable) | 40px–48px (2.50rem–3.00rem) | 600 | 1.10 (tight) | -1.2px | `h2, .display-section` |
+| Sub-heading | ABC Camera Plain (Variable) | 30px–36px (1.88rem–2.25rem) | 600 | 1.15 (tight) | -0.9px | `h3, .display-subheading` |
+| Card Title | ABC Camera Plain (Variable) | 20px (1.25rem) | 600 | 1.25 (tight) | -0.5px | `CardTitle, h4` |
+| Body Large | Inter (Body Sans) | 18px (1.13rem) | 400 | 1.38 | normal | Hero subheads, intros |
+| Body | Inter (Body Sans) | 16px (1.00rem) | 400 | 1.50 | normal | Standard reading text |
+| Button | Inter (Body Sans) | 15px–16px (1.00rem) | 500 | 1.50 | normal | Button labels |
+| Button Small | Inter (Body Sans) | 13px–14px (0.88rem) | 500 | 1.50 | normal | Compact action buttons |
+| Caption / Meta | Inter (Body Sans) | 12px–14px (0.88rem) | 400 | 1.50 | normal | Metadata, timestamps, status pills |
+| Technical Code | Geist Mono | 11px–12px (0.75rem) | 500 | 1.40 | normal | DOM selectors, viewport diagnostics |
 
 ### Principles
-- **Warm humanist voice**: Camera Plain Variable gives Lovable its approachable personality. The slightly rounded terminals and organic curves contrast with the sharp geometric sans-serifs used by most developer tools.
-- **Variable weight as design tool**: The font supports continuous weight values (e.g., 480), enabling nuanced hierarchy beyond standard weight stops. Weight 480 at 60px creates a display style that feels lighter than semibold but stronger than regular.
-- **Compression at scale**: Headlines use negative letter-spacing (-0.9px to -1.5px) for editorial impact. Body text stays at normal tracking for comfortable reading.
-- **Two weights, clear roles**: 400 (body/UI/links/buttons) and 600 (headings/emphasis). The narrow weight range creates hierarchy through size and spacing, not weight variation.
+- **Warm humanist voice**: ABC Camera Plain gives Annotly its approachable, editorial personality. Its slightly rounded terminals, organic curves, and low-bowl double-story 'a' contrast sharply with cold geometric sans-serifs.
+- **Variable weight as design tool**: The font supports continuous weight values (e.g., 480), enabling nuanced hierarchy beyond standard weight stops.
+- **Compression at scale**: Display headlines use negative letter-spacing (-0.9px to -1.5px) for high-impact editorial presence. Body text remains at standard tracking for effortless reading.
+- **Clear separation of roles**: ABC Camera Plain owns all headings and display expressions; Inter powers functional body text, inputs, and button interfaces.
+
+### Technical Implementation
+
+In `app/globals.css`:
+```css
+@font-face {
+  font-family: 'Camera Plain Variable';
+  src:
+    local('Camera Plain Variable'),
+    local('Camera Plain'),
+    local('ABC Camera Plain'),
+    local('Lovable Labs Incorporated Camera Plain Variable'),
+    url('/fonts/CameraPlainVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-heading: 'Camera Plain Variable', 'ABC Camera Plain', 'Camera Plain', var(--font-heading-fallback), var(--font-sans);
+  --font-sans: var(--font-sans);
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  h1, .display-hero {
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+  }
+  h2, .display-section {
+    letter-spacing: -1.2px;
+    line-height: 1.10;
+  }
+  h3, .display-subheading {
+    letter-spacing: -0.9px;
+    line-height: 1.15;
+  }
+}
+```
 
 ## 4. Component Stylings
 
