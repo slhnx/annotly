@@ -11,14 +11,20 @@ export const metadata: Metadata = {
 export default function ForgotPasswordPage() {
   return (
     <AuthCard
-      title="Reset your password"
-      description="Enter your email address and we'll send you instructions to reset your password."
+      title={
+        <>
+          Reset your
+          <br />
+          password.
+        </>
+      }
+      description="Enter your email address and we'll send you recovery instructions."
       footer={
         <span>
           Remember your password?{" "}
           <Link
             href="/login"
-            className="font-medium text-[#1c1c1c] underline underline-offset-4 hover:opacity-80"
+            className="font-semibold text-[#1c1c1c] underline underline-offset-4 hover:opacity-80"
           >
             Back to sign in
           </Link>

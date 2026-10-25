@@ -2,97 +2,136 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useActionState } from "react"
-import { Loader2, AlertCircle, CheckCircle2, ArrowLeft } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2, AlertCircle, ArrowLeft, MailCheck } from "lucide-react"
+import { forgotPasswordSchema, type ForgotPasswordInput } from "@/lib/auth/validation"
 import { forgotPasswordAction } from "@/app/(auth)/actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 
 export function ForgotPasswordForm() {
-  const [state, formAction, isPending] = useActionState(forgotPasswordAction, null)
+  const [serverError, setServerError] = React.useState<string | null>(null)
+  const [isSuccess, setIsSuccess] = React.useState(false)
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
 
-  if (state?.success) {
+  const form = useForm<ForgotPasswordInput>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: {
+      email: "",
+    },
+  })
+
+  const onSubmit = async (values: ForgotPasswordInput) => {
+    try {
+      setIsSubmitting(true)
+      setServerError(null)
+
+      const formData = new FormData()
+      formData.append("email", values.email)
+
+      const result = await forgotPasswordAction(null, formData)
+      if (result) {
+        if (!result.success && result.error) {
+          setServerError(result.error)
+          setIsSubmitting(false)
+        } else if (result.success) {
+          setIsSuccess(true)
+          setIsSubmitting(false)
+        }
+      }
+    } catch {
+      setIsSubmitting(false)
+      setServerError("Unable to send reset instructions. Please try again.")
+    }
+  }
+
+  if (isSuccess) {
     return (
-      <div className="flex flex-col items-center text-center py-3 space-y-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200">
-          <CheckCircle2 className="h-6 w-6" />
-        </div>
-        <div className="space-y-1.5">
-          <h2 className="font-heading text-lg font-bold text-[#1c1c1c]">
-            Instructions sent
-          </h2>
-          <p className="text-xs text-[#5f5f5d] leading-relaxed max-w-[280px]">
-            {state.message}
+      <div className="space-y-5">
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-5 text-center">
+          <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+            <MailCheck className="h-5 w-5" />
+          </div>
+          <h3 className="font-heading text-sm font-semibold text-emerald-950">
+            Reset email sent
+          </h3>
+          <p className="mt-1.5 text-xs text-emerald-800 leading-relaxed">
+            If an account exists for {form.getValues("email")}, we&apos;ve sent
+            a password reset link. Please check your inbox and spam folder.
           </p>
         </div>
-        <div className="pt-2">
-          <Link
-            href="/login"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1c1c1c] underline underline-offset-4 hover:opacity-80"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back to login
-          </Link>
-        </div>
+
+        <Link
+          href="/login"
+          className="flex items-center justify-center gap-1.5 text-xs font-medium text-[#1c1c1c] underline underline-offset-4 hover:opacity-80"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+          <span>Back to sign in</span>
+        </Link>
       </div>
     )
   }
 
   return (
-    <form action={formAction} className="space-y-4">
-      {state?.error && (
-        <div
-          role="alert"
-          className="flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50/70 p-3 text-xs text-red-800"
-        >
-          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
-          <div className="leading-relaxed">{state.error}</div>
-        </div>
-      )}
-
-      <div className="space-y-1.5">
-        <label
-          htmlFor="email"
-          className="block text-xs font-medium text-[#1c1c1c]"
-        >
-          Work email
-        </label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          placeholder="name@company.com"
-          disabled={isPending}
-          className="h-10 rounded-md border-[#eceae4] bg-[#fcfbf8] text-xs text-[#1c1c1c] placeholder:text-[#5f5f5d]/60 focus-visible:ring-1 focus-visible:ring-[#1c1c1c]"
-        />
-      </div>
-
-      <Button
-        type="submit"
-        disabled={isPending}
-        className="w-full h-10 rounded-md bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70"
-      >
-        {isPending ? (
-          <>
-            <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
-            Sending link...
-          </>
-        ) : (
-          "Send reset instructions"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {serverError && (
+          <div
+            role="alert"
+            className="flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50/70 p-3 text-xs text-red-800"
+          >
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
+            <div className="leading-relaxed">{serverError}</div>
+          </div>
         )}
-      </Button>
 
-      <div className="text-center pt-2">
-        <Link
-          href="/login"
-          className="inline-flex items-center gap-1.5 text-xs text-[#5f5f5d] hover:text-[#1c1c1c] transition-colors"
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-xs font-medium text-[#1c1c1c]">
+                Email address
+              </FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  type="email"
+                  autoComplete="email"
+                  placeholder="name@company.com"
+                  disabled={isSubmitting}
+                  className="h-11 rounded-lg border-[#eceae4] bg-white px-3.5 text-xs text-[#1c1c1c] placeholder:text-[#5f5f5d]/60 focus-visible:ring-1 focus-visible:ring-[#1c1c1c]"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full h-11 rounded-full bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
         >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Back to sign in
-        </Link>
-      </div>
-    </form>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Sending instructions...
+            </>
+          ) : (
+            "Send reset instructions"
+          )}
+        </Button>
+      </form>
+    </Form>
   )
 }
