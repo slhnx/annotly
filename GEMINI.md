@@ -111,6 +111,11 @@ Whenever an inspiration file, design mockup, screenshot, or reference image is p
 1. **Do NOT fully copy:** Treat external designs as conceptual/layout inspiration only. Never copy foreign colors, arbitrary drop shadows, or generic fonts.
 2. **Strictly enforce `DESIGN.md`:** Adapt all structures to Annotly's design system tokens (warm cream `#f7f4ed`, organic charcoal `#1c1c1c`, Bricolage Grotesque headings, Inter body, 1px `#eceae4` containment borders, tactile inset shadows).
 3. **Rephrase content for Annotly:** Never copy third-party, foreign, or placeholder copy verbatim (e.g. personal finance, crypto, fitness). Contextualize and rewrite all headlines, descriptions, button labels, and microcopy specifically for Annotly's website review platform.
+
+### Mandatory User-Controlled Commit Protocol
+- **Do NOT commit after every prompt or conversational turn.**
+- Keep changes in the working tree for review, testing, and rapid iteration.
+- **Only commit when the user explicitly instructs to commit** (e.g. "commit these changes", "commit and push", etc.).
 <!-- GSD:workflow-end -->
 
 <!-- GSD:profile-start -->

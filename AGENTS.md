@@ -465,6 +465,13 @@ Whenever executing a new phase through GSD (e.g. `/gsd-execute-phase <N>`):
 4. **Checkout and Verify Branch:** Confirm you are checked out inside the new phase branch before making any code, design, or documentation modifications.
 5. **Implement and Commit on Phase Branch:** All plan tasks, code changes, and verification summaries for that phase must be committed and pushed to this dedicated phase branch.
 
+### 16.2 User-Controlled Commit Protocol (Mandatory)
+
+- **Do NOT commit after every prompt or conversational turn.**
+- Keep changes in the working tree for review, testing, and rapid iteration.
+- **Only commit when the user explicitly instructs to commit** (e.g. "commit these changes", "commit and push", etc.).
+- Never run automatic commits or git pushes after minor tweaks, UI feedback, or prompt answers unless explicitly instructed by the user.
+
 When a change affects architecture or multiple features, summarize its scope and reasoning.
 
 ---
