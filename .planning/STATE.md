@@ -5,38 +5,45 @@
 See: .planning/PROJECT.md (updated 2026-10-25)
 
 **Core value:** Frictionless, zero-install visual review loop where anyone with a review link can point, click on any website element, and leave an anchored, context-rich comment that stays aligned across viewports and devices.
-**Current focus:** Phase 2: Authentication, Database & Project Permissions
+**Current focus:** Phase 3: Authentication UI, Supabase Auth & Account Lifecycle
 
 ## Current Position
 
-Phase: 2 of 7 (Authentication, Database & Project Permissions)
-Plan: 0 of 3 in current phase
+Phase: 3 of 14 (Authentication UI, Supabase Auth & Account Lifecycle)
+Plan: 0 of 5 in current phase
 Status: Ready to plan
-Last activity: 2026-10-25 — Phase 1 completed (Foundation, Design System & Landing Page)
+Last activity: 2026-10-25 — Phase 1 & 2 completed; Roadmap restructured into 14 vertical-slice phases
 
-Progress: [██░░░░░░░░] 15%
+Progress: [██░░░░░░░░] 14% (2 of 14 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 27 min
-- Total execution time: 1.3 hours
+- Total plans completed: 10
+- Average duration: 10 min
+- Total execution time: 1.7 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 1. Foundation, Design System & Landing Page | 3/3 | 80m | 27m |
-| 2. Authentication, Database & Project Permissions | 0/3 | - | - |
-| 3. Reverse Proxy & Injected Client Bridge | 0/3 | - | - |
-| 4. Visual Pin Placement & Coordinate Alignment | 0/3 | - | - |
-| 5. Comment Persistence, Threading & Resolution | 0/3 | - | - |
-| 6. Review Canvas UI, Responsive Viewports & Triaging Sidebar | 0/3 | - | - |
-| 7. End-to-End Verification, Security Hardening & Polish | 0/2 | - | - |
+|---|---:|---|---|
+| 1. Repository Foundation, Design System & Shared UI | 5/5 | 40m | 8m |
+| 2. Public Marketing Site & Landing Page | 5/5 | 60m | 12m |
+| 3. Authentication UI, Supabase Auth & Account Lifecycle | 0/5 | - | - |
+| 4. App Shell, Dashboard UI & Project Management | 0/6 | - | - |
+| 5. Project Creation Flow & Project Settings | 0/5 | - | - |
+| 6. Database Model, Ownership & Permission Enforcement | 0/4 | - | - |
+| 7. Review Canvas Shell & Responsive Website Viewports | 0/5 | - | - |
+| 8. Secure Website Proxy & Injected Client Bridge | 0/7 | - | - |
+| 9. Visual Pin Placement & Coordinate Alignment | 0/6 | - | - |
+| 10. Comment Composer, Guest Identity & Screenshot Metadata | 0/6 | - | - |
+| 11. Comment Threads, Resolution & Triage UI | 0/7 | - | - |
+| 12. Settings, Profile, Team/Sharing Controls & Preferences | 0/7 | - | - |
+| 13. Notifications, Feedback States & Product-Wide UX Polish | 0/6 | - | - |
+| 14. Security, Automated Testing, Accessibility & Release Readiness | 0/6 | - | - |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (15m), 01-02 (20m), 01-03 (45m)
+- Last 5 plans: 02-01, 02-02, 02-03, 02-04, 02-05
 - Trend: Fast & Stable
 
 *Updated after each plan completion*
@@ -55,7 +62,8 @@ Recent decisions affecting current work:
 - [Phase 1]: Zod runtime environment schema validation implemented in `lib/env.ts` with `.env.example`.
 - [Phase 1]: Bricolage Grotesque configured as display font with tight negative letter-spacing (-1.5px, -1.2px, -0.9px).
 - [Phase 1]: Tactile button inset shadow and 12px cream cards customized across all 12 core shadcn primitives.
-- [Phase 1]: Editorial marketing landing page implemented with interactive canvas demo, concise feature cards with bottom-overflowing mockups, and monumental studio footer.
+- [Phase 2]: Editorial marketing landing page implemented with interactive canvas demo, concise feature cards with bottom-overflowing mockups, and monumental studio footer.
+- [Roadmap Restructure]: Reorganized roadmap into 14 user-visible vertical slices (UI + logic + persistence + tests).
 
 ### Pending Todos
 
@@ -75,6 +83,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-25 23:55
-Stopped at: Phase 1 complete, verified with 0 typecheck/lint errors and production build; ready for Phase 2
+Last session: 2026-10-25 23:58
+Stopped at: Phase 1 & 2 complete, roadmap aligned to 14 phases; ready for Phase 3 (Authentication UI, Supabase Auth & Account Lifecycle)
 Resume file: None

@@ -12,17 +12,23 @@ The single most critical capability of Annotly is the frictionless, zero-install
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] **Phase 1: Repository Foundation, Design System & Shared UI:** Clean repo structure, strict TypeScript config, validated environment schema (`lib/env.ts`), warm cream & charcoal design system (`DESIGN.md`), custom shadcn/ui primitives, and shared utilities.
+- [x] **Phase 2: Public Marketing Site & Landing Page:** High-conversion editorial landing page inspired by luxury studios, interactive review canvas demonstration mockup, concise story progression, soft accent feature cards with overflowing device frames, and monumental studio footer.
 
 ### Active
 
-- [ ] **Phase 1: Foundation, Design System & Landing Page:** Clean repo structure, strict TypeScript config, validated environment schema, warm cream & charcoal design system (`DESIGN.md`), and marketing landing page.
-- [ ] **Phase 2: Authentication, Database & Project Permissions:** Supabase Auth (email/password signup, login, session cookies) paired with PostgreSQL database and Prisma ORM models (`User`, `Project`, `Canvas`, `Annotation`, `AnnotationReply`).
-- [ ] **Phase 3: Reverse Proxy & Injected Client Bridge:** Next.js Route Handler reverse proxy that strips `X-Frame-Options` and CSP framing headers, enforces strict SSRF protections, and injects `annotly-bridge.js` with type-safe `postMessage` protocol (Comment Mode vs Browse Mode with `Alt+C`).
-- [ ] **Phase 4: Visual Pin Placement & Coordinate Alignment:** Element-relative percentage offset math ($OffsetX, OffsetY$) and resilient 5-tier CSS selector generation, with `ResizeObserver` and scroll synchronizer to prevent pin drift.
-- [ ] **Phase 5: Comment Persistence, Threading & Resolution:** Zero-friction guest reviewer capture (inline name/email modal), comment creation with client-side viewport screenshot capture, threaded replies, and `active`/`resolved` status lifecycle.
-- [ ] **Phase 6: Review Canvas UI, Responsive Viewports & Triaging Sidebar:** Canvas host interface at `/review/[canvasId]` with permanent shareable links, responsive device switcher (Desktop, Tablet, Mobile), sliding triage sidebar with instant search and status filters, and device metadata badges.
-- [ ] **Phase 7: End-to-End Verification, Security Hardening & Polish:** Comprehensive test coverage, SSRF and auth permission security auditing, rate limiting, and performance optimization.
+- [ ] **Phase 3: Authentication UI, Supabase Auth & Account Lifecycle:** Sign-up, sign-in, and sign-out UI, SSR session cookie handling, protected routes, and auth error recovery.
+- [ ] **Phase 4: App Shell, Dashboard UI & Project Management:** Authenticated application shell, project dashboard overview, project cards, and project CRUD actions.
+- [ ] **Phase 5: Project Creation Flow & Project Settings:** New project creation flow, target URL validation, project detail view, and settings management.
+- [ ] **Phase 6: Database Model, Ownership & Permission Enforcement:** Prisma ORM schema (`User`, `Project`, `Canvas`, `Annotation`, `AnnotationReply`), database migrations, typed service layer, and ownership authorization guards.
+- [ ] **Phase 7: Review Canvas Shell & Responsive Website Viewports:** Review canvas host layout at `/review/[canvasId]`, responsive viewport switcher (Desktop, Tablet 768px, Mobile 375px), and toolbar mode toggles.
+- [ ] **Phase 8: Secure Website Proxy & Injected Client Bridge:** Next.js Route Handler reverse proxy with strict SSRF defense, framing header removal, HTML asset rewriting, and `annotly-bridge.js` postMessage bus.
+- [ ] **Phase 9: Visual Pin Placement & Coordinate Alignment:** Element-relative percentage offset math, 5-tier resilient CSS selector generation, hover targeting box, and `ResizeObserver`/scroll synchronizer.
+- [ ] **Phase 10: Comment Composer, Guest Identity & Screenshot Metadata:** Zero-friction guest reviewer modal, comment composer, client-side in-frame viewport screenshot capture, and metadata collection.
+- [ ] **Phase 11: Comment Threads, Resolution & Triage UI:** Pin-anchored threaded discussion popovers, sliding triage sidebar with instant search and status filters, and active/resolved lifecycle.
+- [ ] **Phase 12: Settings, Profile, Team/Sharing Controls & Preferences:** Account profile settings, password/email security, review share-link management, and user preferences.
+- [ ] **Phase 13: Notifications, Feedback States & Product-Wide UX Polish:** Loading, empty, error, and recovery states across all routes, accessibility and responsive audit, and performance tuning.
+- [ ] **Phase 14: Security, Automated Testing, Accessibility & Release Readiness:** End-to-end integration tests, SSRF and permission security auditing, rate limiting, and production release gates.
 
 ### Out of Scope
 
