@@ -9,7 +9,6 @@ import { FeatureShowcase } from "@/components/landing/feature-showcase"
 import { BeforeAfter } from "@/components/landing/before-after"
 import { UseCases } from "@/components/landing/use-cases"
 import { GettingStarted } from "@/components/landing/getting-started"
-import { TrustSecurity } from "@/components/landing/trust-security"
 import { FaqSection } from "@/components/landing/faq-section"
 import { FinalCta } from "@/components/landing/final-cta"
 import { Footer } from "@/components/landing/footer"
@@ -54,17 +53,14 @@ export default function HomePage() {
         {/* 8. 3 Steps to Getting Started */}
         <GettingStarted />
 
-        {/* 9. Trust, Reverse Proxy Architecture & Security */}
-        <TrustSecurity />
-
-        {/* 10. Frequently Asked Questions (Accessible Accordion) */}
+        {/* 9. Frequently Asked Questions (Accessible Accordion) */}
         <FaqSection />
 
-        {/* 11. Final Conversion-Focused Call to Action */}
+        {/* 10. Final Conversion-Focused Call to Action */}
         <FinalCta onStartReview={scrollToHeroCta} />
       </main>
 
-      {/* 12. Footer */}
+      {/* 11. Footer */}
       <Footer />
     </div>
   )

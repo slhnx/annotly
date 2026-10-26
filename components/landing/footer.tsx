@@ -25,10 +25,10 @@ export function Footer() {
   }
 
   return (
-    <footer className="w-full bg-background px-4 sm:px-6 lg:px-8 pt-10 pb-6 border-t border-border">
-      <div className="max-w-[1360px] mx-auto">
+    <footer className="w-full bg-background px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-8 sm:pt-10 pb-6 border-t border-border">
+      <div className="w-full max-w-[1760px] mx-auto">
         {/* Main Inset Card Container with Primary Color Background & Grain */}
-        <div className="relative rounded-[28px] sm:rounded-[36px] bg-[#1c1c1c] text-[#fcfbf8] overflow-hidden p-8 sm:p-12 lg:p-16 pb-0 sm:pb-0 lg:pb-0 border-0 shadow-none flex flex-col justify-between">
+        <div className="relative rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] bg-[#1c1c1c] text-[#fcfbf8] overflow-hidden p-8 sm:p-12 lg:p-16 pb-0 sm:pb-0 lg:pb-0 border-0 shadow-none flex flex-col justify-between">
           {/* Subtle Tactile Noisy Grain Texture Overlay */}
           <div
             className="absolute inset-0 pointer-events-none opacity-[0.07] mix-blend-overlay z-0"
@@ -41,7 +41,7 @@ export function Footer() {
           <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/[0.03] blur-3xl pointer-events-none" />
 
           {/* Top Columns Grid */}
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-start">
             {/* Left Column: Let's talk & Direct Email */}
             <div className="md:col-span-5 space-y-3">
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-1.2px] text-[#fcfbf8] leading-tight">
@@ -65,7 +65,7 @@ export function Footer() {
                   )}
                 </button>
               </div>
-              <p className="text-xs sm:text-sm text-[#eceae4]/60 pt-2 max-w-sm leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#eceae4]/60 pt-2 max-w-sm sm:max-w-md leading-relaxed">
                 Have questions about custom agency deployments, reverse proxy hardening, or integrations? We&apos;d love to chat.
               </p>
             </div>
@@ -136,12 +136,12 @@ export function Footer() {
               <div className="font-mono text-xs uppercase tracking-wider text-[#b8b5ac] mb-2 font-semibold">
                 Newsletter
               </div>
-              <p className="text-xs sm:text-sm text-[#eceae4]/70 leading-relaxed max-w-sm">
+              <p className="text-xs sm:text-sm text-[#eceae4]/70 leading-relaxed max-w-sm sm:max-w-md">
                 Sign up for our newsletter about designing visual review loops that keep teams moving.
               </p>
 
               {/* Minimalist Single-Line Form */}
-              <form onSubmit={handleNewsletter} className="pt-3 max-w-sm">
+              <form onSubmit={handleNewsletter} className="pt-3 max-w-sm sm:max-w-md">
                 <div className="relative border-b border-[#eceae4]/30 pb-2.5 flex items-center justify-between group focus-within:border-white transition-colors">
                   <input
                     type="email"
@@ -176,7 +176,7 @@ export function Footer() {
           <div className="relative z-10 w-full select-none pointer-events-none overflow-hidden pt-16 sm:pt-24 lg:pt-32">
             <svg
               viewBox="0 0 1000 200"
-              className="w-full h-auto max-h-[260px] translate-y-2 sm:translate-y-3"
+              className="w-full h-auto max-h-[300px] lg:max-h-[360px] xl:max-h-[440px] translate-y-2 sm:translate-y-3 lg:translate-y-4"
               preserveAspectRatio="xMidYBottom meet"
             >
               <text
@@ -194,7 +194,7 @@ export function Footer() {
         </div>
 
         {/* Outer Bottom Margin Bar (Sitting on Warm Cream Background) */}
-        <div className="mt-5 px-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs font-mono text-muted-foreground uppercase tracking-wider">
+        <div className="mt-5 px-2 sm:px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs font-mono text-muted-foreground uppercase tracking-wider">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-foreground/80">&copy;ANNOTLY</span>
             <span>{new Date().getFullYear()}</span>
