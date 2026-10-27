@@ -151,24 +151,24 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 **Depends on:** Phases 1 and 3. Use typed mock data initially if the database work in Phase 6 is not ready.
 
 ### Plans
-- [ ] **04-01 — Authenticated application shell**
+- [x] **04-01 — Authenticated application shell**
   - Create the shared dashboard layout, sidebar/top navigation, responsive mobile navigation, content container, account menu, and page title/breadcrumb pattern.
   - Include active navigation state and keyboard-accessible collapse/mobile controls.
-- [ ] **04-02 — Dashboard overview UI**
+- [x] **04-02 — Dashboard overview UI**
   - Design the overview with a clear primary “new project” action, project/review summary cards only for available metrics, recent projects/activity, and helpful onboarding guidance.
   - Define loading skeleton, first-run empty state, populated state, and error/retry state.
-- [ ] **04-03 — Projects list UI**
+- [x] **04-03 — Projects list UI**
   - Build project cards or rows with site name, URL, status, last activity, and actions that are supported by the data model.
   - Add search, sorting, and filtering only where they have clear behavior.
   - Implement menus, delete confirmation, and visible action feedback.
-- [ ] **04-04 — Project CRUD services and persistence**
+- [x] **04-04 — Project CRUD services and persistence**
   - Add typed server actions/route handlers/service functions consistent with `AGENTS.md`.
   - Persist project creation, listing, editing, and deletion using the approved database layer.
   - Validate all input on the server and verify project ownership for every operation.
-- [ ] **04-05 — Connect dashboard to real data**
+- [x] **04-05 — Connect dashboard to real data**
   - Replace mocks with server data and add refresh/revalidation behavior.
   - Handle empty projects, partial data, API failure, and deleted projects.
-- [ ] **04-06 — Dashboard QA**
+- [x] **04-06 — Dashboard QA**
   - Verify responsive layouts, menu/dialog behavior, sorting/search if implemented, and authorization tests.
 
 ### Acceptance criteria
@@ -516,7 +516,7 @@ A phase is complete only when all applicable items below are true:
 | 1. Repository Foundation, Design System & Shared UI | 5/5 | Complete |
 | 2. Public Marketing Site & Landing Page | 5/5 | Complete |
 | 3. Authentication UI, Supabase Auth & Account Lifecycle | 5/5 | Complete |
-| 4. App Shell, Dashboard UI & Project Management | 0/6 | Not started |
+| 4. App Shell, Dashboard UI & Project Management | 6/6 | Complete |
 | 5. Project Creation Flow & Project Settings | 0/5 | Not started |
 | 6. Database Model, Ownership & Permission Enforcement | 0/4 | Not started |
 | 7. Review Canvas Shell & Responsive Website Viewports | 0/5 | Not started |
