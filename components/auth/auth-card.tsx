@@ -18,11 +18,11 @@ export function AuthCard({
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="space-y-2">
-        <h2 className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-[#1c1c1c] leading-[1.12]">
+        <h2 className="font-heading text-3xl leading-[1.12] font-bold tracking-tight text-foreground sm:text-4xl">
           {title}
         </h2>
         {description && (
-          <p className="text-xs sm:text-sm text-[#5f5f5d] leading-relaxed">
+          <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
             {description}
           </p>
         )}
@@ -31,7 +31,7 @@ export function AuthCard({
       <div className="space-y-4">{children}</div>
 
       {footer && (
-        <div className="pt-2 text-center text-xs text-[#5f5f5d]">
+        <div className="pt-2 text-center text-xs text-muted-foreground">
           {footer}
         </div>
       )}

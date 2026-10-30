@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@variant dark (&:where(.dark, :is(.dark *)));
 
 @theme inline {
   --font-heading: var(--font-heading), 'Bricolage Grotesque', sans-serif;
@@ -24,6 +24,15 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-border-interactive: var(--border-interactive);
+  --color-success-foreground: var(--success-foreground);
+  --color-success: var(--success);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning: var(--warning);
+  --color-info-foreground: var(--info-foreground);
+  --color-info: var(--info);
+  --color-inverse-foreground: var(--inverse-foreground);
+  --color-inverse: var(--inverse);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-accent-foreground: var(--accent-foreground);
@@ -46,8 +55,9 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-pill: 9999px;
-  --shadow-button-inset: rgba(255, 255, 255, 0.2) 0px 0.5px 0px 0px inset, rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px inset, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-  --shadow-focus: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  --shadow-button-inset: var(--shadow-button-inset-value);
+  --shadow-focus: var(--shadow-focus-value);
+  --shadow-card: var(--shadow-card-value);
 }
 
 :root {
@@ -56,9 +66,9 @@
   --foreground: #1c1c1c;
 
   /* Surfaces & Cards */
-  --card: #f7f4ed;
+  --card: #fcfbf8;
   --card-foreground: #1c1c1c;
-  --popover: #f7f4ed;
+  --popover: #fcfbf8;
   --popover-foreground: #1c1c1c;
 
   /* Primary Dark Button */
@@ -77,6 +87,18 @@
   --destructive: #dc2626;
   --destructive-foreground: #fcfbf8;
 
+  /* Status (use with opacity, e.g. bg-success/10 text-success) */
+  --success: #15803d;
+  --success-foreground: #fcfbf8;
+  --warning: #b45309;
+  --warning-foreground: #fcfbf8;
+  --info: #1d4ed8;
+  --info-foreground: #fcfbf8;
+
+  /* Always-dark brand surface (auth panel, CTA, footer) */
+  --inverse: #1c1c1c;
+  --inverse-foreground: #fcfbf8;
+
   /* Borders & Dividers */
   --border: #eceae4;
   --input: #eceae4;
@@ -84,6 +106,11 @@
 
   /* Focus Ring */
   --ring: rgba(59, 130, 246, 0.5);
+
+  /* Elevation (see DESIGN.md) */
+  --shadow-button-inset-value: rgba(255, 255, 255, 0.2) 0px 0.5px 0px 0px inset, rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px inset, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  --shadow-focus-value: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  --shadow-card-value: rgba(28, 28, 28, 0.04) 0px 1px 3px 0px;
 
   /* Radius (Standard 6px) */
   --radius: 0.375rem;
@@ -107,6 +134,8 @@
 }
 
 .dark {
+  color-scheme: dark;
+
   --background: #141413;
   --foreground: #f7f4ed;
 
@@ -125,14 +154,28 @@
   --accent: #242321;
   --accent-foreground: #f7f4ed;
 
-  --destructive: #ef4444;
-  --destructive-foreground: #fcfbf8;
+  --destructive: #f87171;
+  --destructive-foreground: #141413;
+
+  --success: #4ade80;
+  --success-foreground: #141413;
+  --warning: #fbbf24;
+  --warning-foreground: #141413;
+  --info: #60a5fa;
+  --info-foreground: #141413;
+
+  --inverse: #1f1e1c;
+  --inverse-foreground: #f7f4ed;
 
   --border: rgba(236, 234, 228, 0.15);
   --input: rgba(236, 234, 228, 0.15);
   --border-interactive: rgba(236, 234, 228, 0.4);
 
-  --ring: rgba(59, 130, 246, 0.6);
+  --ring: rgba(96, 165, 250, 0.6);
+
+  --shadow-button-inset-value: rgba(255, 255, 255, 0.35) 0px 0.5px 0px 0px inset, rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px inset, rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+  --shadow-focus-value: rgba(0, 0, 0, 0.5) 0px 4px 12px;
+  --shadow-card-value: rgba(0, 0, 0, 0.3) 0px 1px 3px 0px;
 
   --sidebar: #141413;
   --sidebar-foreground: #f7f4ed;
@@ -141,7 +184,13 @@
   --sidebar-accent: #242321;
   --sidebar-accent-foreground: #f7f4ed;
   --sidebar-border: rgba(236, 234, 228, 0.15);
-  --sidebar-ring: rgba(59, 130, 246, 0.6);
+  --sidebar-ring: rgba(96, 165, 250, 0.6);
+
+  --chart-1: #f7f4ed;
+  --chart-2: #b8b5ac;
+  --chart-3: #8a8883;
+  --chart-4: #5f5f5d;
+  --chart-5: #3a3936;
 }
 
 @layer base {
@@ -149,7 +198,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-neutral-900 selection:text-neutral-50;
+    @apply bg-background text-foreground antialiased selection:bg-primary selection:text-primary-foreground;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
   html {

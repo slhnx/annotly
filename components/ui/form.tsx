@@ -90,7 +90,7 @@ function FormLabel({
   return (
     <Label
       data-slot="form-label"
-      className={cn(error && "text-red-600 font-medium", className)}
+      className={cn(error && "text-destructive font-medium", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -116,7 +116,7 @@ function FormControl({ ...props }: React.ComponentProps<"div">) {
       className: cn(
         child.props.className,
         error &&
-          "border-red-500! focus-visible:ring-red-500/20! focus-visible:border-red-500! bg-red-50/20 text-red-950"
+          "border-destructive! focus-visible:ring-destructive/20! focus-visible:border-destructive! bg-destructive/5"
       ),
     })
   }
@@ -143,7 +143,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn("text-[11px] text-[#5f5f5d]", className)}
+      className={cn("text-[11px] text-muted-foreground", className)}
       {...props}
     />
   )
@@ -163,12 +163,12 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
       id={formMessageId}
       role="alert"
       className={cn(
-        "text-[12px] font-medium text-red-600 mt-1.5 flex items-center gap-1.5 leading-tight animate-in fade-in-50 duration-150",
+        "text-[12px] font-medium text-destructive mt-1.5 flex items-center gap-1.5 leading-tight animate-in fade-in-50 duration-150",
         className
       )}
       {...props}
     >
-      <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-600 shrink-0" />
+      <span className="inline-block h-1.5 w-1.5 rounded-full bg-destructive shrink-0" />
       <span>{body}</span>
     </p>
   )
