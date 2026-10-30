@@ -221,7 +221,7 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
   - Define and relate `User`, `Project`, `Canvas`, `Annotation`, and `AnnotationReply` according to actual product requirements.
   - Add ownership, timestamps, indexes, status fields, and unique identifiers where required.
   - Avoid storing duplicate or sensitive data without a clear purpose.
-- [ ] **06-03 — Data access layer**
+- [x] **06-03 — Data access layer**
   - Implement typed repository/service functions and shared input schemas.
   - Centralize authorization and consistent error handling.
 - [ ] **06-04 — Permission matrix and adversarial tests**
