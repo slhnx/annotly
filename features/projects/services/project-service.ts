@@ -142,13 +142,24 @@ export class ProjectService {
 
     const projectId = generateId("prj")
     const canvasId = generateId("cnv")
+    const normalizedUrl = sanitizeUrl(input.websiteUrl)
+
+    // Ensure user record exists for relational foreign key integrity
+    await prisma.user.upsert({
+      where: { id: userId },
+      update: {},
+      create: {
+        id: userId,
+        email: `${userId}@annotly.local`,
+      },
+    })
 
     const record = await prisma.project.create({
       data: {
         id: projectId,
         userId,
         name: trimmedName,
-        websiteUrl: sanitizeUrl(input.websiteUrl),
+        websiteUrl: normalizedUrl,
         description: input.description?.trim() || null,
         status: "active",
         reviewAccess: input.reviewAccess || "public",
@@ -158,6 +169,15 @@ export class ProjectService {
         openComments: 0,
         resolvedComments: 0,
         lastActivityAt: new Date(),
+        canvases: {
+          create: {
+            id: canvasId,
+            token: canvasId,
+            name: "Initial Review Canvas",
+            url: normalizedUrl,
+            reviewAccess: input.reviewAccess || "public",
+          },
+        },
       },
     })
 
@@ -272,6 +292,15 @@ export class ProjectService {
       where: { id: projectId },
       data: {
         reviewCanvasId: canvasId,
+        canvases: {
+          create: {
+            id: canvasId,
+            token: canvasId,
+            name: "Regenerated Review Canvas",
+            url: existing.websiteUrl,
+            reviewAccess: existing.reviewAccess,
+          },
+        },
       },
     })
 
@@ -389,6 +418,10 @@ export class ProjectService {
    * Helper method for testing: clear the store in database.
    */
   static async _clearStore(): Promise<void> {
+    await prisma.annotationReply.deleteMany({})
+    await prisma.annotation.deleteMany({})
+    await prisma.canvas.deleteMany({})
     await prisma.project.deleteMany({})
+    await prisma.user.deleteMany({})
   }
 }
