@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-10-25)
 
 **Core value:** Frictionless, zero-install visual review loop where anyone with a review link can point, click on any website element, and leave an anchored, context-rich comment that stays aligned across viewports and devices.
-**Current focus:** Phase 4: App Shell, Dashboard UI & Project Management
+**Current focus:** Phase 5: Project Creation Flow & Project Settings
 
 ## Current Position
 
-Phase: 4 of 14 (App Shell, Dashboard UI & Project Management)
-Plan: 6 of 6 in current phase
-Status: Complete (Phase 4 complete and verified)
-Last activity: 2026-10-27 — Phase 4 implemented, verified with 18 automated tests and Next.js production build
+Phase: 5 of 14 (Project Creation Flow & Project Settings)
+Plan: 0 of 5 in current phase (planned, ready to execute)
+Status: Planned (05-01 through 05-05 created)
+Last activity: 2026-10-30 — Refactored UI for dark mode, shadcn primitives, semantic tokens, and modular components; created Phase 5 plans (05-01 to 05-05)
 
 Progress: [████░░░░░░] 29% (4 of 14 phases complete)
 
