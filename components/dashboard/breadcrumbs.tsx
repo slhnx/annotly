@@ -35,7 +35,9 @@ export function DashboardBreadcrumbs() {
         {segments.map((segment, index) => {
           const path = `/${segments.slice(0, index + 1).join("/")}`
           const isLast = index === segments.length - 1
-          const label = ROUTE_LABELS[segment] || segment.replace(/-/g, " ")
+          const label =
+            ROUTE_LABELS[segment] ||
+            (segment.startsWith("prj_") ? "Project" : segment.replace(/-/g, " "))
 
           return (
             <li key={path} className="flex items-center space-x-1.5">

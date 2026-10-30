@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Globe, MessageSquare } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -27,7 +28,12 @@ export function ProjectCard({ project, onEdit, onDelete }: ProjectCardProps) {
 
         <div className="mt-3">
           <h3 className="truncate font-heading text-base font-bold text-foreground">
-            {project.name}
+            <Link
+              href={`/dashboard/projects/${project.id}`}
+              className="hover:underline hover:text-foreground"
+            >
+              {project.name}
+            </Link>
           </h3>
           <p className="mt-1 line-clamp-2 min-h-8 text-xs text-muted-foreground">
             {project.description || "No description provided."}

@@ -31,7 +31,7 @@ export function TopNav({ user }: TopNavProps) {
           size="sm"
           className="gap-1.5"
           nativeButton={false}
-          render={<Link href="/dashboard/projects?action=new" />}
+          render={<Link href="/dashboard/projects/new" />}
         >
           <Plus className="size-3.5" />
           <span className="hidden sm:inline">New Project</span>

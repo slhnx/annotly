@@ -13,18 +13,19 @@ export interface ProjectFormValues {
 
 export interface ProjectFormResult {
   success: boolean
+  data?: Project
   error?: string
   fieldErrors?: Record<string, string[]>
 }
 
 interface UseProjectFormOptions {
-  open: boolean
+  open?: boolean
   initialData?: Project | null
   onSubmit: (values: ProjectFormValues) => Promise<ProjectFormResult>
-  onSuccess: () => void
+  onSuccess?: (project?: Project) => void
 }
 
-export function useProjectForm({ open, initialData, onSubmit, onSuccess }: UseProjectFormOptions) {
+export function useProjectForm({ open = true, initialData, onSubmit, onSuccess }: UseProjectFormOptions) {
   const isEditing = Boolean(initialData)
 
   const [name, setName] = React.useState(initialData?.name ?? "")
@@ -81,7 +82,7 @@ export function useProjectForm({ open, initialData, onSubmit, onSuccess }: UsePr
       })
 
       if (result.success) {
-        onSuccess()
+        onSuccess?.(result.data)
         return
       }
       if (result.fieldErrors) setFieldErrors(result.fieldErrors)

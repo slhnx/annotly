@@ -38,7 +38,7 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 - [x] **Phase 2: Public Marketing Site & Landing Page**
 - [x] **Phase 3: Authentication UI, Supabase Auth & Account Lifecycle**
 - [x] **Phase 4: App Shell, Dashboard UI & Project Management**
-- [ ] **Phase 5: Project Creation Flow & Project Settings**
+- [x] **Phase 5: Project Creation Flow & Project Settings**
 - [ ] **Phase 6: Database Model, Ownership & Permission Enforcement**
 - [ ] **Phase 7: Review Canvas Shell & Responsive Website Viewports**
 - [ ] **Phase 8: Secure Website Proxy & Injected Client Bridge**
@@ -184,21 +184,21 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 **Depends on:** Phase 4.
 
 ### Plans
-- [ ] **05-01 — New project flow UI**
+- [x] **05-01 — New project flow UI**
   - Build a dedicated page or dialog consistent with the design system.
   - Collect and validate project name and target website URL.
   - Explain URL requirements and show field-level validation.
   - Include submitting, success, and recoverable error states.
-- [ ] **05-02 — Project creation integration**
+- [x] **05-02 — Project creation integration**
   - Persist the project, normalize and validate the URL, and enforce ownership.
   - Handle duplicate or invalid project data with useful messages.
-- [ ] **05-03 — Project detail/overview page**
+- [x] **05-03 — Project detail/overview page**
   - Build a project-specific overview with site identity, target URL, review link/status, latest comments/activity when available, and a primary action to open the review canvas.
   - Provide a not-found/unauthorized state that does not leak project existence.
-- [ ] **05-04 — Project settings view**
+- [x] **05-04 — Project settings view**
   - Add project name and URL editing, copy-share-link action when available, destructive delete action with confirmation, and any supported review access controls.
   - Clearly separate saved and unsaved changes; prevent accidental navigation loss when applicable.
-- [ ] **05-05 — Project lifecycle verification**
+- [x] **05-05 — Project lifecycle verification**
   - Test create, open, edit, delete, invalid URL, unauthorized mutation, and stale/deleted project paths.
 
 ### Acceptance criteria
@@ -517,7 +517,7 @@ A phase is complete only when all applicable items below are true:
 | 2. Public Marketing Site & Landing Page | 5/5 | Complete |
 | 3. Authentication UI, Supabase Auth & Account Lifecycle | 5/5 | Complete |
 | 4. App Shell, Dashboard UI & Project Management | 6/6 | Complete |
-| 5. Project Creation Flow & Project Settings | 0/5 | Not started |
+| 5. Project Creation Flow & Project Settings | 5/5 | Complete |
 | 6. Database Model, Ownership & Permission Enforcement | 0/4 | Not started |
 | 7. Review Canvas Shell & Responsive Website Viewports | 0/5 | Not started |
 | 8. Secure Website Proxy & Injected Client Bridge | 0/7 | Not started |

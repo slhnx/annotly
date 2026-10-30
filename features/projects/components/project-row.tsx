@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Globe, MessageSquare } from "lucide-react"
 import { ProjectActionsMenu } from "./project-actions-menu"
 import { OpenCanvasButton, ShareLinkButton } from "./project-link-buttons"
@@ -20,7 +21,12 @@ export function ProjectRow({ project, onEdit, onDelete }: ProjectRowProps) {
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <h3 className="truncate font-heading text-sm font-semibold text-foreground">
-            {project.name}
+            <Link
+              href={`/dashboard/projects/${project.id}`}
+              className="hover:underline hover:text-foreground"
+            >
+              {project.name}
+            </Link>
           </h3>
           <ProjectStatusBadge status={project.status} />
         </div>

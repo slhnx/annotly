@@ -1,0 +1,45 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum ProjectStatus {
+  active
+  in_review
+  completed
+  archived
+}
+
+enum ReviewAccess {
+  public
+  paused
+}
+
+model Project {
+  id             String        @id @default(cuid())
+  userId         String        @map("user_id")
+  name           String
+  websiteUrl     String        @map("website_url")
+  description    String?
+  status         ProjectStatus @default(active)
+  reviewAccess   ReviewAccess  @default(public) @map("review_access")
+  reviewCanvasId String        @unique @map("review_canvas_id")
+
+  // Rollup activity & triage summary metrics
+  activeReviews    Int      @default(1) @map("active_reviews")
+  totalComments    Int      @default(0) @map("total_comments")
+  openComments     Int      @default(0) @map("open_comments")
+  resolvedComments Int      @default(0) @map("resolved_comments")
+  lastActivityAt   DateTime @default(now()) @map("last_activity_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("projects")
+}

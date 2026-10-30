@@ -1,6 +1,7 @@
 "use client"
 
-import { ExternalLink, MoreVertical, Pencil, Trash2 } from "lucide-react"
+import Link from "next/link"
+import { ExternalLink, LayoutDashboard, MoreVertical, Pencil, Settings, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -25,10 +26,22 @@ export function ProjectActionsMenu({ project, onEdit, onDelete }: ProjectActions
       >
         <MoreVertical />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-44">
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuItem
+          render={<Link href={`/dashboard/projects/${project.id}`} />}
+        >
+          <LayoutDashboard />
+          <span>Overview</span>
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => onEdit(project)}>
           <Pencil />
-          <span>Edit Project</span>
+          <span>Quick Edit</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          render={<Link href={`/dashboard/projects/${project.id}/settings`} />}
+        >
+          <Settings />
+          <span>Project Settings</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           render={
