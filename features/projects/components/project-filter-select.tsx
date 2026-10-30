@@ -38,7 +38,6 @@ export function ProjectFilterSelect<T extends string>({
     >
       <SelectTrigger
         id={id}
-        size="sm"
         aria-label={ariaLabel}
         className={cn("h-9 text-xs font-medium", className)}
       >

@@ -37,7 +37,7 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 - [x] **Phase 1: Repository Foundation, Design System & Shared UI**
 - [x] **Phase 2: Public Marketing Site & Landing Page**
 - [x] **Phase 3: Authentication UI, Supabase Auth & Account Lifecycle**
-- [ ] **Phase 4: App Shell, Dashboard UI & Project Management**
+- [x] **Phase 4: App Shell, Dashboard UI & Project Management**
 - [ ] **Phase 5: Project Creation Flow & Project Settings**
 - [ ] **Phase 6: Database Model, Ownership & Permission Enforcement**
 - [ ] **Phase 7: Review Canvas Shell & Responsive Website Viewports**

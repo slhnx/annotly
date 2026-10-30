@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { requireUser } from "@/lib/auth/server"
 import { ProfileSection } from "@/components/dashboard/settings/profile-section"
+import { AppearanceSection } from "@/components/dashboard/settings/appearance-section"
 import { SecuritySection } from "@/components/dashboard/settings/security-section"
 import { SessionSection } from "@/components/dashboard/settings/session-section"
 
@@ -38,6 +39,7 @@ export default async function SettingsPage() {
           accountId={user.id}
           memberSince={memberSince}
         />
+        <AppearanceSection />
         <SecuritySection
           isEmailConfirmed={Boolean(user.email_confirmed_at)}
           provider={user.app_metadata?.provider || "Supabase Auth"}
