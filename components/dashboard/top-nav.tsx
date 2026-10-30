@@ -4,8 +4,10 @@ import * as React from "react"
 import Link from "next/link"
 import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 import { MobileNav } from "./mobile-nav"
 import { DashboardBreadcrumbs } from "./breadcrumbs"
+import { ThemeToggle } from "./theme-toggle"
 import { UserNav } from "./user-nav"
 
 interface TopNavProps {
@@ -18,23 +20,25 @@ interface TopNavProps {
 
 export function TopNav({ user }: TopNavProps) {
   return (
-    <header className="sticky top-0 z-30 flex h-14 w-full items-center justify-between border-b border-[#eceae4] bg-[#fcfbf8]/95 px-4 md:px-6 backdrop-blur-md">
+    <header className="sticky top-0 z-30 flex h-14 w-full items-center justify-between border-b border-border bg-card/95 px-4 backdrop-blur-md md:px-6">
       <div className="flex items-center gap-3">
         <MobileNav />
         <DashboardBreadcrumbs />
       </div>
 
-      <div className="flex items-center gap-3">
-        <Link href="/dashboard/projects?action=new">
-          <Button
-            size="sm"
-            className="h-8 gap-1.5 rounded-lg bg-[#1c1c1c] px-3 text-xs font-semibold text-[#f7f4ed] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-[#2b2b2b] cursor-pointer"
-          >
-            <Plus className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">New Project</span>
-          </Button>
-        </Link>
-        <div className="h-4 w-px bg-[#eceae4]" />
+      <div className="flex items-center gap-2 sm:gap-3">
+        <Button
+          size="sm"
+          className="gap-1.5"
+          nativeButton={false}
+          render={<Link href="/dashboard/projects?action=new" />}
+        >
+          <Plus className="size-3.5" />
+          <span className="hidden sm:inline">New Project</span>
+          <span className="sr-only sm:hidden">New Project</span>
+        </Button>
+        <Separator orientation="vertical" className="h-4" />
+        <ThemeToggle />
         <UserNav user={user} />
       </div>
     </header>

@@ -20,12 +20,12 @@ export function DashboardBreadcrumbs() {
   if (segments.length === 0) return null
 
   return (
-    <nav aria-label="Breadcrumbs" className="flex items-center text-xs text-[#5f5f5d]">
+    <nav aria-label="Breadcrumbs" className="flex items-center text-xs text-muted-foreground">
       <ol className="flex items-center space-x-1.5">
         <li>
           <Link
             href="/dashboard"
-            className="flex items-center gap-1 hover:text-[#1c1c1c] transition-colors"
+            className="flex items-center gap-1 transition-colors hover:text-foreground"
           >
             <Home className="h-3.5 w-3.5" />
             <span className="sr-only">Dashboard</span>
@@ -39,15 +39,15 @@ export function DashboardBreadcrumbs() {
 
           return (
             <li key={path} className="flex items-center space-x-1.5">
-              <ChevronRight className="h-3 w-3 text-[#5f5f5d]/50" />
+              <ChevronRight className="h-3 w-3 text-muted-foreground/50" />
               {isLast ? (
-                <span className="font-semibold text-[#1c1c1c] capitalize" aria-current="page">
+                <span className="font-semibold text-foreground capitalize" aria-current="page">
                   {label}
                 </span>
               ) : (
                 <Link
                   href={path}
-                  className="hover:text-[#1c1c1c] transition-colors capitalize"
+                  className="capitalize transition-colors hover:text-foreground"
                 >
                   {label}
                 </Link>

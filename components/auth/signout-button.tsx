@@ -35,17 +35,17 @@ export function SignoutButton({
       size={size}
       onClick={handleSignout}
       disabled={isPending}
-      className={cn("text-xs font-medium cursor-pointer rounded-[6px]", className)}
+      className={cn("text-xs font-medium", className)}
       {...props}
     >
       {isPending ? (
         <>
-          <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+          <Loader2 className="mr-1.5 size-3.5 animate-spin" aria-hidden="true" />
           Signing out...
         </>
       ) : (
         <>
-          {showIcon && <LogOut className="mr-1.5 h-3.5 w-3.5" />}
+          {showIcon && <LogOut className="mr-1.5 size-3.5" aria-hidden="true" />}
           {children || "Sign out"}
         </>
       )}

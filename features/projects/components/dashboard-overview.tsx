@@ -1,9 +1,9 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
 import { Plus, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { StatsCards } from "./stats-cards"
 import { RecentProjectsCard } from "./recent-projects-card"
 import { OnboardingCard } from "./onboarding-card"
@@ -20,6 +20,32 @@ interface DashboardOverviewProps {
   isSeeding?: boolean
 }
 
+function ShareReadyBanner() {
+  return (
+    <Card
+      size="sm"
+      className="flex-row items-center justify-between px-4 py-3 text-xs"
+    >
+      <div className="flex items-center gap-2">
+        <span aria-hidden="true" className="size-2 rounded-full bg-success" />
+        <span className="text-muted-foreground">
+          Zero-install review links are ready to share with your clients.
+        </span>
+      </div>
+      <Button
+        variant="link"
+        size="sm"
+        nativeButton={false}
+        className="h-auto gap-1 p-0 text-xs font-semibold"
+        render={<Link href="/dashboard/projects" />}
+      >
+        <span>Browse all projects</span>
+        <ArrowUpRight className="size-3" />
+      </Button>
+    </Card>
+  )
+}
+
 export function DashboardOverview({
   user,
   projects,
@@ -32,55 +58,34 @@ export function DashboardOverview({
 
   return (
     <div className="space-y-6">
-      {/* Header section with title and quick CTA */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#1c1c1c]">
+          <h1 className="font-heading text-2xl font-bold tracking-tight text-foreground md:text-3xl">
             Welcome back, {displayName}
           </h1>
-          <p className="mt-1 text-xs sm:text-sm text-[#5f5f5d]">
+          <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
             Here is what&apos;s happening across your website review canvases.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Link href="/dashboard/projects?action=new">
-            <Button
-              size="sm"
-              className="h-9 gap-1.5 rounded-lg bg-[#1c1c1c] px-4 text-xs font-semibold text-[#f7f4ed] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-[#2b2b2b] cursor-pointer"
-            >
-              <Plus className="h-4 w-4" />
-              <span>Create Project</span>
-            </Button>
-          </Link>
-        </div>
+        <Button
+          nativeButton={false}
+          className="gap-1.5 px-4 text-xs font-semibold"
+          render={<Link href="/dashboard/projects?action=new" />}
+        >
+          <Plus className="size-4" />
+          <span>Create Project</span>
+        </Button>
       </div>
 
-      {/* Aggregate stats cards */}
       <StatsCards metrics={metrics} />
 
-      {/* Onboarding card: displayed on first run or zero projects */}
       {isFirstRun ? (
         <OnboardingCard onSeedSample={onSeedSample} isSeeding={isSeeding} />
       ) : (
-        <div className="flex items-center justify-between rounded-xl border border-[#eceae4] bg-[#fcfbf8] px-4 py-3 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
-            <span className="text-[#5f5f5d]">
-              Zero-install review links are ready to share with your clients.
-            </span>
-          </div>
-          <Link
-            href="/dashboard/projects"
-            className="inline-flex items-center gap-1 font-semibold text-[#1c1c1c] hover:underline"
-          >
-            <span>Browse all projects</span>
-            <ArrowUpRight className="h-3 w-3" />
-          </Link>
-        </div>
+        <ShareReadyBanner />
       )}
 
-      {/* Recent Projects Table / List */}
       <RecentProjectsCard projects={projects} />
     </div>
   )

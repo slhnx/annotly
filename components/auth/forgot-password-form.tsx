@@ -1,22 +1,17 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Loader2, AlertCircle, ArrowLeft, MailCheck } from "lucide-react"
+import { ArrowLeft, MailCheck } from "lucide-react"
 import { forgotPasswordSchema, type ForgotPasswordInput } from "@/lib/auth/validation"
 import { useForgotPasswordMutation } from "@/lib/auth/queries"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
+import { AuthErrorAlert } from "@/components/auth/auth-error-alert"
+import { AuthLink } from "@/components/auth/auth-link"
+import { AuthSubmitButton } from "@/components/auth/auth-submit-button"
+import { AuthSuccessPanel } from "@/components/auth/auth-success"
+import { AuthTextField } from "@/components/auth/auth-text-field"
 
 export function ForgotPasswordForm() {
   const [serverError, setServerError] = React.useState<string | null>(null)
@@ -56,26 +51,17 @@ export function ForgotPasswordForm() {
   if (isSuccess) {
     return (
       <div className="space-y-5">
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-5 text-center">
-          <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-            <MailCheck className="h-5 w-5" />
-          </div>
-          <h3 className="font-heading text-sm font-semibold text-emerald-950">
-            Reset email sent
-          </h3>
-          <p className="mt-1.5 text-xs text-emerald-800 leading-relaxed">
-            If an account exists for {form.getValues("email")}, we&apos;ve sent
-            a password reset link. Please check your inbox and spam folder.
-          </p>
-        </div>
+        <AuthSuccessPanel icon={MailCheck} title="Reset email sent">
+          If an account exists for {form.getValues("email")}, we&apos;ve sent a
+          password reset link. Please check your inbox and spam folder.
+        </AuthSuccessPanel>
 
-        <Link
-          href="/login"
-          className="flex items-center justify-center gap-1.5 text-xs font-medium text-[#1c1c1c] underline underline-offset-4 hover:opacity-80"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          <span>Back to sign in</span>
-        </Link>
+        <div className="flex justify-center">
+          <AuthLink href="/login" className="gap-1.5 font-medium">
+            <ArrowLeft className="size-3.5" aria-hidden="true" />
+            <span>Back to sign in</span>
+          </AuthLink>
+        </div>
       </div>
     )
   }
@@ -83,54 +69,25 @@ export function ForgotPasswordForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        {serverError && (
-          <div
-            role="alert"
-            className="flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50/70 p-3 text-xs text-red-800"
-          >
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
-            <div className="leading-relaxed">{serverError}</div>
-          </div>
-        )}
+        {serverError && <AuthErrorAlert>{serverError}</AuthErrorAlert>}
 
-        <FormField
+        <AuthTextField
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem className="space-y-2">
-              <FormLabel className="text-xs font-medium">
-                Work email
-              </FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="email"
-                  autoComplete="email"
-                  placeholder="name@company.com"
-                  disabled={isSubmitting}
-                  className="h-11 rounded-lg border-[#eceae4] bg-white px-3.5 text-xs text-[#1c1c1c] placeholder:text-[#5f5f5d]/60 focus-visible:ring-1 focus-visible:ring-[#1c1c1c]"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Work email"
+          type="email"
+          autoComplete="email"
+          placeholder="name@company.com"
+          disabled={isSubmitting}
         />
 
         <div className="pt-1">
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full h-11 rounded-[6px] bg-[#1c1c1c] text-xs font-medium text-[#fcfbf8] shadow-[var(--shadow-button-inset)] transition-all hover:bg-[#2b2b2b] disabled:opacity-70 cursor-pointer"
+          <AuthSubmitButton
+            isSubmitting={isSubmitting}
+            pendingLabel="Sending instructions..."
           >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending instructions...
-              </>
-            ) : (
-              "Send reset instructions"
-            )}
-          </Button>
+            Send reset instructions
+          </AuthSubmitButton>
         </div>
       </form>
     </Form>

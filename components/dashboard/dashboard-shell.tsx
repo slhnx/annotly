@@ -16,16 +16,16 @@ interface DashboardShellProps {
 
 export function DashboardShell({ user, children }: DashboardShellProps) {
   return (
-    <div className="min-h-screen bg-[#f7f4ed] text-[#1c1c1c]">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Desktop Sidebar (fixed left) */}
       <div className="hidden md:fixed md:inset-y-0 md:z-40 md:flex md:w-64 md:flex-col">
         <SidebarNav />
       </div>
 
       {/* Main Content Area */}
-      <div className="flex flex-col md:pl-64 min-h-screen">
+      <div className="flex min-h-screen flex-col md:pl-64">
         <TopNav user={user} />
-        <main className="flex-1 p-4 md:p-8 max-w-7xl w-full mx-auto">
+        <main className="mx-auto w-full max-w-7xl flex-1 p-4 md:p-8">
           {children}
         </main>
       </div>

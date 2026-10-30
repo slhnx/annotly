@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { AuthCard } from "@/components/auth/auth-card"
+import { AuthLink } from "@/components/auth/auth-link"
 import { UpdatePasswordForm } from "@/components/auth/update-password-form"
 
 export const metadata: Metadata = {
@@ -22,12 +22,7 @@ export default function UpdatePasswordPage() {
       footer={
         <span>
           Back to{" "}
-          <Link
-            href="/login"
-            className="font-semibold text-[#1c1c1c] underline underline-offset-4 hover:opacity-80"
-          >
-            Sign in
-          </Link>
+          <AuthLink href="/login">Sign in</AuthLink>
         </span>
       }
     >

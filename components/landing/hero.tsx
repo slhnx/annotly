@@ -4,6 +4,8 @@ import React, { useState } from "react"
 import { ArrowRight, Globe, Sparkles, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import { HERO_TRUST_POINTS } from "@/components/landing/hero.data"
 import { HeroCanvasMockup } from "@/components/landing/hero-canvas-mockup"
 
 interface HeroProps {
@@ -30,10 +32,13 @@ export function Hero({ onStartReview }: HeroProps) {
   return (
     <section className="relative pt-16 sm:pt-20 pb-16 px-6 max-w-[1240px] mx-auto text-center overflow-hidden">
       {/* Eyebrow Pill */}
-      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-card shadow-[rgba(0,0,0,0.02)_0px_1px_3px_0px] text-xs font-medium text-muted-foreground mb-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
+      <Badge
+        variant="pill"
+        className="mb-8 h-auto gap-2 bg-card px-3.5 py-1.5 text-muted-foreground opacity-100 animate-in fade-in slide-in-from-bottom-2 duration-300"
+      >
         <Sparkles className="size-3.5 text-foreground" />
         <span>Website feedback, without the back-and-forth</span>
-      </div>
+      </Badge>
 
       {/* Primary Display Headline (negative tracking per DESIGN.md) */}
       <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-semibold text-foreground max-w-4xl mx-auto tracking-[-1.5px] leading-[1.05] mb-6">
@@ -49,7 +54,7 @@ export function Hero({ onStartReview }: HeroProps) {
       <div className="max-w-xl mx-auto mb-14">
         <form
           onSubmit={handleCreateCanvas}
-          className="p-1.5 sm:p-2 rounded-xl border border-border bg-card shadow-[rgba(0,0,0,0.04)_0px_4px_16px_0px] flex flex-col sm:flex-row gap-2 transition-all focus-within:shadow-[rgba(0,0,0,0.08)_0px_8px_24px_0px] focus-within:border-[rgba(28,28,28,0.4)]"
+          className="p-1.5 sm:p-2 rounded-xl border border-border bg-card shadow-card flex flex-col sm:flex-row gap-2 transition-all focus-within:shadow-focus focus-within:border-border-interactive"
         >
           <div className="relative flex-1">
             <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
@@ -64,7 +69,7 @@ export function Hero({ onStartReview }: HeroProps) {
             type="submit"
             disabled={isSubmitting}
             size="lg"
-            className="h-11 px-6 whitespace-nowrap shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset,rgba(0,0,0,0.05)_0px_1px_2px_0px]"
+            className="h-11 px-6 whitespace-nowrap"
           >
             {isSubmitting ? "Generating Canvas..." : "Create Review Canvas"}
             <ArrowRight className="size-4 ml-2" />
@@ -72,22 +77,22 @@ export function Hero({ onStartReview }: HeroProps) {
         </form>
 
         {showToast && (
-          <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-xs font-medium animate-in fade-in duration-150">
+          <Badge
+            variant="success"
+            role="status"
+            className="mt-3 h-auto gap-2 px-3 py-1.5 animate-in fade-in duration-150"
+          >
             <Check className="size-3.5" />
             <span>Interactive review canvas ready for {urlInput}</span>
-          </div>
+          </Badge>
         )}
 
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground mt-4">
-          <span className="flex items-center gap-1.5">
-            <Check className="size-3 text-foreground" /> Zero browser extensions needed
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Check className="size-3 text-foreground" /> Works with Staging & Vercel previews
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Check className="size-3 text-foreground" /> Instant guest commenting
-          </span>
+          {HERO_TRUST_POINTS.map((point) => (
+            <span key={point} className="flex items-center gap-1.5">
+              <Check className="size-3 text-foreground" /> {point}
+            </span>
+          ))}
         </div>
       </div>
 

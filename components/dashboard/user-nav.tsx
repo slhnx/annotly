@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { Loader2, LogOut, Settings, FolderKanban, LayoutDashboard } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,10 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { SignoutButton } from "@/components/auth/signout-button"
-import { User, Settings, FolderKanban, LayoutDashboard } from "lucide-react"
+import { useSignoutMutation } from "@/lib/auth/queries"
 
 interface UserNavProps {
   user: {
@@ -24,7 +24,14 @@ interface UserNavProps {
   }
 }
 
+const NAV_LINKS = [
+  { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/dashboard/projects", label: "Projects", icon: FolderKanban },
+  { href: "/dashboard/settings", label: "Settings", icon: Settings },
+] as const
+
 export function UserNav({ user }: UserNavProps) {
+  const signoutMutation = useSignoutMutation()
   const displayName = user.name || user.email?.split("@")[0] || "Reviewer"
   const initials = displayName
     .split(" ")
@@ -35,57 +42,50 @@ export function UserNav({ user }: UserNavProps) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="ghost" className="relative h-9 w-9 rounded-full p-0 cursor-pointer hover:bg-[#eceae4]" />}>
-        <Avatar className="h-9 w-9 rounded-full border border-[#eceae4] bg-[#f2ede4] text-[#1c1c1c]">
-          <AvatarFallback className="bg-[#1c1c1c] text-xs font-semibold text-[#f7f4ed]">
+      <DropdownMenuTrigger
+        render={<Button variant="ghost" size="icon-pill" className="p-0" />}
+      >
+        <Avatar>
+          {user.avatarUrl ? <AvatarImage src={user.avatarUrl} alt="" /> : null}
+          <AvatarFallback className="bg-primary text-xs font-semibold text-primary-foreground">
             {initials || "U"}
           </AvatarFallback>
         </Avatar>
+        <span className="sr-only">Open user menu</span>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent
-        className="w-56 rounded-xl border border-[#eceae4] bg-[#fcfbf8] p-1.5 shadow-lg text-[#1c1c1c]"
-        align="end"
-      >
-        <DropdownMenuLabel className="font-normal px-2 py-1.5">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-semibold tracking-tight leading-none text-[#1c1c1c]">
+      <DropdownMenuContent className="w-56" align="end">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="flex flex-col gap-1 px-1.5 py-1.5 font-normal">
+            <span className="text-sm leading-none font-semibold tracking-tight text-foreground">
               {displayName}
-            </p>
-            <p className="text-xs leading-none text-[#5f5f5d] truncate">
+            </span>
+            <span className="truncate text-xs leading-none text-muted-foreground">
               {user.email || "reviewer@annotly.com"}
-            </p>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator className="my-1 bg-[#eceae4]" />
+            </span>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem render={<Link href="/dashboard" className="flex items-center gap-2 px-2 py-1.5 text-xs text-[#1c1c1c] rounded-md hover:bg-[#f2ede4] cursor-pointer" />}>
-            <LayoutDashboard className="h-3.5 w-3.5 text-[#5f5f5d]" />
-            <span>Overview</span>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem render={<Link href="/dashboard/projects" className="flex items-center gap-2 px-2 py-1.5 text-xs text-[#1c1c1c] rounded-md hover:bg-[#f2ede4] cursor-pointer" />}>
-            <FolderKanban className="h-3.5 w-3.5 text-[#5f5f5d]" />
-            <span>Projects</span>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem render={<Link href="/dashboard/settings" className="flex items-center gap-2 px-2 py-1.5 text-xs text-[#1c1c1c] rounded-md hover:bg-[#f2ede4] cursor-pointer" />}>
-            <Settings className="h-3.5 w-3.5 text-[#5f5f5d]" />
-            <span>Settings</span>
-          </DropdownMenuItem>
+          {NAV_LINKS.map(({ href, label, icon: Icon }) => (
+            <DropdownMenuItem key={href} render={<Link href={href} />}>
+              <Icon className="text-muted-foreground" />
+              <span>{label}</span>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
 
-        <DropdownMenuSeparator className="my-1 bg-[#eceae4]" />
+        <DropdownMenuSeparator />
 
-        <div className="p-1">
-          <SignoutButton
-            variant="ghost"
-            className="w-full justify-start text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2 py-1.5 h-auto rounded-md font-medium"
-          >
-            Sign out
-          </SignoutButton>
-        </div>
+        <DropdownMenuItem
+          variant="destructive"
+          disabled={signoutMutation.isPending}
+          onClick={() => signoutMutation.mutate()}
+        >
+          {signoutMutation.isPending ? <Loader2 className="animate-spin" /> : <LogOut />}
+          <span>{signoutMutation.isPending ? "Signing out..." : "Sign out"}</span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

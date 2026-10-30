@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { AuthCard } from "@/components/auth/auth-card"
+import { AuthLink } from "@/components/auth/auth-link"
 import { ForgotPasswordForm } from "@/components/auth/forgot-password-form"
 
 export const metadata: Metadata = {
@@ -22,12 +22,7 @@ export default function ForgotPasswordPage() {
       footer={
         <span>
           Remember your password?{" "}
-          <Link
-            href="/login"
-            className="font-semibold text-[#1c1c1c] underline underline-offset-4 hover:opacity-80"
-          >
-            Back to sign in
-          </Link>
+          <AuthLink href="/login">Back to sign in</AuthLink>
         </span>
       }
     >

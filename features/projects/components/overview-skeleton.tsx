@@ -1,53 +1,62 @@
-"use client"
+import { Card } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
 
-import * as React from "react"
+function StatCardSkeleton() {
+  return (
+    <Card className="h-28 justify-between gap-0 p-5">
+      <div className="flex items-center justify-between">
+        <Skeleton className="h-3 w-20" />
+        <Skeleton className="size-8 rounded-lg" />
+      </div>
+      <Skeleton className="h-6 w-16" />
+    </Card>
+  )
+}
+
+function RecentProjectRowSkeleton() {
+  return (
+    <div className="flex items-center justify-between py-4">
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-40" />
+        <Skeleton className="h-3 w-56" />
+      </div>
+      <Skeleton className="h-8 w-24 rounded-lg" />
+    </div>
+  )
+}
 
 export function OverviewSkeleton() {
   return (
-    <div className="space-y-6 animate-pulse">
-      {/* Header skeleton */}
+    <div className="space-y-6" aria-busy="true" aria-label="Loading dashboard">
       <div className="space-y-2">
-        <div className="h-7 w-48 rounded-lg bg-[#eceae4]" />
-        <div className="h-4 w-72 rounded-md bg-[#eceae4]/70" />
+        <Skeleton className="h-7 w-48 rounded-lg" />
+        <Skeleton className="h-4 w-72" />
       </div>
 
-      {/* Stats cards skeleton */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[1, 2, 3, 4].map((i) => (
-          <div
-            key={i}
-            className="flex flex-col justify-between rounded-xl border border-[#eceae4] bg-[#fcfbf8] p-5 h-28"
-          >
-            <div className="flex items-center justify-between">
-              <div className="h-3 w-20 rounded bg-[#eceae4]" />
-              <div className="h-8 w-8 rounded-lg bg-[#eceae4]" />
-            </div>
-            <div className="h-6 w-16 rounded bg-[#eceae4]" />
-          </div>
+          <StatCardSkeleton key={i} />
         ))}
       </div>
 
-      {/* Onboarding / Banner skeleton */}
-      <div className="h-44 w-full rounded-xl border border-[#eceae4] bg-[#fcfbf8] p-6" />
+      <Skeleton className="h-44 w-full rounded-xl" />
 
-      {/* Recent projects skeleton */}
-      <div className="rounded-xl border border-[#eceae4] bg-[#fcfbf8] p-5">
-        <div className="flex items-center justify-between border-b border-[#eceae4] pb-4">
-          <div className="h-5 w-32 rounded bg-[#eceae4]" />
-          <div className="h-4 w-16 rounded bg-[#eceae4]" />
+      <Card className="gap-0 p-5">
+        <div className="flex items-center justify-between pb-4">
+          <Skeleton className="h-5 w-32" />
+          <Skeleton className="h-4 w-16" />
         </div>
-        <div className="divide-y divide-[#eceae4] pt-2">
+        <Separator />
+        <div className="pt-2">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="flex items-center justify-between py-4">
-              <div className="space-y-2">
-                <div className="h-4 w-40 rounded bg-[#eceae4]" />
-                <div className="h-3 w-56 rounded bg-[#eceae4]/60" />
-              </div>
-              <div className="h-8 w-24 rounded-lg bg-[#eceae4]" />
+            <div key={i}>
+              {i > 1 && <Separator />}
+              <RecentProjectRowSkeleton />
             </div>
           ))}
         </div>
-      </div>
+      </Card>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { SidebarNav } from "./sidebar-nav"
@@ -15,12 +16,13 @@ export function MobileNav() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden h-8 w-8 text-[#1c1c1c] hover:bg-[#eceae4] cursor-pointer" />}>
-        <Menu className="h-4 w-4" />
+      <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden" />}>
+        <Menu className="size-4" />
         <span className="sr-only">Toggle navigation menu</span>
       </SheetTrigger>
 
-      <SheetContent side="left" className="w-72 p-0 bg-[#fcfbf8] border-r border-[#eceae4]">
+      <SheetContent side="left" className="w-72 bg-sidebar p-0 text-sidebar-foreground">
+        <SheetTitle className="sr-only">Navigation menu</SheetTitle>
         <SidebarNav onNavClick={() => setOpen(false)} />
       </SheetContent>
     </Sheet>
