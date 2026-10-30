@@ -19,7 +19,7 @@ function RecentProjectItem({ project }: { project: Project }) {
     <div className="flex flex-col justify-between gap-3 py-3.5 sm:flex-row sm:items-center">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <h3 className="truncate font-heading text-xs font-semibold text-foreground sm:text-sm">
+          <h3 className="truncate font-sans text-xs font-semibold text-foreground sm:text-sm">
             <Link
               href={`/dashboard/projects/${project.id}`}
               className="hover:underline hover:text-foreground"

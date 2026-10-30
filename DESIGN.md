@@ -48,16 +48,16 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 ## 3. Typography Rules
 
 ### Headings Font: Bricolage Grotesque, sans-serif
-- **Designation**: Primary display and heading typeface across all display elements (`h1` through `h6`, `.font-heading`, and display hero titles).
+- **Designation**: Primary display and heading typeface across larger display and page headings (`h1`, hero headlines, page section titles `h2`, and display expressions). Smaller headings (e.g. inside cards, widgets, dialogs, `h3` through `h6`) strictly use Inter.
 - **Typeface Origin**: Designed by Mathieu Triay, published as an open-source variable font on Google Fonts.
 - **Format**: Variable Font via `next/font/google` (`Bricolage_Grotesque`).
 - **Font Stack (`--font-heading`)**: `var(--font-heading), 'Bricolage Grotesque', sans-serif`
 - **Fallback**: System sans-serif (`sans-serif`, `system-ui`).
 
 ### Body & Interface Font: Inter
-- **Designation**: Body copy, inputs, tooltips, cards, buttons, and dense UI surfaces (`--font-sans`).
+- **Designation**: Body copy, inputs, tooltips, cards, smaller headings in cards/dialogs, buttons, and dense UI surfaces (`--font-sans`).
 - **Font Stack (`--font-sans`)**: `var(--font-sans), ui-sans-serif, system-ui, sans-serif`
-- **Weight range**: 400 (body/reading), 500 (medium UI/buttons).
+- **Weight range**: 400 (body/reading), 500 (medium UI/buttons), 600 (card titles/small headings).
 - **OpenType Features**: `font-feature-settings: "cv02", "cv03", "cv04", "cv11"` for subtle humanist alternate terminals.
 
 ### Monospace Font: Geist Mono
@@ -71,8 +71,8 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 | Display Hero | Bricolage Grotesque, sans-serif | 60px–64px (3.75rem–4.00rem) | 600–700 | 1.05 (tight) | -1.5px | `h1, .display-hero` |
 | Display Alt | Bricolage Grotesque, sans-serif | 60px (3.75rem) | 500–600 | 1.00 (tight) | -1.2px | `.display-alt` |
 | Section Heading | Bricolage Grotesque, sans-serif | 40px–48px (2.50rem–3.00rem) | 600 | 1.10 (tight) | -1.2px | `h2, .display-section` |
-| Sub-heading | Bricolage Grotesque, sans-serif | 30px–36px (1.88rem–2.25rem) | 600 | 1.15 (tight) | -0.9px | `h3, .display-subheading` |
-| Card Title | Bricolage Grotesque, sans-serif | 20px (1.25rem) | 600 | 1.25 (tight) | -0.5px | `CardTitle, h4` |
+| Sub-heading | Inter (Body Sans) | 24px–28px (1.50rem–1.75rem) | 600 | 1.20 | -0.01em | `h3, .display-subheading` |
+| Card Title | Inter (Body Sans) | 16px–18px (1.00rem–1.13rem) | 600 | 1.25 (tight) | -0.01em | `CardTitle, [data-slot="card"] h3` |
 | Body Large | Inter (Body Sans) | 18px (1.13rem) | 400 | 1.38 | normal | Hero subheads, intros |
 | Body | Inter (Body Sans) | 16px (1.00rem) | 400 | 1.50 | normal | Standard reading text |
 | Button | Inter (Body Sans) | 15px–16px (1.00rem) | 500 | 1.50 | normal | Button labels |
@@ -81,10 +81,10 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 | Technical Code | Geist Mono | 11px–12px (0.75rem) | 500 | 1.40 | normal | DOM selectors, viewport diagnostics |
 
 ### Principles
-- **Expressive humanist voice**: Bricolage Grotesque gives Annotly its warm, modern, and authentic editorial personality. Its flared terminals, organic curves, and optical personality contrast sharply with sterile corporate geometric sans-serifs.
+- **Expressive humanist voice**: Bricolage Grotesque gives Annotly its warm, modern, and authentic editorial personality for primary headlines and display anchors.
 - **Variable weight agility**: The font delivers crisp fidelity from medium to bold stops across responsive viewports.
-- **Compression at scale**: Display headlines use negative letter-spacing (-0.5px to -1.5px) for high-impact editorial presence. Body text remains at standard tracking for effortless reading.
-- **Clear separation of roles**: Bricolage Grotesque owns all headings and display expressions; Inter powers functional body text, inputs, and button interfaces.
+- **Compression at scale**: Display headlines use negative letter-spacing (-0.5px to -1.5px) for high-impact editorial presence.
+- **Clear separation of roles**: Bricolage Grotesque is reserved for larger page headings and hero display expressions; Inter powers smaller headings (cards, dialogs, lists), body text, inputs, and button interfaces.
 
 ### Technical Implementation
 
@@ -108,21 +108,28 @@ In `app/globals.css`:
 }
 
 @layer base {
-  h1, h2, h3, h4, h5, h6, .font-heading {
+  /* Large display and page headings use Bricolage Grotesque with tight negative tracking */
+  h1, h2, .font-heading, .display-hero, .display-section {
     font-family: var(--font-heading);
   }
 
-  h1, .display-hero {
-    letter-spacing: -1.5px;
-    line-height: 1.05;
+  /* Smaller headings use Inter (font-sans) */
+  h3, h4, h5, h6 {
+    font-family: var(--font-sans);
   }
-  h2, .display-section {
-    letter-spacing: -1.2px;
-    line-height: 1.10;
-  }
-  h3, .display-subheading {
-    letter-spacing: -0.9px;
-    line-height: 1.15;
+
+  /* All headings inside cards, dialogs, sheets, and widgets strictly use Inter */
+  [data-slot="card"] h1,
+  [data-slot="card"] h2,
+  [data-slot="card"] h3,
+  [data-slot="card"] h4,
+  [data-slot="card"] h5,
+  [data-slot="card"] h6,
+  [data-slot="card-title"],
+  [data-slot="dialog-title"],
+  [data-slot="sheet-title"] {
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
   }
 }
 ```

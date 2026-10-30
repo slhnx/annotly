@@ -20,7 +20,7 @@ export function ProjectRow({ project, onEdit, onDelete }: ProjectRowProps) {
     <div className="flex flex-col justify-between gap-3 border-b border-border p-4 transition-colors last:border-b-0 hover:bg-accent/40 sm:flex-row sm:items-center">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <h3 className="truncate font-heading text-sm font-semibold text-foreground">
+          <h3 className="truncate font-sans text-sm font-semibold text-foreground">
             <Link
               href={`/dashboard/projects/${project.id}`}
               className="hover:underline hover:text-foreground"

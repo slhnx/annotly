@@ -41,7 +41,7 @@ export function StoryStepCard({ step }: StoryStepCardProps) {
               <div className="flex size-12 shrink-0 items-center justify-center rounded-[10px] border border-foreground/10 bg-foreground/5 shadow-xs transition-transform group-hover:scale-105">
                 <Icon className="size-6 text-foreground" />
               </div>
-              <h3 className="font-heading text-2xl leading-tight font-bold tracking-[-0.6px] text-foreground sm:text-3xl">
+              <h3 className="font-sans text-xl leading-tight font-semibold tracking-tight text-foreground sm:text-2xl">
                 {step.title}
               </h3>
             </div>

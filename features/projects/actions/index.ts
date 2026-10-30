@@ -75,7 +75,7 @@ export async function createProjectAction(
       }
     }
 
-    const project = await ProjectService.createProject(user.id, parsed.data)
+    const project = await ProjectService.createProject(user.id, parsed.data, user.email)
 
     revalidatePath("/dashboard")
     revalidatePath("/dashboard/projects")

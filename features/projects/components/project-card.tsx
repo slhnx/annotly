@@ -27,7 +27,7 @@ export function ProjectCard({ project, onEdit, onDelete }: ProjectCardProps) {
         </div>
 
         <div className="mt-3">
-          <h3 className="truncate font-heading text-base font-bold text-foreground">
+          <h3 className="truncate font-sans text-base font-semibold text-foreground">
             <Link
               href={`/dashboard/projects/${project.id}`}
               className="hover:underline hover:text-foreground"

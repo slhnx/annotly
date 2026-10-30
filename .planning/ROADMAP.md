@@ -214,17 +214,17 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 **Depends on:** Phase 1; can proceed alongside UI work in Phases 3–5, but all dependent integrations must pass before Phase 7.
 
 ### Plans
-- [ ] **06-01 — Database and ORM configuration**
+- [x] **06-01 — Database and ORM configuration**
   - Configure the selected PostgreSQL/Supabase database and Prisma ORM only if these match the existing repository architecture.
   - Add migrations and safe deployment instructions.
-- [ ] **06-02 — Core schema**
+- [x] **06-02 — Core schema**
   - Define and relate `User`, `Project`, `Canvas`, `Annotation`, and `AnnotationReply` according to actual product requirements.
   - Add ownership, timestamps, indexes, status fields, and unique identifiers where required.
   - Avoid storing duplicate or sensitive data without a clear purpose.
-- [ ] **06-03 — Data access layer**
+- [x] **06-03 — Data access layer**
   - Implement typed repository/service functions and shared input schemas.
   - Centralize authorization and consistent error handling.
-- [ ] **06-04 — Permission matrix and adversarial tests**
+- [x] **06-04 — Permission matrix and adversarial tests**
   - Document owner, authenticated collaborator, and public guest capabilities.
   - Test cross-user reads/writes, guessed IDs, unauthenticated access, and mutation attempts.
   - Ensure public review access exposes only data intended for reviewers.

@@ -1,10 +1,6 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import { MobileNav } from "./mobile-nav"
 import { DashboardBreadcrumbs } from "./breadcrumbs"
 import { ThemeToggle } from "./theme-toggle"
@@ -27,17 +23,6 @@ export function TopNav({ user }: TopNavProps) {
       </div>
 
       <div className="flex items-center gap-2 sm:gap-3">
-        <Button
-          size="sm"
-          className="gap-1.5"
-          nativeButton={false}
-          render={<Link href="/dashboard/projects/new" />}
-        >
-          <Plus className="size-3.5" />
-          <span className="hidden sm:inline">New Project</span>
-          <span className="sr-only sm:hidden">New Project</span>
-        </Button>
-        <Separator orientation="vertical" className="h-4" />
         <ThemeToggle />
         <UserNav user={user} />
       </div>

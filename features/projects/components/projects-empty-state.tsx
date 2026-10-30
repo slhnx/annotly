@@ -20,7 +20,7 @@ export function ProjectsEmptyState({
       <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-muted text-muted-foreground">
         <FolderKanban className="size-6" />
       </div>
-      <h3 className="font-heading text-base font-bold text-foreground">
+      <h3 className="font-sans text-base font-semibold text-foreground">
         {isFiltered ? "No matching projects found" : "No projects in workspace"}
       </h3>
       <p className="mx-auto mt-1 max-w-sm text-xs text-muted-foreground">

@@ -37,7 +37,7 @@ export function AuthSuccessPanel({
       <div className="mb-3 flex size-10 items-center justify-center rounded-full bg-success/15 text-success">
         <Icon className="size-5" aria-hidden="true" />
       </div>
-      <h3 className="font-heading text-sm font-semibold text-foreground">
+      <h3 className="font-sans text-sm font-semibold text-foreground">
         {title}
       </h3>
       <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">

@@ -83,7 +83,7 @@ export function ChapterCard({ chapter, isActive, onSelect, ...progressState }: C
             <Badge variant="outline" className="font-mono font-semibold text-foreground">
               {chapter.step}
             </Badge>
-            <h3 className="font-heading text-lg font-bold tracking-tight text-foreground sm:text-xl">
+            <h3 className="font-sans text-base font-semibold tracking-tight text-foreground sm:text-lg">
               {chapter.title}
             </h3>
           </div>
