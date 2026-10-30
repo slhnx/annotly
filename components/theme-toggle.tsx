@@ -11,20 +11,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+const emptySubscribe = () => () => {}
+
 export function ThemeToggle({ className }: { className?: string }) {
   const { setTheme, theme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
 
   if (!mounted) {
     return (
       <Button
         variant="ghost"
         size="icon"
-        className="h-8 w-8 rounded-lg text-muted-foreground"
+        className={className || "h-8 w-8 rounded-lg text-muted-foreground"}
         aria-label="Toggle theme"
       >
         <Sun className="h-4 w-4" />
@@ -39,7 +41,7 @@ export function ThemeToggle({ className }: { className?: string }) {
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent cursor-pointer"
+            className={className || "h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent cursor-pointer"}
             aria-label="Toggle theme"
           />
         }

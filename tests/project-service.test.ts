@@ -6,8 +6,8 @@ describe("ProjectService & Ownership Isolation", () => {
   const userA = "user_alpha_123"
   const userB = "user_bravo_456"
 
-  beforeEach(() => {
-    ProjectService._clearStore()
+  beforeEach(async () => {
+    await ProjectService._clearStore()
   })
 
   it("should create a project and assign correct ownership and reviewUrl", async () => {
@@ -129,25 +129,25 @@ describe("ProjectService & Ownership Isolation", () => {
       name: "P1",
       websiteUrl: "https://p1.example.com",
     })
-    p1.summary = {
+    await ProjectService.updateProjectSummary(userA, p1.id, {
       activeReviews: 2,
       totalComments: 10,
       openComments: 4,
       resolvedComments: 6,
       lastActivityAt: new Date().toISOString(),
-    }
+    })
 
     const p2 = await ProjectService.createProject(userA, {
       name: "P2",
       websiteUrl: "https://p2.example.com",
     })
-    p2.summary = {
+    await ProjectService.updateProjectSummary(userA, p2.id, {
       activeReviews: 1,
       totalComments: 5,
       openComments: 1,
       resolvedComments: 4,
       lastActivityAt: new Date().toISOString(),
-    }
+    })
 
     const metrics = await ProjectService.getDashboardMetrics(userA)
     assert.equal(metrics.totalProjects, 2)

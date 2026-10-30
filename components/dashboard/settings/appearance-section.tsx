@@ -2,7 +2,6 @@
 
 import { Palette, Sun, Moon, Monitor } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
 import { SettingsSection } from "./settings-section"
 import { cn } from "@/lib/utils"
 

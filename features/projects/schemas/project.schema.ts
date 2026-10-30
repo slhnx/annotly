@@ -1,15 +1,26 @@
 import { z } from "zod"
 
 /**
- * Normalizes input URL strings by prepending https:// if protocol is omitted.
+ * Normalizes input URL strings by prepending https:// if protocol is omitted
+ * and lowercasing the hostname.
  */
 export function sanitizeUrl(input: string): string {
   const trimmed = input.trim()
   if (!trimmed) return trimmed
-  if (/^https?:\/\//i.test(trimmed)) {
-    return trimmed
+  const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+  try {
+    const parsed = new URL(withProtocol)
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return withProtocol
+    }
+    parsed.hostname = parsed.hostname.toLowerCase()
+    if (parsed.pathname === "/" && !withProtocol.endsWith("/")) {
+      return `${parsed.protocol}//${parsed.host}${parsed.search}${parsed.hash}`
+    }
+    return parsed.toString()
+  } catch {
+    return withProtocol
   }
-  return `https://${trimmed}`
 }
 
 export const createProjectSchema = z.object({
@@ -48,6 +59,7 @@ export const createProjectSchema = z.object({
     .max(500, { message: "Description cannot exceed 500 characters." })
     .optional()
     .or(z.literal("")),
+  reviewAccess: z.enum(["public", "paused"]).optional(),
 })
 
 export const updateProjectSchema = z.object({
@@ -88,6 +100,7 @@ export const updateProjectSchema = z.object({
     .optional()
     .or(z.literal("")),
   status: z.enum(["active", "in_review", "completed", "archived"]).optional(),
+  reviewAccess: z.enum(["public", "paused"]).optional(),
 })
 
 export const projectFilterSchema = z.object({

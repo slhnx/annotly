@@ -20,7 +20,12 @@ function RecentProjectItem({ project }: { project: Project }) {
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <h3 className="truncate font-heading text-xs font-semibold text-foreground sm:text-sm">
-            {project.name}
+            <Link
+              href={`/dashboard/projects/${project.id}`}
+              className="hover:underline hover:text-foreground"
+            >
+              {project.name}
+            </Link>
           </h3>
           <ProjectStatusBadge status={project.status} />
         </div>

@@ -34,6 +34,7 @@ export async function getProjectsAction(
 
 /**
  * Server Action: Retrieve a single project by ID with ownership verification.
+ * Does not leak whether the project exists under another user.
  */
 export async function getProjectByIdAction(
   projectId: string
@@ -45,9 +46,8 @@ export async function getProjectByIdAction(
       return { success: false, error: "Project not found." }
     }
     return { success: true, data: project }
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Failed to retrieve project."
-    return { success: false, error: message }
+  } catch {
+    return { success: false, error: "Project not found." }
   }
 }
 
@@ -83,6 +83,13 @@ export async function createProjectAction(
     return { success: true, data: project }
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to create project."
+    if (message.includes("already exists in your workspace")) {
+      return {
+        success: false,
+        error: message,
+        fieldErrors: { name: [message] },
+      }
+    }
     return { success: false, error: message }
   }
 }
@@ -116,10 +123,41 @@ export async function updateProjectAction(
 
     revalidatePath("/dashboard")
     revalidatePath("/dashboard/projects")
+    revalidatePath(`/dashboard/projects/${projectId}`)
+    revalidatePath(`/dashboard/projects/${projectId}/settings`)
 
     return { success: true, data: updated }
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to update project."
+    if (message.includes("already exists in your workspace")) {
+      return {
+        success: false,
+        error: message,
+        fieldErrors: { name: [message] },
+      }
+    }
+    return { success: false, error: message }
+  }
+}
+
+/**
+ * Server Action: Regenerate review link token for a project.
+ */
+export async function regenerateReviewLinkAction(
+  projectId: string
+): Promise<ActionResult<Project>> {
+  try {
+    const user = await requireAuthAction()
+    const updated = await ProjectService.regenerateReviewLink(user.id, projectId)
+
+    revalidatePath("/dashboard")
+    revalidatePath("/dashboard/projects")
+    revalidatePath(`/dashboard/projects/${projectId}`)
+    revalidatePath(`/dashboard/projects/${projectId}/settings`)
+
+    return { success: true, data: updated }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to regenerate review link."
     return { success: false, error: message }
   }
 }
@@ -140,6 +178,7 @@ export async function deleteProjectAction(
 
     revalidatePath("/dashboard")
     revalidatePath("/dashboard/projects")
+    revalidatePath(`/dashboard/projects/${projectId}`)
 
     return { success: true, data: { id: projectId } }
   } catch (err) {

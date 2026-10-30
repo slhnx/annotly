@@ -1,19 +1,43 @@
+import { prisma } from "@/lib/db"
+import type { Prisma, Project as PrismaProject } from "@prisma/client"
 import type {
   Project,
   CreateProjectInput,
   UpdateProjectInput,
   ProjectFilterOptions,
   DashboardMetrics,
+  ProjectStatus,
+  ReviewAccess,
 } from "../types"
-
-// Global in-memory storage keyed by project ID to persist across dev requests
-// This can be seamlessly backed by Prisma ORM / PostgreSQL in future phases
-const projectsStore = new Map<string, Project>()
+import { sanitizeUrl } from "../schemas/project.schema"
 
 function generateId(prefix: string = "prj"): string {
   const randomStr = Math.random().toString(36).substring(2, 10)
   const timestamp = Date.now().toString(36)
   return `${prefix}_${timestamp}${randomStr}`
+}
+
+function mapPrismaProjectToDomain(p: PrismaProject): Project {
+  return {
+    id: p.id,
+    userId: p.userId,
+    name: p.name,
+    websiteUrl: p.websiteUrl,
+    description: p.description,
+    status: p.status as ProjectStatus,
+    reviewAccess: p.reviewAccess as ReviewAccess,
+    reviewCanvasId: p.reviewCanvasId,
+    reviewUrl: `/review/${p.reviewCanvasId}`,
+    summary: {
+      activeReviews: p.activeReviews,
+      totalComments: p.totalComments,
+      openComments: p.openComments,
+      resolvedComments: p.resolvedComments,
+      lastActivityAt: p.lastActivityAt.toISOString(),
+    },
+    createdAt: p.createdAt.toISOString(),
+    updatedAt: p.updatedAt.toISOString(),
+  }
 }
 
 export class ProjectService {
@@ -28,42 +52,41 @@ export class ProjectService {
       throw new Error("Unauthorized: User ID is required.")
     }
 
-    let userProjects = Array.from(projectsStore.values()).filter(
-      (p) => p.userId === userId
-    )
-
-    if (filters?.query) {
-      const q = filters.query.toLowerCase().trim()
-      userProjects = userProjects.filter(
-        (p) =>
-          p.name.toLowerCase().includes(q) ||
-          p.websiteUrl.toLowerCase().includes(q) ||
-          (p.description && p.description.toLowerCase().includes(q))
-      )
+    const where: Prisma.ProjectWhereInput = {
+      userId,
     }
 
     if (filters?.status && filters.status !== "all") {
-      userProjects = userProjects.filter((p) => p.status === filters.status)
+      where.status = filters.status
     }
 
+    if (filters?.query) {
+      const q = filters.query.trim()
+      where.OR = [
+        { name: { contains: q, mode: "insensitive" } },
+        { websiteUrl: { contains: q, mode: "insensitive" } },
+        { description: { contains: q, mode: "insensitive" } },
+      ]
+    }
+
+    let orderBy: Prisma.ProjectOrderByWithRelationInput
     const sortBy = filters?.sortBy || "lastActivity"
     const sortOrder = filters?.sortOrder || "desc"
 
-    userProjects.sort((a, b) => {
-      let comparison = 0
-      if (sortBy === "name") {
-        comparison = a.name.localeCompare(b.name)
-      } else if (sortBy === "createdAt") {
-        comparison = new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      } else {
-        comparison =
-          new Date(a.summary.lastActivityAt).getTime() -
-          new Date(b.summary.lastActivityAt).getTime()
-      }
-      return sortOrder === "desc" ? -comparison : comparison
+    if (sortBy === "name") {
+      orderBy = { name: sortOrder }
+    } else if (sortBy === "createdAt") {
+      orderBy = { createdAt: sortOrder }
+    } else {
+      orderBy = { lastActivityAt: sortOrder }
+    }
+
+    const records = await prisma.project.findMany({
+      where,
+      orderBy,
     })
 
-    return userProjects
+    return records.map(mapPrismaProjectToDomain)
   }
 
   /**
@@ -77,22 +100,25 @@ export class ProjectService {
       throw new Error("Unauthorized: User ID is required.")
     }
 
-    const project = projectsStore.get(projectId)
-    if (!project) {
+    const record = await prisma.project.findUnique({
+      where: { id: projectId },
+    })
+
+    if (!record) {
       return null
     }
 
-    if (project.userId !== userId) {
+    if (record.userId !== userId) {
       throw new Error(
         "Forbidden: You do not have permission to access this project."
       )
     }
 
-    return project
+    return mapPrismaProjectToDomain(record)
   }
 
   /**
-   * Create a new project for the authenticated user.
+   * Create a new project for the authenticated user with duplicate detection.
    */
   static async createProject(
     userId: string,
@@ -102,36 +128,44 @@ export class ProjectService {
       throw new Error("Unauthorized: User ID is required.")
     }
 
-    const now = new Date().toISOString()
+    const trimmedName = input.name.trim()
+    const duplicate = await prisma.project.findFirst({
+      where: {
+        userId,
+        name: { equals: trimmedName, mode: "insensitive" },
+      },
+    })
+
+    if (duplicate) {
+      throw new Error("A project with this name already exists in your workspace.")
+    }
+
     const projectId = generateId("prj")
     const canvasId = generateId("cnv")
 
-    const newProject: Project = {
-      id: projectId,
-      userId,
-      name: input.name,
-      websiteUrl: input.websiteUrl,
-      description: input.description || null,
-      status: "active",
-      reviewCanvasId: canvasId,
-      reviewUrl: `/review/${canvasId}`,
-      summary: {
+    const record = await prisma.project.create({
+      data: {
+        id: projectId,
+        userId,
+        name: trimmedName,
+        websiteUrl: sanitizeUrl(input.websiteUrl),
+        description: input.description?.trim() || null,
+        status: "active",
+        reviewAccess: input.reviewAccess || "public",
+        reviewCanvasId: canvasId,
         activeReviews: 1,
         totalComments: 0,
         openComments: 0,
         resolvedComments: 0,
-        lastActivityAt: now,
+        lastActivityAt: new Date(),
       },
-      createdAt: now,
-      updatedAt: now,
-    }
+    })
 
-    projectsStore.set(projectId, newProject)
-    return newProject
+    return mapPrismaProjectToDomain(record)
   }
 
   /**
-   * Update an existing project, strictly verifying ownership.
+   * Update an existing project, strictly verifying ownership and duplicate names.
    */
   static async updateProject(
     userId: string,
@@ -142,7 +176,10 @@ export class ProjectService {
       throw new Error("Unauthorized: User ID is required.")
     }
 
-    const existing = projectsStore.get(projectId)
+    const existing = await prisma.project.findUnique({
+      where: { id: projectId },
+    })
+
     if (!existing) {
       throw new Error("Project not found.")
     }
@@ -153,18 +190,92 @@ export class ProjectService {
       )
     }
 
-    const now = new Date().toISOString()
-    const updated: Project = {
-      ...existing,
-      name: input.name ?? existing.name,
-      websiteUrl: input.websiteUrl ?? existing.websiteUrl,
-      description: input.description !== undefined ? input.description : existing.description,
-      status: input.status ?? existing.status,
-      updatedAt: now,
+    if (input.name) {
+      const trimmedName = input.name.trim()
+      const duplicate = await prisma.project.findFirst({
+        where: {
+          id: { not: projectId },
+          userId,
+          name: { equals: trimmedName, mode: "insensitive" },
+        },
+      })
+
+      if (duplicate) {
+        throw new Error("A project with this name already exists in your workspace.")
+      }
     }
 
-    projectsStore.set(projectId, updated)
-    return updated
+    const data: Prisma.ProjectUpdateInput = {}
+    if (input.name !== undefined) data.name = input.name.trim()
+    if (input.websiteUrl !== undefined) data.websiteUrl = sanitizeUrl(input.websiteUrl)
+    if (input.description !== undefined) {
+      data.description = input.description?.trim() || null
+    }
+    if (input.status !== undefined) data.status = input.status
+    if (input.reviewAccess !== undefined) data.reviewAccess = input.reviewAccess
+    if (input.summary) {
+      if (input.summary.activeReviews !== undefined) data.activeReviews = input.summary.activeReviews
+      if (input.summary.totalComments !== undefined) data.totalComments = input.summary.totalComments
+      if (input.summary.openComments !== undefined) data.openComments = input.summary.openComments
+      if (input.summary.resolvedComments !== undefined) data.resolvedComments = input.summary.resolvedComments
+      if (input.summary.lastActivityAt !== undefined) {
+        data.lastActivityAt = new Date(input.summary.lastActivityAt)
+      }
+    }
+
+    const updated = await prisma.project.update({
+      where: { id: projectId },
+      data,
+    })
+
+    return mapPrismaProjectToDomain(updated)
+  }
+
+  /**
+   * Helper to update project summary counts in the database.
+   */
+  static async updateProjectSummary(
+    userId: string,
+    projectId: string,
+    summary: Partial<import("../types").ProjectReviewSummary>
+  ): Promise<Project> {
+    return this.updateProject(userId, projectId, { summary })
+  }
+
+  /**
+   * Regenerate review canvas link token for a project.
+   */
+  static async regenerateReviewLink(
+    userId: string,
+    projectId: string
+  ): Promise<Project> {
+    if (!userId) {
+      throw new Error("Unauthorized: User ID is required.")
+    }
+
+    const existing = await prisma.project.findUnique({
+      where: { id: projectId },
+    })
+
+    if (!existing) {
+      throw new Error("Project not found.")
+    }
+
+    if (existing.userId !== userId) {
+      throw new Error(
+        "Forbidden: You do not have permission to update this project."
+      )
+    }
+
+    const canvasId = generateId("cnv")
+    const updated = await prisma.project.update({
+      where: { id: projectId },
+      data: {
+        reviewCanvasId: canvasId,
+      },
+    })
+
+    return mapPrismaProjectToDomain(updated)
   }
 
   /**
@@ -175,7 +286,10 @@ export class ProjectService {
       throw new Error("Unauthorized: User ID is required.")
     }
 
-    const existing = projectsStore.get(projectId)
+    const existing = await prisma.project.findUnique({
+      where: { id: projectId },
+    })
+
     if (!existing) {
       return false
     }
@@ -186,7 +300,11 @@ export class ProjectService {
       )
     }
 
-    return projectsStore.delete(projectId)
+    await prisma.project.delete({
+      where: { id: projectId },
+    })
+
+    return true
   }
 
   /**
@@ -236,37 +354,41 @@ export class ProjectService {
       description: "Q4 marketing redesign review canvas for client feedback.",
     })
 
-    // Add realistic feedback metrics to sample
-    sample1.summary = {
-      activeReviews: 3,
-      totalComments: 12,
-      openComments: 4,
-      resolvedComments: 8,
-      lastActivityAt: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
-    }
-    projectsStore.set(sample1.id, sample1)
+    await prisma.project.update({
+      where: { id: sample1.id },
+      data: {
+        activeReviews: 3,
+        totalComments: 12,
+        openComments: 4,
+        resolvedComments: 8,
+        lastActivityAt: new Date(Date.now() - 1000 * 60 * 45),
+      },
+    })
 
     const sample2 = await this.createProject(userId, {
       name: "Stripe Checkout & Billing Flow",
       websiteUrl: "https://billing.example.com",
       description: "UX review for checkout layout and mobile responsiveness.",
     })
-    sample2.summary = {
-      activeReviews: 1,
-      totalComments: 6,
-      openComments: 1,
-      resolvedComments: 5,
-      lastActivityAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(),
-    }
-    projectsStore.set(sample2.id, sample2)
 
-    return [sample1, sample2]
+    await prisma.project.update({
+      where: { id: sample2.id },
+      data: {
+        activeReviews: 1,
+        totalComments: 6,
+        openComments: 1,
+        resolvedComments: 5,
+        lastActivityAt: new Date(Date.now() - 1000 * 60 * 60 * 5),
+      },
+    })
+
+    return this.getUserProjects(userId)
   }
 
   /**
-   * Helper method for testing: clear the store.
+   * Helper method for testing: clear the store in database.
    */
-  static _clearStore(): void {
-    projectsStore.clear()
+  static async _clearStore(): Promise<void> {
+    await prisma.project.deleteMany({})
   }
 }

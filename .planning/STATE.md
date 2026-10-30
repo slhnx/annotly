@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-10-25)
 
 **Core value:** Frictionless, zero-install visual review loop where anyone with a review link can point, click on any website element, and leave an anchored, context-rich comment that stays aligned across viewports and devices.
-**Current focus:** Phase 4: App Shell, Dashboard UI & Project Management
+**Current focus:** Phase 5: Project Creation Flow & Project Settings
 
 ## Current Position
 
-Phase: 4 of 14 (App Shell, Dashboard UI & Project Management)
-Plan: 6 of 6 in current phase
-Status: Complete (Phase 4 complete and verified)
-Last activity: 2026-10-27 — Phase 4 implemented, verified with 18 automated tests and Next.js production build
+Phase: 5 of 14 (Project Creation Flow & Project Settings)
+Plan: 5 of 5 in current phase (Complete)
+Status: Completed Phase 5
+Last activity: 2026-10-30 — Implemented dedicated project creation flow (/dashboard/projects/new), URL normalization, duplicate protection, project overview (/dashboard/projects/[projectId]), project settings (/dashboard/projects/[projectId]/settings) with dirty-state tracking, non-leaking not-found boundaries, and automated lifecycle tests (27/27 passing).
 
-Progress: [████░░░░░░] 29% (4 of 14 phases complete)
+Progress: [█████░░░░░] 36% (5 of 14 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 21
+- Total plans completed: 26
 - Average duration: 10 min
-- Total execution time: 3.3 hours
+- Total execution time: 4.1 hours
 
 **By Phase:**
 
@@ -31,7 +31,7 @@ Progress: [████░░░░░░] 29% (4 of 14 phases complete)
 | 2. Public Marketing Site & Landing Page | 5/5 | 60m | 12m |
 | 3. Authentication UI, Supabase Auth & Account Lifecycle | 5/5 | 30m | 6m |
 | 4. App Shell, Dashboard UI & Project Management | 6/6 | 66m | 11m |
-| 5. Project Creation Flow & Project Settings | 0/5 | - | - |
+| 5. Project Creation Flow & Project Settings | 5/5 | 45m | 9m |
 | 6. Database Model, Ownership & Permission Enforcement | 0/4 | - | - |
 | 7. Review Canvas Shell & Responsive Website Viewports | 0/5 | - | - |
 | 8. Secure Website Proxy & Injected Client Bridge | 0/7 | - | - |

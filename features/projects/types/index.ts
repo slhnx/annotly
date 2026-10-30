@@ -1,4 +1,5 @@
 export type ProjectStatus = "active" | "in_review" | "completed" | "archived"
+export type ReviewAccess = "public" | "paused"
 
 export interface ProjectReviewSummary {
   activeReviews: number
@@ -15,6 +16,7 @@ export interface Project {
   websiteUrl: string
   description?: string | null
   status: ProjectStatus
+  reviewAccess: ReviewAccess
   reviewCanvasId: string
   reviewUrl: string
   summary: ProjectReviewSummary
@@ -26,6 +28,7 @@ export interface CreateProjectInput {
   name: string
   websiteUrl: string
   description?: string | null
+  reviewAccess?: ReviewAccess
 }
 
 export interface UpdateProjectInput {
@@ -33,6 +36,8 @@ export interface UpdateProjectInput {
   websiteUrl?: string
   description?: string | null
   status?: ProjectStatus
+  reviewAccess?: ReviewAccess
+  summary?: Partial<ProjectReviewSummary>
 }
 
 export interface ProjectFilterOptions {
