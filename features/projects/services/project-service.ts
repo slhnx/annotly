@@ -122,7 +122,8 @@ export class ProjectService {
    */
   static async createProject(
     userId: string,
-    input: CreateProjectInput
+    input: CreateProjectInput,
+    userEmail?: string | null
   ): Promise<Project> {
     if (!userId) {
       throw new Error("Unauthorized: User ID is required.")
@@ -145,14 +146,24 @@ export class ProjectService {
     const normalizedUrl = sanitizeUrl(input.websiteUrl)
 
     // Ensure user record exists for relational foreign key integrity
-    await prisma.user.upsert({
+    const existingUser = await prisma.user.findUnique({
       where: { id: userId },
-      update: {},
-      create: {
-        id: userId,
-        email: `${userId}@annotly.local`,
-      },
     })
+
+    if (!existingUser) {
+      const preferredEmail = userEmail?.trim() || `${userId}@annotly.local`
+      const emailConflict = await prisma.user.findUnique({
+        where: { email: preferredEmail },
+      })
+      const safeEmail = emailConflict ? `${userId}@annotly.local` : preferredEmail
+
+      await prisma.user.create({
+        data: {
+          id: userId,
+          email: safeEmail,
+        },
+      })
+    }
 
     const record = await prisma.project.create({
       data: {

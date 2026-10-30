@@ -22,7 +22,7 @@ export function WithPanel({ content, className, children }: WithPanelProps) {
       )}
     >
       <div className="space-y-4">
-        <h3 className="font-heading text-xl leading-snug font-bold tracking-tight text-foreground sm:text-2xl">
+        <h3 className="font-sans text-lg leading-snug font-semibold tracking-tight text-foreground sm:text-xl">
           {content.quote}
         </h3>
 
@@ -32,7 +32,7 @@ export function WithPanel({ content, className, children }: WithPanelProps) {
               <Sparkles className="size-4" />
             </div>
             <div>
-              <div className="flex items-center gap-2 font-heading text-sm font-bold text-foreground">
+              <div className="flex items-center gap-2 font-sans text-sm font-semibold text-foreground">
                 {content.status}
                 <span className="size-1.5 rounded-full bg-success" />
               </div>

@@ -36,7 +36,7 @@ export function TrustSecurity() {
                   </Badge>
                 </div>
 
-                <h3 className="mb-2 font-heading text-lg font-semibold tracking-tight text-foreground">
+                <h3 className="mb-2 font-sans text-base font-semibold tracking-tight text-foreground sm:text-lg">
                   {title}
                 </h3>
 

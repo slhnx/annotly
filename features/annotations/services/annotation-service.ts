@@ -76,15 +76,23 @@ export class AnnotationService {
     }
 
     if (input.userId) {
-      await prisma.user.upsert({
+      const existingUser = await prisma.user.findUnique({
         where: { id: input.userId },
-        update: {},
-        create: {
-          id: input.userId,
-          email: validated.authorEmail,
-          name: validated.authorName,
-        },
       })
+      if (!existingUser) {
+        const emailConflict = await prisma.user.findUnique({
+          where: { email: validated.authorEmail },
+        })
+        const safeEmail = emailConflict ? `${input.userId}@annotly.local` : validated.authorEmail
+
+        await prisma.user.create({
+          data: {
+            id: input.userId,
+            email: safeEmail,
+            name: validated.authorName,
+          },
+        })
+      }
     }
 
     const now = new Date()
@@ -243,15 +251,23 @@ export class AnnotationService {
     }
 
     if (input.userId) {
-      await prisma.user.upsert({
+      const existingUser = await prisma.user.findUnique({
         where: { id: input.userId },
-        update: {},
-        create: {
-          id: input.userId,
-          email: validated.authorEmail,
-          name: validated.authorName,
-        },
       })
+      if (!existingUser) {
+        const emailConflict = await prisma.user.findUnique({
+          where: { email: validated.authorEmail },
+        })
+        const safeEmail = emailConflict ? `${input.userId}@annotly.local` : validated.authorEmail
+
+        await prisma.user.create({
+          data: {
+            id: input.userId,
+            email: safeEmail,
+            name: validated.authorName,
+          },
+        })
+      }
     }
 
     const now = new Date()

@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { DashboardOverview } from "./dashboard-overview"
-import { seedSampleProjectsAction, getDashboardMetricsAction } from "../actions"
 import type { Project, DashboardMetrics } from "../types"
 
 interface DashboardContainerProps {
@@ -21,33 +20,14 @@ export function DashboardContainer({
   initialProjects,
   initialMetrics,
 }: DashboardContainerProps) {
-  const [projects, setProjects] = React.useState<Project[]>(initialProjects)
-  const [metrics, setMetrics] = React.useState<DashboardMetrics>(initialMetrics)
-  const [isSeeding, setIsSeeding] = React.useState(false)
-
-  const handleSeedSample = async () => {
-    setIsSeeding(true)
-    try {
-      const res = await seedSampleProjectsAction()
-      if (res.success && res.data) {
-        setProjects(res.data)
-        const metricsRes = await getDashboardMetricsAction()
-        if (metricsRes.success && metricsRes.data) {
-          setMetrics(metricsRes.data)
-        }
-      }
-    } finally {
-      setIsSeeding(false)
-    }
-  }
+  const [projects] = React.useState<Project[]>(initialProjects)
+  const [metrics] = React.useState<DashboardMetrics>(initialMetrics)
 
   return (
     <DashboardOverview
       user={user}
       projects={projects}
       metrics={metrics}
-      onSeedSample={handleSeedSample}
-      isSeeding={isSeeding}
     />
   )
 }

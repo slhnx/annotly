@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { StatsCards } from "./stats-cards"
 import { RecentProjectsCard } from "./recent-projects-card"
-import { OnboardingCard } from "./onboarding-card"
 import type { Project, DashboardMetrics } from "../types"
 
 interface DashboardOverviewProps {
@@ -16,8 +15,6 @@ interface DashboardOverviewProps {
   }
   projects: Project[]
   metrics: DashboardMetrics
-  onSeedSample?: () => void
-  isSeeding?: boolean
 }
 
 function ShareReadyBanner() {
@@ -50,8 +47,6 @@ export function DashboardOverview({
   user,
   projects,
   metrics,
-  onSeedSample,
-  isSeeding,
 }: DashboardOverviewProps) {
   const displayName = user.name || user.email?.split("@")[0] || "Reviewer"
   const isFirstRun = projects.length === 0
@@ -80,11 +75,7 @@ export function DashboardOverview({
 
       <StatsCards metrics={metrics} />
 
-      {isFirstRun ? (
-        <OnboardingCard onSeedSample={onSeedSample} isSeeding={isSeeding} />
-      ) : (
-        <ShareReadyBanner />
-      )}
+      {!isFirstRun && <ShareReadyBanner />}
 
       <RecentProjectsCard projects={projects} />
     </div>

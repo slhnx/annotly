@@ -61,7 +61,7 @@ export function ProjectOverviewMetrics({ project }: ProjectOverviewMetricsProps)
                 </span>
               </div>
               <div className="mt-2">
-                <p className="font-heading text-2xl font-bold tracking-tight text-foreground">
+                <p className="font-sans text-2xl font-bold tracking-tight text-foreground">
                   {metric.value}
                 </p>
                 <p className="mt-1 text-[11px] text-muted-foreground">

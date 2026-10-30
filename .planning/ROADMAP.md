@@ -224,7 +224,7 @@ Annotly is a website-feedback product delivered in sequential, user-visible vert
 - [x] **06-03 — Data access layer**
   - Implement typed repository/service functions and shared input schemas.
   - Centralize authorization and consistent error handling.
-- [ ] **06-04 — Permission matrix and adversarial tests**
+- [x] **06-04 — Permission matrix and adversarial tests**
   - Document owner, authenticated collaborator, and public guest capabilities.
   - Test cross-user reads/writes, guessed IDs, unauthenticated access, and mutation attempts.
   - Ensure public review access exposes only data intended for reviewers.

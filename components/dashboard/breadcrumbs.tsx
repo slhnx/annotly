@@ -10,7 +10,6 @@ const ROUTE_LABELS: Record<string, string> = {
   projects: "Projects",
   settings: "Settings",
   reviews: "Reviews",
-  new: "New Project",
 }
 
 export function DashboardBreadcrumbs() {

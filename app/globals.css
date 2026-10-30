@@ -205,9 +205,28 @@
     @apply font-sans;
   }
 
-  /* Headings use Bricolage Grotesque with tight negative tracking */
-  h1, h2, h3, h4, h5, h6, .font-heading {
+  /* Large display and page headings use Bricolage Grotesque with tight negative tracking */
+  h1, h2, .font-heading, .display-hero, .display-section {
     font-family: var(--font-heading);
+  }
+
+  /* Smaller headings use Inter (font-sans) */
+  h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+  }
+
+  /* All headings inside cards, dialogs, sheets, and widgets strictly use Inter */
+  [data-slot="card"] h1,
+  [data-slot="card"] h2,
+  [data-slot="card"] h3,
+  [data-slot="card"] h4,
+  [data-slot="card"] h5,
+  [data-slot="card"] h6,
+  [data-slot="card-title"],
+  [data-slot="dialog-title"],
+  [data-slot="sheet-title"] {
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
   }
 
   /* DESIGN.md Typography Scale & Tight Negative Tracking for Display Headlines */
@@ -220,7 +239,7 @@
     line-height: 1.10;
   }
   h3, .display-subheading {
-    letter-spacing: -0.9px;
-    line-height: 1.15;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
   }
 }

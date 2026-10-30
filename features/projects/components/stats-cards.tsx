@@ -59,7 +59,7 @@ export function StatsCards({ metrics }: StatsCardsProps) {
           </div>
 
           <div className="mt-4">
-            <span className="font-heading text-2xl font-bold tracking-tight text-foreground">
+            <span className="font-sans text-2xl font-bold tracking-tight text-foreground">
               {value}
             </span>
             <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>

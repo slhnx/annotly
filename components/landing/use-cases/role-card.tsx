@@ -33,7 +33,7 @@ export function RoleCard({ card }: RoleCardProps) {
 
       <div className="space-y-3.5 pt-3">
         <div>
-          <h3 className="font-heading text-lg leading-snug font-semibold tracking-tight text-foreground sm:text-xl">
+          <h3 className="font-sans text-base leading-snug font-semibold tracking-tight text-foreground sm:text-lg">
             {card.headline}
           </h3>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground sm:text-[13px]">
